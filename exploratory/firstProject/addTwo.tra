@@ -1,0 +1,21 @@
+*** Creating Trace Output File 'addTwo.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup_stm32f4xx.o"'
+### List of Objects: adding '"addingfunc.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M4.fp "startup_stm32f4xx.o" "addingfunc.o" 
+--strict --scatter "addTwo.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\addTwo.map" -o addTwo.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'addTwo.axf'
+### ADS-LD Command File: 'addTwo.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'addTwo.lnp', Handle=0x000004E0
+### Writing '.lnp' file
+### ADS-LD Command file 'addTwo.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

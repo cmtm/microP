@@ -1,0 +1,1 @@
+addingFunc.o: addingFunc.s

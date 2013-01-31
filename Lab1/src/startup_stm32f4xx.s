@@ -169,24 +169,24 @@ __Vectors_Size  EQU  __Vectors_End - __Vectors
 ; Reset handler
 Reset_Handler    PROC
                  EXPORT  Reset_Handler             [WEAK]
-        ; IMPORT  SystemInit
         ; IMPORT  __main
+		IMPORT  moving_average_init
+		IMPORT  moving_average
+				LDR.W  R0, =0xE000ED88  
+				LDR    R1, [R0]         ; Read present FPU setting
+				ORR    R1, #(0xF << 20) ; Set bits to enable FPU
+				STR    R1, [R0]         ; Store result
+				DSB 	; Reset pipeline
+				ISB
 
-                 ; LDR     R0, =SystemInit
-			     ; BLX     R0
-                 ; LDR     R0, =__main
-                 ; BX      R0
-		; turn on FPU
-				 LDR.W R0, =0xE000ED88
-				 LDR R1, [R0]
-				 ORR R1, R1, #(0xF << 20)
-				 STR R1, [R0]; wait for store to complete
-				 DSB
-				 ISB
-		IMPORT addingFunc
-				 LDR       R0,=addingFunc
-				 BX        R0
-                 ENDP
+				; LDR     R0, =__main
+				MOV     R0, SP
+				LDR     R1, =moving_average_init
+				BX      R1
+				
+				
+				
+				ENDP
 
 ; Dummy Exception Handlers (infinite loops which can be modified)
 
@@ -417,7 +417,7 @@ FPU_IRQHandler
                 
                  ELSE
                 
-                 ;IMPORT  __use_two_region_memory
+                 IMPORT  __use_two_region_memory
                  EXPORT  __user_initial_stackheap
                  
 __user_initial_stackheap

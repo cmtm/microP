@@ -6,12 +6,13 @@ ARM Macro Assembler    Page 1
 
     1 00000000                 AREA             text, CODE, READONLY
     2 00000000                 EXPORT           addingFunc
-    3 00000000         addingFunc
-    4 00000000 F04F 010D       mov              R1, #13
-    5 00000004 F04F 022D       mov              R2, #45
-    6 00000008 EB01 0302       add              R3, R1, R2
-    7 0000000C 4770            BX               LR
-    8 0000000E                 END
+    3 00000000         
+    4 00000000         addingFunc
+    5 00000000 EEB0 0A00       VMOV.F32         S0, #2
+    6 00000004 EEF7 0A08       vmov.f32         S1, #1.5
+    7 00000008 EE70 1A20       vadd.f32         S3, S0, S1
+    8 0000000C 4770            BX               LR
+    9 0000000E                 END
 Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=addin
 gFunc.d -oaddingFunc.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\
 Keil\ARM\Inc\ST\STM32F4xx --list=addingFunc.lst addingFunc.s
@@ -25,7 +26,7 @@ addingFunc 00000000
 
 Symbol: addingFunc
    Definitions
-      At line 3 in file addingFunc.s
+      At line 4 in file addingFunc.s
    Uses
       At line 2 in file addingFunc.s
 Comment: addingFunc used once

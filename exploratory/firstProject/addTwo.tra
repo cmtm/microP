@@ -12,7 +12,7 @@
 ### ADS-LD Output File: 'addTwo.axf'
 ### ADS-LD Command File: 'addTwo.lnp'
 ### Checking for dirty Components...
-### Creating CmdFile 'addTwo.lnp', Handle=0x000004E0
+### Creating CmdFile 'addTwo.lnp', Handle=0x00000358
 ### Writing '.lnp' file
 ### ADS-LD Command file 'addTwo.lnp' is ready.
 ### ADS-LD: About to start ADS-LD Thread.

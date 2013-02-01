@@ -16,11 +16,11 @@ ARM Macro Assembler    Page 1
     9 00000000         ; one is as a #define in main.c
    10 00000000         ; the other is as a float literal at the bottom of this 
                        file
-   11 00000000 00000005 
-                       d       EQU              5
+   11 00000000 0000000A 
+                       d       EQU              10
    12 00000000         
    13 00000000         ; stSz is the size of the state struct in words
-   14 00000000 00000007 
+   14 00000000 0000000C 
                        stSz    EQU              d + 2
    15 00000000         
    16 00000000         
@@ -35,9 +35,9 @@ ARM Macro Assembler    Page 1
    25 00000000         ; relative addresses
    26 00000000 00000000 
                        circBuf EQU              (0)   * 4
-   27 00000000 00000014 
+   27 00000000 00000028 
                        tail    EQU              (d)   * 4
-   28 00000000 00000018 
+   28 00000000 0000002C 
                        yPrevious
                                EQU              (d+1) * 4
    29 00000000         
@@ -48,7 +48,7 @@ ARM Macro Assembler    Page 1
    34 00000000         moving_average_init
    35 00000000         ; prep registers
    36 00000000 F04F 0100       mov.W            r1, #0x00000000
-   37 00000004 F04F 0206       mov.W            r2, #stSz - 1
+   37 00000004 F04F 020B       mov.W            r2, #stSz - 1
    38 00000008         clearWord
    39 00000008         ; fill RAM with 0
    40 00000008 F840 1022       str              r1, [r0, r2, LSL #2]
@@ -73,9 +73,9 @@ ARM Macro Assembler    Page 2
    52 00000012         ; new sample value is in s0
    53 00000012         moving_average
    54 00000012         ; fetch yPrevious
-   55 00000012 EDD0 0A06       VLDR.32          s1, [r0, #yPrevious]
+   55 00000012 EDD0 0A0B       VLDR.32          s1, [r0, #yPrevious]
    56 00000016         ; fetch tail pointer
-   57 00000016 6942            LDR              r2, [r0, #tail]
+   57 00000016 6A82            LDR              r2, [r0, #tail]
    58 00000018         ; fetch tail value
    59 00000018 EB00 0102       ADD              r1, r0, r2
    60 0000001C ED91 1A00       VLDR.32          s2, [r1]
@@ -88,18 +88,18 @@ ARM Macro Assembler    Page 2
    67 0000002C 1F12            SUBS             r2, r2, #4
    68 0000002E         ; gotta loop it around if needed
    69 0000002E D501            BPL              labelB
-   70 00000030 F102 0214       ADD              r2, r2, #(d*4)
+   70 00000030 F102 0228       ADD              r2, r2, #(d*4)
    71 00000034         labelB
    72 00000034         ; store computed y as yPrevious
-   73 00000034 ED80 0A06       VSTR.32          s0, [r0, #yPrevious]
+   73 00000034 ED80 0A0B       VSTR.32          s0, [r0, #yPrevious]
    74 00000038         ; store new tail pointer
-   75 00000038 6142            STR              r2, [r0, #tail]
+   75 00000038 6282            STR              r2, [r0, #tail]
    76 0000003A         ; Here, I just divided by d to save some steps.
    77 0000003A         ; it'll only sqew a few values at the beginning.
    78 0000003A         ; I have a previous revision of using another
    79 0000003A         ; variable called accum which counted to d but
    80 0000003A         ; it was a lot of extra computation for no return
-   81 0000003A EEF1 0A04       VMOV.F32         s1, #5.0
+   81 0000003A EEF2 0A04       VMOV.F32         s1, #10.0
    82 0000003E EE80 0A20       VDIV.F32         s0, s0, s1
    83 00000042 4770            BX               LR
    84 00000044                 END
@@ -168,7 +168,7 @@ Symbol: circBuf
    Uses
       None
 Comment: circBuf unused
-d 00000005
+d 0000000A
 
 Symbol: d
    Definitions
@@ -179,7 +179,7 @@ Symbol: d
       At line 28 in file src\movAvFilter.s
       At line 70 in file src\movAvFilter.s
 
-stSz 00000007
+stSz 0000000C
 
 Symbol: stSz
    Definitions
@@ -187,7 +187,7 @@ Symbol: stSz
    Uses
       At line 37 in file src\movAvFilter.s
 Comment: stSz used once
-tail 00000014
+tail 00000028
 
 Symbol: tail
    Definitions
@@ -196,7 +196,7 @@ Symbol: tail
       At line 57 in file src\movAvFilter.s
       At line 75 in file src\movAvFilter.s
 
-yPrevious 00000018
+yPrevious 0000002C
 
 Symbol: yPrevious
    Definitions

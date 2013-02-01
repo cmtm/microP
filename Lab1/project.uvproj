@@ -407,9 +407,14 @@
               <FilePath>.\src\movAvFilter.s</FilePath>
             </File>
             <File>
-              <FileName>Retarget.c</FileName>
+              <FileName>debugPrinting.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Retarget.c</FilePath>
+              <FilePath>.\src\debugPrinting.c</FilePath>
+            </File>
+            <File>
+              <FileName>moving_average_test_vector.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\moving_average_test_vector.s</FilePath>
             </File>
           </Files>
         </Group>

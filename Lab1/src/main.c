@@ -1,37 +1,19 @@
 #include <stdio.h>
 #include <math.h>
-#define d 5
-//-------------------------------------------------------------------
-#define ITM_Port8(n)    (*((volatile unsigned char *)(0xE0000000+4*n)))
-#define ITM_Port16(n)   (*((volatile unsigned short*)(0xE0000000+4*n)))
-#define ITM_Port32(n)   (*((volatile unsigned long *)(0xE0000000+4*n)))
+#define d 10
 
-#define DEMCR           (*((volatile unsigned long *)(0xE000EDFC)))
-#define TRCENA          0x01000000
-
-struct __FILE { int handle; /* Add whatever needed */ };
-FILE __stdout;
-FILE __stdin;
-
-int fputc(int ch, FILE *f) {
-  if (DEMCR & TRCENA) {
-    while (ITM_Port32(0) == 0);
-    ITM_Port8(0) = ch;
-  }
-  return(ch);
-}
-//-------------------------------------------------------------------
-typedef struct {
-	float circBuf[d];
-	int tail;
-	float yPrevious;
-	
-	
-} State;
-
+// --- External functions
 void moving_average_init(void* state);
 float moving_average(float newSample, void* state);
 
+// --- State struct
+typedef struct {
+	float circBuf[d];
+	int tail;
+	float yPrevious;	
+} State;
+
+// --- testing function
 int moving_average_test(float* signal) {
 	State st;
 	moving_average_init(&st);
@@ -40,6 +22,7 @@ int moving_average_test(float* signal) {
 	for(int i=0; i < 512; i++, signal++) {
 		y = moving_average(*signal, &st);
 		
+		// non zero return means there was an error
 		if (!isnormal(y)) {
 			if (isinf(y))
 				return 1;
@@ -54,7 +37,8 @@ int moving_average_test(float* signal) {
 	
 	return 0;
 }
-	
+
+// --- main isn't used
 int main() {
 	return 0;
 }

@@ -1,14 +1,13 @@
 	AREA text, CODE, READONLY
 	EXPORT moving_average_init
 	EXPORT moving_average
-;	EXPORT moving_average_test
 
 ; d is the filter depth
 ; it exists independantly in two other places.
 ; if changing this one, don't forget to change the other two
 ; one is as a #define in main.c
 ; the other is as a float literal at the bottom of this file
-d EQU 5
+d EQU 10
 	
 ; stSz is the size of the state struct in words
 stSz EQU d + 2
@@ -78,7 +77,7 @@ labelB
 	; I have a previous revision of using another
 	; variable called accum which counted to d but
 	; it was a lot of extra computation for no return
-	VMOV.F32  s1, #5.0
+	VMOV.F32  s1, #10.0
 	VDIV.F32  s0, s0, s1
 	BX LR
 	END

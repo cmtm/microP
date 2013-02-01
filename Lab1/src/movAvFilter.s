@@ -11,14 +11,16 @@ stSz EQU d + 3
 
 
 ; State Struct
-	; one word for "accumulated"
-	; one word for "yPrevious"
 	; one word for "tail"
 	; d words for circular buffer
+	; one word for "accumulated"
+	; one word for "yPrevious"
+	
+	
 
 ; relative addresses
-tail      EQU 0     * 4
-circBuf   EQU (1)   * 4
+circBuf   EQU (0)   * 4
+tail      EQU (d)     * 4
 accum     EQU (d+1) * 4
 yPrevious EQU (d+2) * 4
 
@@ -58,8 +60,8 @@ moving_average
 labelA
 	; fetch yPrevious
 	VLDR.32   s1, [r0, #yPrevious]
-	; fetch tail pointer, it's the first word of struct
-	LDR       r2, [r0]
+	; fetch tail pointer
+	LDR       r2, [r0, #tail]
 	; fetch tail value
 	ADD       r1, r0, r2
 	VLDR.32   s2, [r1]
@@ -77,7 +79,7 @@ labelB
 	; store computed y as yPrevious
 	VSTR.32   s0, [r0, #yPrevious]
 	; store new tail pointer
-	STR       r2, [r0]
+	STR       r2, [r0, #tail]
 	; Finally, divide y by accum to make average
 	; Here, I just divided by d to save some steps.
 	; it'll only effect a few values at the beginning.

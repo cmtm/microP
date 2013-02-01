@@ -169,9 +169,9 @@ __Vectors_Size  EQU  __Vectors_End - __Vectors
 ; Reset handler
 Reset_Handler    PROC
                  EXPORT  Reset_Handler             [WEAK]
-        ; IMPORT  __main
-		IMPORT  moving_average_init
-		IMPORT  moving_average
+        IMPORT  __main
+		IMPORT  moving_average_test
+		IMPORT  test_vector
 				LDR.W  R0, =0xE000ED88  
 				LDR    R1, [R0]         ; Read present FPU setting
 				ORR    R1, #(0xF << 20) ; Set bits to enable FPU
@@ -179,13 +179,10 @@ Reset_Handler    PROC
 				DSB 	; Reset pipeline
 				ISB
 
-				; LDR     R0, =__main
-				MOV     R0, SP
-				LDR     R1, =moving_average_init
+				LDR     R0, =test_vector
+				LDR     R1, =moving_average_test
 				BX      R1
-				
-				
-				
+								
 				ENDP
 
 ; Dummy Exception Handlers (infinite loops which can be modified)

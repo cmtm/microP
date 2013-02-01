@@ -470,9 +470,9 @@ ARM Macro Assembler    Page 8
                                PROC
   171 00000000                 EXPORT           Reset_Handler             [WEAK
 ]
-  172 00000000         ; IMPORT  __main
-  173 00000000                 IMPORT           moving_average_init
-  174 00000000                 IMPORT           moving_average
+  172 00000000                 IMPORT           __main
+  173 00000000                 IMPORT           moving_average_test
+  174 00000000                 IMPORT           test_vector
   175 00000000 F8DF 0038       LDR.W            R0, =0xE000ED88
   176 00000004 6801            LDR              R1, [R0]    ; Read present FPU 
                                                             setting
@@ -482,10 +482,10 @@ ARM Macro Assembler    Page 8
   179 0000000C F3BF 8F4F       DSB                          ; Reset pipeline
   180 00000010 F3BF 8F6F       ISB
   181 00000014         
-  182 00000014         ; LDR     R0, =__main
-  183 00000014 4668            MOV              R0, SP
-  184 00000016 490A            LDR              R1, =moving_average_init
-  185 00000018 4708            BX               R1
+  182 00000014 480A            LDR              R0, =test_vector
+  183 00000016 490B            LDR              R1, =moving_average_test
+  184 00000018 4708            BX               R1
+  185 0000001A         
   186 0000001A                 ENDP
   187 0000001A         
   188 0000001A         ; Dummy Exception Handlers (infinite loops which can be 
@@ -851,10 +851,10 @@ ARM Macro Assembler    Page 14
 
   420 00000030         __user_initial_stackheap
   421 00000030         
-  422 00000030 4804            LDR              R0, =  Heap_Mem
-  423 00000032 4905            LDR              R1, =(Stack_Mem + Stack_Size)
-  424 00000034 4A05            LDR              R2, = (Heap_Mem +  Heap_Size)
-  425 00000036 4B06            LDR              R3, = Stack_Mem
+  422 00000030 4805            LDR              R0, =  Heap_Mem
+  423 00000032 4906            LDR              R1, =(Stack_Mem + Stack_Size)
+  424 00000034 4A06            LDR              R2, = (Heap_Mem +  Heap_Size)
+  425 00000036 4B07            LDR              R3, = Stack_Mem
   426 00000038 4770            BX               LR
   427 0000003A         
   428 0000003A 00 00           ALIGN
@@ -863,6 +863,7 @@ ARM Macro Assembler    Page 14
   431 0000003C         
   432 0000003C                 END
               E000ED88 
+              00000000 
               00000000 
               00000000 
               00000400 
@@ -1959,6 +1960,14 @@ Comment: __Vectors_Size used once
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 External symbols
 
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 172 in file src\startup_stm32f4xx.s
+   Uses
+      None
+Comment: __main unused
 __use_two_region_memory 00000000
 
 Symbol: __use_two_region_memory
@@ -1967,21 +1976,21 @@ Symbol: __use_two_region_memory
    Uses
       None
 Comment: __use_two_region_memory unused
-moving_average 00000000
+moving_average_test 00000000
 
-Symbol: moving_average
-   Definitions
-      At line 174 in file src\startup_stm32f4xx.s
-   Uses
-      None
-Comment: moving_average unused
-moving_average_init 00000000
-
-Symbol: moving_average_init
+Symbol: moving_average_test
    Definitions
       At line 173 in file src\startup_stm32f4xx.s
    Uses
-      At line 184 in file src\startup_stm32f4xx.s
-Comment: moving_average_init used once
-3 symbols
-446 symbols in table
+      At line 183 in file src\startup_stm32f4xx.s
+Comment: moving_average_test used once
+test_vector 00000000
+
+Symbol: test_vector
+   Definitions
+      At line 174 in file src\startup_stm32f4xx.s
+   Uses
+      At line 182 in file src\startup_stm32f4xx.s
+Comment: test_vector used once
+4 symbols
+447 symbols in table

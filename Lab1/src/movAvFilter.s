@@ -4,10 +4,14 @@
 ;	EXPORT moving_average_test
 
 ; d is the filter depth
+; it exists independantly in two other places.
+; if changing this one, don't forget to change the other two
+; one is as a #define in main.c
+; the other is as a float literal at the bottom of this file
 d EQU 5
 	
 ; stSz is the size of the state struct in words
-stSz EQU d + 3
+stSz EQU d + 2
 
 
 ; State Struct
@@ -20,9 +24,8 @@ stSz EQU d + 3
 
 ; relative addresses
 circBuf   EQU (0)   * 4
-tail      EQU (d)     * 4
-accum     EQU (d+1) * 4
-yPrevious EQU (d+2) * 4
+tail      EQU (d)   * 4
+yPrevious EQU (d+1) * 4
 
 
 
@@ -44,20 +47,10 @@ clearWord
 	;str     r0, r0
 	BX LR
 	
-; CONSIDER GETTING RID OF ACCUM, it's useless now!
 ; function where the moving average is actually computed
 ; pointer to state struct is in r0
 ; new sample value is in s0
 moving_average
-	; fetch accum
-	LDR   r1, [r0, #accum]
-	; increment if needed
-	cmp   r1, #d
-	BEQ   labelA
-	add   r1, #1
-	; store accum
-	STR       r1, [r0, #accum]
-labelA
 	; fetch yPrevious
 	VLDR.32   s1, [r0, #yPrevious]
 	; fetch tail pointer
@@ -80,9 +73,11 @@ labelB
 	VSTR.32   s0, [r0, #yPrevious]
 	; store new tail pointer
 	STR       r2, [r0, #tail]
-	; Finally, divide y by accum to make average
 	; Here, I just divided by d to save some steps.
-	; it'll only effect a few values at the beginning.
+	; it'll only sqew a few values at the beginning.
+	; I have a previous revision of using another
+	; variable called accum which counted to d but
+	; it was a lot of extra computation for no return
 	VMOV.F32  s1, #5.0
 	VDIV.F32  s0, s0, s1
 	BX LR

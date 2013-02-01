@@ -24,7 +24,6 @@ int fputc(int ch, FILE *f) {
 typedef struct {
 	float circBuf[d];
 	int tail;
-	int accum;
 	float yPrevious;
 	
 	

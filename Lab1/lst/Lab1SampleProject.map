@@ -395,30 +395,30 @@ Image Symbol Table
     CL$$btod_mult_common                     0x080011e4   Section      580  btod.o(CL$$btod_mult_common)
     i.__ARM_fpclassify                       0x08001428   Section        0  fpclassify.o(i.__ARM_fpclassify)
     locale$$code                             0x08001458   Section       44  lc_numeric_c.o(locale$$code)
-    text                                     0x08001484   Section       80  movavfilter.o(text)
+    text                                     0x08001484   Section       68  movavfilter.o(text)
     $v0                                      0x08001484   Number         0  movavfilter.o(text)
-    x$fpl$dretinf                            0x080014d4   Section       12  dretinf.o(x$fpl$dretinf)
-    $v0                                      0x080014d4   Number         0  dretinf.o(x$fpl$dretinf)
-    x$fpl$f2d                                0x080014e0   Section       86  f2d.o(x$fpl$f2d)
-    $v0                                      0x080014e0   Number         0  f2d.o(x$fpl$f2d)
-    x$fpl$fnaninf                            0x08001536   Section      140  fnaninf.o(x$fpl$fnaninf)
-    $v0                                      0x08001536   Number         0  fnaninf.o(x$fpl$fnaninf)
-    x$fpl$fpinit                             0x080015c2   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x080015c2   Number         0  fpinit.o(x$fpl$fpinit)
-    x$fpl$printf1                            0x080015cc   Section        4  printf1.o(x$fpl$printf1)
-    $v0                                      0x080015cc   Number         0  printf1.o(x$fpl$printf1)
-    .constdata                               0x080015d0   Section      148  bigflt0.o(.constdata)
-    x$fpl$usenofp                            0x080015d0   Section        0  usenofp.o(x$fpl$usenofp)
-    tenpwrs_x                                0x080015d0   Data          60  bigflt0.o(.constdata)
-    tenpwrs_i                                0x0800160c   Data          64  bigflt0.o(.constdata)
-    locale$$data                             0x08001684   Section       28  lc_numeric_c.o(locale$$data)
-    __lcnum_c_name                           0x08001688   Data           2  lc_numeric_c.o(locale$$data)
-    __lcnum_c_start                          0x08001690   Data           0  lc_numeric_c.o(locale$$data)
-    __lcnum_c_point                          0x0800169c   Data           0  lc_numeric_c.o(locale$$data)
-    __lcnum_c_thousands                      0x0800169e   Data           0  lc_numeric_c.o(locale$$data)
-    __lcnum_c_grouping                       0x0800169f   Data           0  lc_numeric_c.o(locale$$data)
-    signalVecor                              0x080016a0   Section     2048  moving_average_test_vector.o(signalVecor)
-    __lcnum_c_end                            0x080016a0   Data           0  lc_numeric_c.o(locale$$data)
+    x$fpl$dretinf                            0x080014c8   Section       12  dretinf.o(x$fpl$dretinf)
+    $v0                                      0x080014c8   Number         0  dretinf.o(x$fpl$dretinf)
+    x$fpl$f2d                                0x080014d4   Section       86  f2d.o(x$fpl$f2d)
+    $v0                                      0x080014d4   Number         0  f2d.o(x$fpl$f2d)
+    x$fpl$fnaninf                            0x0800152a   Section      140  fnaninf.o(x$fpl$fnaninf)
+    $v0                                      0x0800152a   Number         0  fnaninf.o(x$fpl$fnaninf)
+    x$fpl$fpinit                             0x080015b6   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x080015b6   Number         0  fpinit.o(x$fpl$fpinit)
+    x$fpl$printf1                            0x080015c0   Section        4  printf1.o(x$fpl$printf1)
+    $v0                                      0x080015c0   Number         0  printf1.o(x$fpl$printf1)
+    .constdata                               0x080015c4   Section      148  bigflt0.o(.constdata)
+    x$fpl$usenofp                            0x080015c4   Section        0  usenofp.o(x$fpl$usenofp)
+    tenpwrs_x                                0x080015c4   Data          60  bigflt0.o(.constdata)
+    tenpwrs_i                                0x08001600   Data          64  bigflt0.o(.constdata)
+    locale$$data                             0x08001678   Section       28  lc_numeric_c.o(locale$$data)
+    __lcnum_c_name                           0x0800167c   Data           2  lc_numeric_c.o(locale$$data)
+    __lcnum_c_start                          0x08001684   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_point                          0x08001690   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_thousands                      0x08001692   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_grouping                       0x08001693   Data           0  lc_numeric_c.o(locale$$data)
+    signalVecor                              0x08001694   Section     2048  moving_average_test_vector.o(signalVecor)
+    __lcnum_c_end                            0x08001694   Data           0  lc_numeric_c.o(locale$$data)
     .data                                    0x20000000   Section        8  main.o(.data)
     .bss                                     0x20000008   Section       96  libspace.o(.bss)
     HEAP                                     0x20000068   Section      512  startup_stm32f4xx.o(HEAP)
@@ -653,18 +653,18 @@ Image Symbol Table
     _get_lc_numeric                          0x08001459   Thumb Code    44  lc_numeric_c.o(locale$$code)
     moving_average_init                      0x08001485   Thumb Code     0  movavfilter.o(text)
     moving_average                           0x08001497   Thumb Code     0  movavfilter.o(text)
-    __fpl_dretinf                            0x080014d5   Thumb Code    12  dretinf.o(x$fpl$dretinf)
-    __aeabi_f2d                              0x080014e1   Thumb Code     0  f2d.o(x$fpl$f2d)
-    _f2d                                     0x080014e1   Thumb Code    86  f2d.o(x$fpl$f2d)
-    __fpl_fnaninf                            0x08001537   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
-    _fp_init                                 0x080015c3   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x080015cb   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x080015cb   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    _printf_fp_dec                           0x080015cd   Thumb Code     4  printf1.o(x$fpl$printf1)
-    __I$use$fp                               0x080015d0   Number         0  usenofp.o(x$fpl$usenofp)
-    Region$$Table$$Base                      0x08001664   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08001684   Number         0  anon$$obj.o(Region$$Table)
-    test_vector                              0x080016a0   Data           0  moving_average_test_vector.o(signalVecor)
+    __fpl_dretinf                            0x080014c9   Thumb Code    12  dretinf.o(x$fpl$dretinf)
+    __aeabi_f2d                              0x080014d5   Thumb Code     0  f2d.o(x$fpl$f2d)
+    _f2d                                     0x080014d5   Thumb Code    86  f2d.o(x$fpl$f2d)
+    __fpl_fnaninf                            0x0800152b   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
+    _fp_init                                 0x080015b7   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x080015bf   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x080015bf   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    _printf_fp_dec                           0x080015c1   Thumb Code     4  printf1.o(x$fpl$printf1)
+    __I$use$fp                               0x080015c4   Number         0  usenofp.o(x$fpl$usenofp)
+    Region$$Table$$Base                      0x08001658   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08001678   Number         0  anon$$obj.o(Region$$Table)
+    test_vector                              0x08001694   Data           0  moving_average_test_vector.o(signalVecor)
     __stdout                                 0x20000000   Data           4  main.o(.data)
     __stdin                                  0x20000004   Data           4  main.o(.data)
     __libspace_start                         0x20000008   Data          96  libspace.o(.bss)
@@ -678,9 +678,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000249
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x00001ea8, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x08000000, Size: 0x00001e9c, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x08000000, Size: 0x00001ea0, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x08000000, Size: 0x00001e94, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -772,17 +772,17 @@ Memory Map of the image
     0x080011e4   0x00000244   Code   RO          133    CL$$btod_mult_common  c_w.l(btod.o)
     0x08001428   0x00000030   Code   RO          158    i.__ARM_fpclassify  m_wm.l(fpclassify.o)
     0x08001458   0x0000002c   Code   RO          151    locale$$code        c_w.l(lc_numeric_c.o)
-    0x08001484   0x00000050   Code   RO           34    text                movavfilter.o
-    0x080014d4   0x0000000c   Code   RO           90    x$fpl$dretinf       fz_wm.l(dretinf.o)
-    0x080014e0   0x00000056   Code   RO           78    x$fpl$f2d           fz_wm.l(f2d.o)
-    0x08001536   0x0000008c   Code   RO           92    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
-    0x080015c2   0x0000000a   Code   RO          224    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x080015cc   0x00000004   Code   RO           80    x$fpl$printf1       fz_wm.l(printf1.o)
-    0x080015d0   0x00000000   Code   RO           94    x$fpl$usenofp       fz_wm.l(usenofp.o)
-    0x080015d0   0x00000094   Data   RO          122    .constdata          c_w.l(bigflt0.o)
-    0x08001664   0x00000020   Data   RO          298    Region$$Table       anon$$obj.o
-    0x08001684   0x0000001c   Data   RO          150    locale$$data        c_w.l(lc_numeric_c.o)
-    0x080016a0   0x00000800   Data   RO           40    signalVecor         moving_average_test_vector.o
+    0x08001484   0x00000044   Code   RO           34    text                movavfilter.o
+    0x080014c8   0x0000000c   Code   RO           90    x$fpl$dretinf       fz_wm.l(dretinf.o)
+    0x080014d4   0x00000056   Code   RO           78    x$fpl$f2d           fz_wm.l(f2d.o)
+    0x0800152a   0x0000008c   Code   RO           92    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
+    0x080015b6   0x0000000a   Code   RO          224    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x080015c0   0x00000004   Code   RO           80    x$fpl$printf1       fz_wm.l(printf1.o)
+    0x080015c4   0x00000000   Code   RO           94    x$fpl$usenofp       fz_wm.l(usenofp.o)
+    0x080015c4   0x00000094   Data   RO          122    .constdata          c_w.l(bigflt0.o)
+    0x08001658   0x00000020   Data   RO          298    Region$$Table       anon$$obj.o
+    0x08001678   0x0000001c   Data   RO          150    locale$$data        c_w.l(lc_numeric_c.o)
+    0x08001694   0x00000800   Data   RO           40    signalVecor         moving_average_test_vector.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000008, Max: 0xffffffff, ABSOLUTE)
@@ -808,13 +808,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       244         18          0          8          0       9210   main.o
-        80          0          0          0          0        216   movavfilter.o
+       244         18          0          8          0       9194   main.o
+        68          0          0          0          0        212   movavfilter.o
          0          0       2048          0          0          0   moving_average_test_vector.o
         88         32        392          0       1536        820   startup_stm32f4xx.o
 
     ----------------------------------------------------------------------
-       412         50       2472          8       1536      10246   Object Totals
+       400         50       2472          8       1536      10226   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          0          0          0          0          0          0   (incl. Padding)
 
@@ -891,15 +891,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5192        270       2648          8       1632      11450   Grand Totals
-      5192        270       2648          8       1632      11450   ELF Image Totals
-      5192        270       2648          8          0          0   ROM Totals
+      5180        270       2648          8       1632      11430   Grand Totals
+      5180        270       2648          8       1632      11430   ELF Image Totals
+      5180        270       2648          8          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 7840 (   7.66kB)
+    Total RO  Size (Code + RO Data)                 7828 (   7.64kB)
     Total RW  Size (RW Data + ZI Data)              1640 (   1.60kB)
-    Total ROM Size (Code + RO Data + RW Data)       7848 (   7.66kB)
+    Total ROM Size (Code + RO Data + RW Data)       7836 (   7.65kB)
 
 ==============================================================================
 

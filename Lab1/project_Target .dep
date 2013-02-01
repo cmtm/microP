@@ -1,8 +1,8 @@
 Dependencies for Project 'project', Target 'Target ': (DO NOT MODIFY !)
 F (.\src\startup_stm32f4xx.s)(0x510BA7A2)(--cpu Cortex-M4.fp -g --apcs=interwork -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx --list ".\lst\startup_stm32f4xx.lst" --xref -o ".\obj\startup_stm32f4xx.o" --depend ".\obj\startup_stm32f4xx.d")
-F (.\src\main.c)(0x510BA93D)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I.\src --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -o ".\obj\main.o" --omf_browse ".\obj\main.crf" --depend ".\obj\main.d")
+F (.\src\main.c)(0x510BB3D6)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I.\src --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -o ".\obj\main.o" --omf_browse ".\obj\main.crf" --depend ".\obj\main.d")
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB17B46)
 I (C:\Keil\ARM\ARMCC\bin\..\include\math.h)(0x4EB17B48)
-F (.\src\movAvFilter.s)(0x510B9F00)(--cpu Cortex-M4.fp -g --apcs=interwork -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx --list ".\lst\movAvFilter.lst" --xref -o ".\obj\movAvFilter.o" --depend ".\obj\movAvFilter.d")
+F (.\src\movAvFilter.s)(0x510BB3D3)(--cpu Cortex-M4.fp -g --apcs=interwork -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx --list ".\lst\movAvFilter.lst" --xref -o ".\obj\movAvFilter.o" --depend ".\obj\movAvFilter.d")
 F (.\src\debugPrinting.c)(0x510B997C)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I.\src --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -o ".\obj\debugprinting.o" --omf_browse ".\obj\debugprinting.crf" --depend ".\obj\debugprinting.d")
 F (.\src\moving_average_test_vector.s)(0x510BA300)(--cpu Cortex-M4.fp -g --apcs=interwork -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx --list ".\lst\moving_average_test_vector.lst" --xref -o ".\obj\moving_average_test_vector.o" --depend ".\obj\moving_average_test_vector.d")

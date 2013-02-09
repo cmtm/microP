@@ -54,15 +54,14 @@ int runMode() {
 		break;
 	}
 	
-	if(isButtonPushed()) {
+	if( buttonIsPushed() ) {
 		// this line is fast and loose with enums
 		currentMode = currentMode? TEMP_DISPLAY : FLASHING;
 		// doesn't need to be set half of the time
 		countToBlink = FLASH_PERIOD;
 		return 1;
-	}
-	
-	return 0;
+	} else
+		return 0;
 }
 
 int main()

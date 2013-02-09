@@ -417,9 +417,9 @@
               <FilePath>.\src\stm32f4xx.h</FilePath>
             </File>
             <File>
-              <FileName>moving_average.s</FileName>
+              <FileName>moving_average_s.s</FileName>
               <FileType>2</FileType>
-              <FilePath>.\src\moving_average.s</FilePath>
+              <FilePath>.\src\moving_average_s.s</FilePath>
             </File>
             <File>
               <FileName>ADC.c</FileName>
@@ -450,6 +450,11 @@
               <FileName>button.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\button.h</FilePath>
+            </File>
+            <File>
+              <FileName>moving_average_c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\moving_average_c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1026,9 +1031,9 @@
               <FilePath>.\src\stm32f4xx.h</FilePath>
             </File>
             <File>
-              <FileName>moving_average.s</FileName>
+              <FileName>moving_average_s.s</FileName>
               <FileType>2</FileType>
-              <FilePath>.\src\moving_average.s</FilePath>
+              <FilePath>.\src\moving_average_s.s</FilePath>
             </File>
             <File>
               <FileName>ADC.c</FileName>
@@ -1059,6 +1064,11 @@
               <FileName>button.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\button.h</FilePath>
+            </File>
+            <File>
+              <FileName>moving_average_c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\moving_average_c.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,3 +1,3 @@
 // any includes needed by button go here
 
-int isButtonPushed(void);
+int buttonIsPushed(void);

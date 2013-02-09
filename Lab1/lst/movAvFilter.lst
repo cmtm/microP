@@ -7,102 +7,101 @@ ARM Macro Assembler    Page 1
     1 00000000                 AREA             text, CODE, READONLY
     2 00000000                 EXPORT           moving_average_init
     3 00000000                 EXPORT           moving_average
-    4 00000000         ; EXPORT moving_average_test
-    5 00000000         
-    6 00000000         ; d is the filter depth
-    7 00000000         ; it exists independantly in two other places.
-    8 00000000         ; if changing this one, don't forget to change the other
+    4 00000000         
+    5 00000000         ; d is the filter depth
+    6 00000000         ; it exists independantly in two other places.
+    7 00000000         ; if changing this one, don't forget to change the other
                         two
-    9 00000000         ; one is as a #define in main.c
-   10 00000000         ; the other is as a float literal at the bottom of this 
+    8 00000000         ; one is as a #define in main.c
+    9 00000000         ; the other is as a float literal at the bottom of this 
                        file
-   11 00000000 0000000A 
+   10 00000000 0000000A 
                        d       EQU              10
-   12 00000000         
-   13 00000000         ; stSz is the size of the state struct in words
-   14 00000000 0000000C 
+   11 00000000         
+   12 00000000         ; stSz is the size of the state struct in words
+   13 00000000 0000000C 
                        stSz    EQU              d + 2
+   14 00000000         
    15 00000000         
-   16 00000000         
-   17 00000000         ; State Struct
-   18 00000000         ; one word for "tail"
-   19 00000000         ; d words for circular buffer
-   20 00000000         ; one word for "accumulated"
-   21 00000000         ; one word for "yPrevious"
+   16 00000000         ; State Struct
+   17 00000000         ; one word for "tail"
+   18 00000000         ; d words for circular buffer
+   19 00000000         ; one word for "accumulated"
+   20 00000000         ; one word for "yPrevious"
+   21 00000000         
    22 00000000         
    23 00000000         
-   24 00000000         
-   25 00000000         ; relative addresses
-   26 00000000 00000000 
+   24 00000000         ; relative addresses
+   25 00000000 00000000 
                        circBuf EQU              (0)   * 4
-   27 00000000 00000028 
+   26 00000000 00000028 
                        tail    EQU              (d)   * 4
-   28 00000000 0000002C 
+   27 00000000 0000002C 
                        yPrevious
                                EQU              (d+1) * 4
+   28 00000000         
    29 00000000         
    30 00000000         
-   31 00000000         
-   32 00000000         ; function just sets all the data to zero
-   33 00000000         ; pointer to state struct is in r0
-   34 00000000         moving_average_init
-   35 00000000         ; prep registers
-   36 00000000 F04F 0100       mov.W            r1, #0x00000000
-   37 00000004 F04F 020B       mov.W            r2, #stSz - 1
-   38 00000008         clearWord
-   39 00000008         ; fill RAM with 0
-   40 00000008 F840 1022       str              r1, [r0, r2, LSL #2]
-   41 0000000C         ; decrement counter
-   42 0000000C 1E52            subs             r2, r2, #1
-   43 0000000E         ; repeat of there is more to do
-   44 0000000E D5FB            BPL              clearWord
-   45 00000010         ; set the tail pointer.
-   46 00000010         ;add     r0, r0, #4
-   47 00000010         ;str     r0, r0
-   48 00000010 4770            BX               LR
-   49 00000012         
-   50 00000012         ; function where the moving average is actually computed
+   31 00000000         ; function just sets all the data to zero
+   32 00000000         ; pointer to state struct is in r0
+   33 00000000         moving_average_init
+   34 00000000         ; prep registers
+   35 00000000 F04F 0100       mov.W            r1, #0x00000000
+   36 00000004 F04F 020B       mov.W            r2, #stSz - 1
+   37 00000008         clearWord
+   38 00000008         ; fill RAM with 0
+   39 00000008 F840 1022       str              r1, [r0, r2, LSL #2]
+   40 0000000C         ; decrement counter
+   41 0000000C 1E52            subs             r2, r2, #1
+   42 0000000E         ; repeat of there is more to do
+   43 0000000E D5FB            BPL              clearWord
+   44 00000010         ; set the tail pointer.
+   45 00000010         ;add     r0, r0, #4
+   46 00000010         ;str     r0, r0
+   47 00000010 4770            BX               LR
+   48 00000012         
+   49 00000012         ; function where the moving average is actually computed
                        
+   50 00000012         ; pointer to state struct is in r0
 
 
 
 ARM Macro Assembler    Page 2 
 
 
-   51 00000012         ; pointer to state struct is in r0
-   52 00000012         ; new sample value is in s0
-   53 00000012         moving_average
-   54 00000012         ; fetch yPrevious
-   55 00000012 EDD0 0A0B       VLDR.32          s1, [r0, #yPrevious]
-   56 00000016         ; fetch tail pointer
-   57 00000016 6A82            LDR              r2, [r0, #tail]
-   58 00000018         ; fetch tail value
-   59 00000018 EB00 0102       ADD              r1, r0, r2
-   60 0000001C ED91 1A00       VLDR.32          s2, [r1]
-   61 00000020         ; store new sample at tail pointer
-   62 00000020 ED81 0A00       VSTR.32          s0, [r1]
-   63 00000024         ; compute y New
-   64 00000024 EE30 0A20       VADD.F32         s0, s0, s1
-   65 00000028 EE30 0A41       VSUB.F32         s0, s0, s2
-   66 0000002C         ; move tail pointer
-   67 0000002C 1F12            SUBS             r2, r2, #4
-   68 0000002E         ; gotta loop it around if needed
-   69 0000002E D501            BPL              labelB
-   70 00000030 F102 0228       ADD              r2, r2, #(d*4)
-   71 00000034         labelB
-   72 00000034         ; store computed y as yPrevious
-   73 00000034 ED80 0A0B       VSTR.32          s0, [r0, #yPrevious]
-   74 00000038         ; store new tail pointer
-   75 00000038 6282            STR              r2, [r0, #tail]
-   76 0000003A         ; Here, I just divided by d to save some steps.
-   77 0000003A         ; it'll only sqew a few values at the beginning.
-   78 0000003A         ; I have a previous revision of using another
-   79 0000003A         ; variable called accum which counted to d but
-   80 0000003A         ; it was a lot of extra computation for no return
-   81 0000003A EEF2 0A04       VMOV.F32         s1, #10.0
-   82 0000003E EE80 0A20       VDIV.F32         s0, s0, s1
-   83 00000042 4770            BX               LR
-   84 00000044                 END
+   51 00000012         ; new sample value is in s0
+   52 00000012         moving_average
+   53 00000012         ; fetch yPrevious
+   54 00000012 EDD0 0A0B       VLDR.32          s1, [r0, #yPrevious]
+   55 00000016         ; fetch tail pointer
+   56 00000016 6A82            LDR              r2, [r0, #tail]
+   57 00000018         ; fetch tail value
+   58 00000018 EB00 0102       ADD              r1, r0, r2
+   59 0000001C ED91 1A00       VLDR.32          s2, [r1]
+   60 00000020         ; store new sample at tail pointer
+   61 00000020 ED81 0A00       VSTR.32          s0, [r1]
+   62 00000024         ; compute y New
+   63 00000024 EE30 0A20       VADD.F32         s0, s0, s1
+   64 00000028 EE30 0A41       VSUB.F32         s0, s0, s2
+   65 0000002C         ; move tail pointer
+   66 0000002C 1F12            SUBS             r2, r2, #4
+   67 0000002E         ; gotta loop it around if needed
+   68 0000002E D501            BPL              labelB
+   69 00000030 F102 0228       ADD              r2, r2, #(d*4)
+   70 00000034         labelB
+   71 00000034         ; store computed y as yPrevious
+   72 00000034 ED80 0A0B       VSTR.32          s0, [r0, #yPrevious]
+   73 00000038         ; store new tail pointer
+   74 00000038 6282            STR              r2, [r0, #tail]
+   75 0000003A         ; Here, I just divided by d to save some steps.
+   76 0000003A         ; it'll only sqew a few values at the beginning.
+   77 0000003A         ; I have a previous revision of using another
+   78 0000003A         ; variable called accum which counted to d but
+   79 0000003A         ; it was a lot of extra computation for no return
+   80 0000003A EEF2 0A04       VMOV.F32         s1, #10.0
+   81 0000003E EE80 0A20       VDIV.F32         s0, s0, s1
+   82 00000042 4770            BX               LR
+   83 00000044                 END
 Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
 \movAvFilter.d -o.\obj\movAvFilter.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS
 \Include -IC:\Keil\ARM\Inc\ST\STM32F4xx --list=.\lst\movAvFilter.lst src\movAvF
@@ -117,23 +116,23 @@ clearWord 00000008
 
 Symbol: clearWord
    Definitions
-      At line 38 in file src\movAvFilter.s
+      At line 37 in file src\movAvFilter.s
    Uses
-      At line 44 in file src\movAvFilter.s
+      At line 43 in file src\movAvFilter.s
 Comment: clearWord used once
 labelB 00000034
 
 Symbol: labelB
    Definitions
-      At line 71 in file src\movAvFilter.s
+      At line 70 in file src\movAvFilter.s
    Uses
-      At line 69 in file src\movAvFilter.s
+      At line 68 in file src\movAvFilter.s
 Comment: labelB used once
 moving_average 00000012
 
 Symbol: moving_average
    Definitions
-      At line 53 in file src\movAvFilter.s
+      At line 52 in file src\movAvFilter.s
    Uses
       At line 3 in file src\movAvFilter.s
 Comment: moving_average used once
@@ -141,7 +140,7 @@ moving_average_init 00000000
 
 Symbol: moving_average_init
    Definitions
-      At line 34 in file src\movAvFilter.s
+      At line 33 in file src\movAvFilter.s
    Uses
       At line 2 in file src\movAvFilter.s
 Comment: moving_average_init used once
@@ -164,7 +163,7 @@ circBuf 00000000
 
 Symbol: circBuf
    Definitions
-      At line 26 in file src\movAvFilter.s
+      At line 25 in file src\movAvFilter.s
    Uses
       None
 Comment: circBuf unused
@@ -172,38 +171,38 @@ d 0000000A
 
 Symbol: d
    Definitions
-      At line 11 in file src\movAvFilter.s
+      At line 10 in file src\movAvFilter.s
    Uses
-      At line 14 in file src\movAvFilter.s
+      At line 13 in file src\movAvFilter.s
+      At line 26 in file src\movAvFilter.s
       At line 27 in file src\movAvFilter.s
-      At line 28 in file src\movAvFilter.s
-      At line 70 in file src\movAvFilter.s
+      At line 69 in file src\movAvFilter.s
 
 stSz 0000000C
 
 Symbol: stSz
    Definitions
-      At line 14 in file src\movAvFilter.s
+      At line 13 in file src\movAvFilter.s
    Uses
-      At line 37 in file src\movAvFilter.s
+      At line 36 in file src\movAvFilter.s
 Comment: stSz used once
 tail 00000028
 
 Symbol: tail
    Definitions
-      At line 27 in file src\movAvFilter.s
+      At line 26 in file src\movAvFilter.s
    Uses
-      At line 57 in file src\movAvFilter.s
-      At line 75 in file src\movAvFilter.s
+      At line 56 in file src\movAvFilter.s
+      At line 74 in file src\movAvFilter.s
 
 yPrevious 0000002C
 
 Symbol: yPrevious
    Definitions
-      At line 28 in file src\movAvFilter.s
+      At line 27 in file src\movAvFilter.s
    Uses
-      At line 55 in file src\movAvFilter.s
-      At line 73 in file src\movAvFilter.s
+      At line 54 in file src\movAvFilter.s
+      At line 72 in file src\movAvFilter.s
 
 5 symbols
 341 symbols in table

@@ -163,7 +163,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4105</DriverSelection>
+            <DriverSelection>4104</DriverSelection>
           </Flash1>
           <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
           <Flash3>"" ()</Flash3>
@@ -455,6 +455,11 @@
               <FileName>moving_average_c.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\moving_average_c.c</FilePath>
+            </File>
+            <File>
+              <FileName>fputc_debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\fputc_debug.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -940,8 +945,8 @@
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
+                <StartAddress>0x10000000</StartAddress>
+                <Size>0x10000</Size>
               </OCR_RVCT10>
             </OnChipMemories>
             <RvctStartVector></RvctStartVector>
@@ -1069,6 +1074,11 @@
               <FileName>moving_average_c.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\moving_average_c.c</FilePath>
+            </File>
+            <File>
+              <FileName>fputc_debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\fputc_debug.c</FilePath>
             </File>
           </Files>
         </Group>

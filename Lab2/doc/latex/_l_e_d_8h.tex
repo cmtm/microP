@@ -1,0 +1,70 @@
+\hypertarget{_l_e_d_8h}{\section{src/\-L\-E\-D.h File Reference}
+\label{_l_e_d_8h}\index{src/\-L\-E\-D.\-h@{src/\-L\-E\-D.\-h}}
+}
+{\ttfamily \#include \char`\"{}stm32f4xx.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}stm32f4xx\-\_\-conf.\-h\char`\"{}}\\*
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{_l_e_d_8h_a438571ce7381d91926ff187b59c90bf5}{L\-E\-D\-\_\-state} \{ {\bfseries O\-F\-F}, 
+{\bfseries O\-N}
+ \}
+\begin{DoxyCompactList}\small\item\em abstract representation of L\-E\-D state \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_l_e_d_8h_a50cf228fce8563fc202330b7b4816cb9}{L\-E\-D\-\_\-init} (void)
+\item 
+void \hyperlink{_l_e_d_8h_a8d9739292b98bc72c137f886031d3bf2}{L\-E\-D\-\_\-set} (\hyperlink{_l_e_d_8h_a438571ce7381d91926ff187b59c90bf5}{L\-E\-D\-\_\-state} s0, \hyperlink{_l_e_d_8h_a438571ce7381d91926ff187b59c90bf5}{L\-E\-D\-\_\-state} s1, \hyperlink{_l_e_d_8h_a438571ce7381d91926ff187b59c90bf5}{L\-E\-D\-\_\-state} s2, \hyperlink{_l_e_d_8h_a438571ce7381d91926ff187b59c90bf5}{L\-E\-D\-\_\-state} s3)
+\item 
+void \hyperlink{_l_e_d_8h_a8818579ff610b1051212fd8ab7f323e6}{L\-E\-D\-\_\-set\-All} (\hyperlink{_l_e_d_8h_a438571ce7381d91926ff187b59c90bf5}{L\-E\-D\-\_\-state} s)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_l_e_d_8h_a50cf228fce8563fc202330b7b4816cb9}{\index{L\-E\-D.\-h@{L\-E\-D.\-h}!L\-E\-D\-\_\-init@{L\-E\-D\-\_\-init}}
+\index{L\-E\-D\-\_\-init@{L\-E\-D\-\_\-init}!LED.h@{L\-E\-D.\-h}}
+\subsubsection[{L\-E\-D\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void L\-E\-D\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{_l_e_d_8h_a50cf228fce8563fc202330b7b4816cb9}
+Initialize L\-E\-D functionality
+
+This must be called before L\-E\-D\-\_\-set$\ast$() \hypertarget{_l_e_d_8h_a8d9739292b98bc72c137f886031d3bf2}{\index{L\-E\-D.\-h@{L\-E\-D.\-h}!L\-E\-D\-\_\-set@{L\-E\-D\-\_\-set}}
+\index{L\-E\-D\-\_\-set@{L\-E\-D\-\_\-set}!LED.h@{L\-E\-D.\-h}}
+\subsubsection[{L\-E\-D\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}void L\-E\-D\-\_\-set (
+\begin{DoxyParamCaption}
+\item[{{\bf L\-E\-D\-\_\-state}}]{s0, }
+\item[{{\bf L\-E\-D\-\_\-state}}]{s1, }
+\item[{{\bf L\-E\-D\-\_\-state}}]{s2, }
+\item[{{\bf L\-E\-D\-\_\-state}}]{s3}
+\end{DoxyParamCaption}
+)}}\label{_l_e_d_8h_a8d9739292b98bc72c137f886031d3bf2}
+set L\-E\-D states
+
+
+\begin{DoxyParams}{Parameters}
+{\em s0} & L\-E\-D\-\_\-0 state \\
+\hline
+{\em s1} & L\-E\-D\-\_\-1 state \\
+\hline
+{\em s2} & L\-E\-D\-\_\-2 state \\
+\hline
+{\em s3} & L\-E\-D\-\_\-3 state \\
+\hline
+\end{DoxyParams}
+\hypertarget{_l_e_d_8h_a8818579ff610b1051212fd8ab7f323e6}{\index{L\-E\-D.\-h@{L\-E\-D.\-h}!L\-E\-D\-\_\-set\-All@{L\-E\-D\-\_\-set\-All}}
+\index{L\-E\-D\-\_\-set\-All@{L\-E\-D\-\_\-set\-All}!LED.h@{L\-E\-D.\-h}}
+\subsubsection[{L\-E\-D\-\_\-set\-All}]{\setlength{\rightskip}{0pt plus 5cm}void L\-E\-D\-\_\-set\-All (
+\begin{DoxyParamCaption}
+\item[{{\bf L\-E\-D\-\_\-state}}]{s}
+\end{DoxyParamCaption}
+)}}\label{_l_e_d_8h_a8818579ff610b1051212fd8ab7f323e6}
+sets all L\-E\-D state to a single value
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & state all L\-E\-Ds will take \\
+\hline
+\end{DoxyParams}

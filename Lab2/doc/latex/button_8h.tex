@@ -1,0 +1,36 @@
+\hypertarget{button_8h}{\section{src/button.h File Reference}
+\label{button_8h}\index{src/button.\-h@{src/button.\-h}}
+}
+{\ttfamily \#include \char`\"{}stm32f4xx.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}stm32f4xx\-\_\-conf.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{button_8h_a720a934be548d64c0b7da15caaca1006}{button\-Init} (void)
+\item 
+int \hyperlink{button_8h_a9e36a3e25607a92d47130429a9fc670e}{button\-Is\-Pushed} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{button_8h_a720a934be548d64c0b7da15caaca1006}{\index{button.\-h@{button.\-h}!button\-Init@{button\-Init}}
+\index{button\-Init@{button\-Init}!button.h@{button.\-h}}
+\subsubsection[{button\-Init}]{\setlength{\rightskip}{0pt plus 5cm}void button\-Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{button_8h_a720a934be548d64c0b7da15caaca1006}
+Initialize button functionality
+
+This must be called before \hyperlink{button_8h_a9e36a3e25607a92d47130429a9fc670e}{button\-Is\-Pushed()} \hypertarget{button_8h_a9e36a3e25607a92d47130429a9fc670e}{\index{button.\-h@{button.\-h}!button\-Is\-Pushed@{button\-Is\-Pushed}}
+\index{button\-Is\-Pushed@{button\-Is\-Pushed}!button.h@{button.\-h}}
+\subsubsection[{button\-Is\-Pushed}]{\setlength{\rightskip}{0pt plus 5cm}int button\-Is\-Pushed (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{button_8h_a9e36a3e25607a92d47130429a9fc670e}
+Check if button is pressed
+
+\begin{DoxyReturn}{Returns}
+1 if button is pressed, 0 otherwise 
+\end{DoxyReturn}

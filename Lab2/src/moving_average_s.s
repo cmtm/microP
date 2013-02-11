@@ -6,7 +6,7 @@
 ; if changing this one, don't forget to change the other two
 ; one is as a #define in main.c
 ; the other is as a float literal at the bottom of this file
-d EQU 10
+d EQU 31
 
 ; State Struct
 	; one word for "tail"
@@ -53,7 +53,7 @@ labelB
 	; I have a previous revision of using another
 	; variable called accum which counted to d but
 	; it was a lot of extra computation for no return
-	VMOV.F32  s1, #10.0
+	VMOV.F32  s1, #31
 	VDIV.F32  s0, s0, s1
 	BX LR
 	END

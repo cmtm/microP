@@ -1,13 +1,6 @@
 #include "ADC.h"
 
-/* ADC. Can measure signals from 16 external sources. 
-Conversion can be performed in single, continuous, scan or discontinuous mode
-Result stored in 16 bit data register
-Powered on using ADON in ADC_CR2
-Conversion happens when SWSTART is set
-Can stop conversion by unsetting ADON
-ADC clock: ADCCLK = analog clock generated from APB2 allows us to work at 
-*/
+
 float samples;
 
 // fill this in
@@ -50,19 +43,6 @@ void ADC_init(void)	{
 	ADC_Cmd(ADC1, ENABLE);
 	
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_TempSensor, 1, ADC_SampleTime_480Cycles);
-
-}
-
-float getTemperature(void)
-{
-	
-	ADC_SoftwareStartConv(ADC1);
-	
-	while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC)== RESET);
-	
-	samples = ADC_GetConversionValue(ADC1); //Get the voltage temperature sample reading from the ADC (in millivolts)
-	return (samples); //Convert this sample to a temperature in degrees celsius	
-	
 }
 	
 

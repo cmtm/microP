@@ -1,0 +1,47 @@
+\hypertarget{moving__average_8h}{\section{src/moving\-\_\-average.h File Reference}
+\label{moving__average_8h}\index{src/moving\-\_\-average.\-h@{src/moving\-\_\-average.\-h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_filter_state}{Filter\-State}
+\begin{DoxyCompactList}\small\item\em moving\-\_\-average's state \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{moving__average_8h_a2530554172d8629149ec56816eeaa947}{\#define \hyperlink{moving__average_8h_a2530554172d8629149ec56816eeaa947}{d}~31}\label{moving__average_8h_a2530554172d8629149ec56816eeaa947}
+
+\begin{DoxyCompactList}\small\item\em window depth \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{moving__average_8h_af013d9d27d8bc9bb17c2a1339a262774}{moving\-\_\-average\-\_\-c} (float new\-Sample, \hyperlink{struct_filter_state}{Filter\-State} $\ast$state)
+\item 
+\hypertarget{moving__average_8h_ae568d7075ba447157a1886cce9571bf6}{float {\bfseries moving\-\_\-average\-\_\-s} (float new\-Sample, \hyperlink{struct_filter_state}{Filter\-State} $\ast$state)}\label{moving__average_8h_ae568d7075ba447157a1886cce9571bf6}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{moving__average_8h_af013d9d27d8bc9bb17c2a1339a262774}{\index{moving\-\_\-average.\-h@{moving\-\_\-average.\-h}!moving\-\_\-average\-\_\-c@{moving\-\_\-average\-\_\-c}}
+\index{moving\-\_\-average\-\_\-c@{moving\-\_\-average\-\_\-c}!moving_average.h@{moving\-\_\-average.\-h}}
+\subsubsection[{moving\-\_\-average\-\_\-c}]{\setlength{\rightskip}{0pt plus 5cm}float moving\-\_\-average\-\_\-c (
+\begin{DoxyParamCaption}
+\item[{float}]{new\-Sample, }
+\item[{{\bf Filter\-State} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{moving__average_8h_af013d9d27d8bc9bb17c2a1339a262774}
+filters input with a moving average function
+
+The samples are passed one value at a time. It uses the \hyperlink{struct_filter_state}{Filter\-State} structure to remember state between calls.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\-Sample} & latest signal sample \\
+\hline
+{\em state} & state of filter computation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+latest sample of filtered signal 
+\end{DoxyReturn}

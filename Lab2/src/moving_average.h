@@ -1,11 +1,24 @@
+/// @file moving_average.h
 
-#define d 10
+/// window depth
+#define d 31
 
+/// moving_average's state
 typedef struct {
 	float circBuf[d];
 	int tail;
 	float yPrevious;	
 } FilterState;
 
-float moving_average_s(float newSample, FilterState* state);
+/// filters input with a moving average function
+///
+/// The samples are passed one value at a time.
+/// It uses the FilterState structure to remember
+/// state between calls.
+///
+/// @param newSample latest signal sample
+/// @param state state of filter computation
+/// @return latest sample of filtered signal
 float moving_average_c(float newSample, FilterState* state);
+float moving_average_s(float newSample, FilterState* state);
+

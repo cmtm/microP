@@ -1,0 +1,21 @@
+To test the system, we ran it on the board while trying to through all the corner cases at it. Because of the systen's simplicity, there weren't many corner cases though. We pressed the button many times and held it for various lengths of time. We heated the chip first with a finger and with laptop exhaust air, then with a heat gun. It behaved as expected in all cases and there was no other way of interacting with the system so we gave it the OK.
+
+======
+button
+======
+
+The button is checked for a push every 0.05s. Once a push is detected, it waits about 1/3 of a second before being able to register another one. When holding the button, and when repeatedly pressing it, the systems state (flashing or temperature reading) changed properly. Holding the button caused the state to change every 1/3 of a second.
+
+===========
+temperature
+===========
+
+The biggest corner case when dealing with the temperature display was the loop around: when the temperature increases by 8 degrees celcuis, the lights should have looped around and ended up in the same state that they started. This was hard to test with temperature from laptop exhaust or from body heat, but once we got our hands on the heat gun, we were able to test it out and it worked as expected. There wasn't really anyway of verifiying that the internal temperature change of the chip scaled properly to what was being displayed with the LEDs, but we got reasonable behavior so we assume we were close enough for all intents and purposes.
+
+==================
+Choosing the depth
+==================
+
+We extracted raw ADC values from the sensor and ran them through a simulated moving average filter with various depth values. We observed that because of how slowly temperature changes, large window depths didn't skew the readings. Considering that each time step was 20Hz and that temperature changed on the order of tens of seconds, as long as we kept the window length lower than 150, the output would be accurate. Looking at the filter performances, we saw that increasing the filter depth above 30-40 had little benefit (diminishing returns). We choose a filter depth of 31 as it is the largest floating point literal that can be put in a FMOV instruction. This was in the performance sweet spot as it was high enough to sufficiently smooth while small enough to fit in a floating point instruction.
+
+Plots of the filtered and unfiltered ADC data can be seen in the appendix.

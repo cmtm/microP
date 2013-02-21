@@ -1,0 +1,88 @@
+==============
+Design Process
+==============
+From a software engineering perspective, this was a simple project; there was no need to explore multiple designs. We divided the code into 5 modules. 3 of them are for the needed IO, 1 for the moving average and the last is is the top level controller that brings it all together. We followed standard C programming procedure and each module except the controller has a seperate source and header file.
+==========
+Controller
+==========
+
+The controller code is in "main.c". A SysTick handler increments a shared variable ("ticks"). The main program loop runs a single iteration when it detects that "ticks" has been incremented. This way, the program can be modeled as a flowchart that is entered at the SysTick frequency. This flowchart can be seen in figure X. Not shown in figure X is how at the end of every run, the program checks if the button is pushed (a simple register check).
+
+INSERT FLOWCHART
+
+The "displayTemp(float)" function is responsible for turning on the correct LEDs given a temperature in degrees celcuis. It works by first subtracting the input temperature by a fixed amount; this amount was set so that two lights were on at regular operating temperature to ease detection of temperature rises and falls. The shifted temperature is then moduloed by 8. Lights are set based on where this number falls within the range 0 to 8.
+
+
+The controller module can be configured by 3 settings. 
+The first is the flash period; this is the speed at which the LED will toggle when in flashing mode. We just set this so that the flash period was one second.
+The second is the debounce period; this is the time waited after detecting a button press before we look for another button press. Although we call this the debouncing period, it does more than just debounce. We use it so that one button push won't be read for each program loop. We initially set this to one program loop (20ms) but found that because the button was often held down for more than 20ms, so we set it to 7 program runs (about a third of a second).
+The last setting is the choice of which moving_average function should be used: the assembly version or the C one.
+
+==
+IO
+==
+There are three IO modules:
+LED
+ADC (temperature)
+button
+
+They are structured in similar ways as they each have an initilizer function (which must be called before the modules can be used) and then the relevant IO functions. LED has an enum, LED_state, which can be ON or OFF. The IO functions are simple to use. Here they are with their descriptions.
+LED:
+LED_set(LED_state, LED_state, LED_state, LED_state): set the state of the LEDs
+LED_setAll(LED_state): sets all LEDs to LED_state
+ADC:
+getTempCelcius(): returns the temperature in degrees celcius
+button:
+buttonIsPushed():returns true iff button is depressed.
+
+---
+LED
+---
+
+Init
+~~~~
+
+enable clock, set properties, ...
+
+public functions
+~~~~~~~~~~~~~~~~
+
+LED_set is passed 4 LED_state structs and sets the four LEDs based on those four structs. If the struct has a value of ON, the the respective LED will be turned on and vice-versa. INSERT DETAILS?
+LED_setAll just calls LED_set with all four parameters taking the value of it's one input.
+
+---
+ADC
+---
+
+Init
+~~~~
+
+enable clock, set properties, ...
+
+public functions
+~~~~~~~~~~~~~~~~
+
+getTempCelcius() works by STARTING THE SOFTWARE CONVERSION? It then waits for the EOC flag to be set. When it is finally set, the flag is cleared and the values of the REGISTER NAME?. The value in this register is then put through the the formula described in the theory section. We used typical values from the data sheet. We were hoping to use the raw sensor data to find T25, but the operating temperature insude the chip wasn't 25 degrees celcius so we couldn't do much there. This difficulty in determining the actual internal temperature of the chip made it difficult to tweak parameters for accuracy.
+
+------
+button
+------
+
+Init
+~~~~
+
+enable clock, set properties, ...
+
+public functions
+~~~~~~~~~~~~~~~~
+
+buttonIsPushed() works by simply returning the last bit of the REGISTER NAME.
+
+==============
+moving average
+==============
+
+There are two implementations of the moving average function: an assembly version and a C one. These two are functionally identical, but have different running times. While the C version ran in 96us, the C program ran in 90us. The moving average functions are a simple implementation of the recursive moving average filter discussed in the theory section. We used a circular buffer of size d where d is the window depth. This buffer held the last d value of the moving average and so with that, when the "i"th value arrives, the "i-d"th value can be retrieved and the necesary computation can be performed.
+
+We chose a window depth of 31. The justification behind this relies heavily of observations so will be included in the testing and observations section.
+

@@ -1,0 +1,7 @@
+Abstract
+
+This project involves the construction of a system that reads the operating temperature of the STM32F4DISCOVERY processor. The data is filtered using a moving average filter, and the results are displayed on 4 LEDs. The user can press a button to switch back and forth between a temperature displaying mode and a flashing mode where all four LED's flash continuously. A noisy temperature sensor is connected to the chip's ADC. Its readings are passed through a moving average filter and then displayed on the LEDs.
+
+
+Conclusion
+This application involved the development of a bi-state system. State was switched with a button press. One state displayed the temperature while the other simply flashed the LEDs. This was obtained, and the LEDs were stable in temperature display mode (no flickering between two states) which told us our sensor filtering was good.

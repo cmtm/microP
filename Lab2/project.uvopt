@@ -73,7 +73,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>1</IsCurrentTarget>
+        <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
       <CpuCode>255</CpuCode>
       <DllOpt>
@@ -251,7 +251,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
+        <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>255</CpuCode>
       <DllOpt>
@@ -335,7 +335,7 @@
         <aLa>0</aLa>
         <aPa1>0</aPa1>
         <AscS4>0</AscS4>
-        <aSer4>0</aSer4>
+        <aSer4>1</aSer4>
         <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
         <newCpu>0</newCpu>
@@ -377,10 +377,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>24</ColumnNumber>
+      <ColumnNumber>33</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>9</CurrentLine>
+      <TopLine>54</TopLine>
+      <CurrentLine>59</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -409,10 +409,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>44</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>181</TopLine>
-      <CurrentLine>90</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\system_stm32f4xx.c</PathWithFileName>
       <FilenameWithoutPath>system_stm32f4xx.c</FilenameWithoutPath>
@@ -441,10 +441,10 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>14</ColumnNumber>
+      <ColumnNumber>27</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>11</CurrentLine>
+      <TopLine>36</TopLine>
+      <CurrentLine>50</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\moving_average_s.s</PathWithFileName>
       <FilenameWithoutPath>moving_average_s.s</FilenameWithoutPath>
@@ -457,10 +457,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>86</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>37</TopLine>
-      <CurrentLine>52</CurrentLine>
+      <TopLine>7</TopLine>
+      <CurrentLine>9</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\ADC.c</PathWithFileName>
       <FilenameWithoutPath>ADC.c</FilenameWithoutPath>
@@ -489,10 +489,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>38</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>31</TopLine>
-      <CurrentLine>5</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>54</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\LED.c</PathWithFileName>
       <FilenameWithoutPath>LED.c</FilenameWithoutPath>
@@ -521,10 +521,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>37</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>6</CurrentLine>
+      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\button.c</PathWithFileName>
       <FilenameWithoutPath>button.c</FilenameWithoutPath>
@@ -551,12 +551,12 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>13</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <CurrentLine>4</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\moving_average_c.c</PathWithFileName>
       <FilenameWithoutPath>moving_average_c.c</FilenameWithoutPath>
@@ -569,10 +569,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>13</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>15</CurrentLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\fputc_debug.c</PathWithFileName>
       <FilenameWithoutPath>fputc_debug.c</FilenameWithoutPath>
@@ -611,8 +611,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>972</TopLine>
-      <CurrentLine>978</CurrentLine>
+      <TopLine>1618</TopLine>
+      <CurrentLine>1619</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_adc.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_adc.c</FilenameWithoutPath>
@@ -833,10 +833,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>34</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>194</TopLine>
+      <CurrentLine>196</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_gpio.c</FilenameWithoutPath>

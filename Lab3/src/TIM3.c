@@ -18,14 +18,11 @@ void TIM3_Init(uint32_t freq)
 	
 	/* Time base configuration */
 	TIM_TimeBaseStructure.TIM_Period = periodValue;
-	TIM_TimeBaseStructure.TIM_Prescaler = 0;
+	TIM_TimeBaseStructure.TIM_Prescaler = PRESCALAR - 1;
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Down;
 	
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
-	
-	/* Prescaler configuration */
-	TIM_PrescalerConfig(TIM3, PRESCALAR - 1, TIM_PSCReloadMode_Immediate);
 	
 	/* TIM Interrupts enable */
 	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);

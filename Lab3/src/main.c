@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include "stm32f4xx.h"
 #include "stm32f4xx_conf.h"
 #include "stm32f4_discovery_lis302dl.h"
@@ -8,19 +9,16 @@
 #include "LED.h"
 #include "moving_average.h"
 
+#define PI 3.14159265
+
 // incremented by interupt at 100Hz
 static volatile uint_fast16_t ticks;
 static volatile uint_fast16_t gotTap;
 
 
 void TIM3_IRQHandler(void) {
-  if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
-  {
-    TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
-
-    ticks++;
-  }
-  // else: PANIC
+   TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+   ticks++;
 }
 
 void EXTI0_IRQHandler(void) {
@@ -28,11 +26,26 @@ void EXTI0_IRQHandler(void) {
 	EXTI_ClearFlag(LIS302DL_SPI_INT1_EXTI_LINE);
 }	
 
+/*Measuring the tilt angle from the acceleration*/
+void printAngles(int32_t* accData) {
+
+	/*Change the type of the data from uint8_t to double*/
+	double accX = (double) (accData[0]);
+	double accY = (double) (accData[1]);
+	double accZ = (double) (accData[2]);
+	
+	double roll;
+	double pitch;
+
+	roll = atan2(accX, sqrt(accY*accY + accZ*accZ)) * 180 / PI;	//Roll angle
+	pitch = atan2(accY, sqrt(accX*accX + accZ*accZ)) * 180 / PI;	//Pitch angle	
+	
+	printf("Roll: %f, Pitch: %f\n", roll, pitch);
+}
+
 int main() {
 	//Stores the output data from the accelerometer
 	int32_t accData[3];
-	//Stores the angles calculated from the accelerations
-	double angles[3];
 	
 	LED_state led_state = OFF;
 	
@@ -59,13 +72,8 @@ int main() {
 		}		
 
 		acc_read(accData);	//Reads the accelerometer data
-		printf("x: %d; y: %d; z: %d;\n", accData[0], accData[1], accData[2]);
-		// accData[0] = accData[0]- offset[0];	//Adjusts x according to the offset
-		// accData[1] = accData[1]- offset[1];	//Adjusts y according to the offset
-		// accData[2] = accData[2]- offset[2];	//Adjusts z according to the offset
-		
-		// calculate_angle(accData, angles);
-		
+		//printf("x: %d; y: %d; z: %d;\n", accData[0], accData[1], accData[2]);
+		printAngles(accData);
 	}	
 	
 }

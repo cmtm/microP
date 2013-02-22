@@ -1,7 +1,8 @@
 Dependencies for Project 'project', Target 'Target ': (DO NOT MODIFY !)
 F (.\src\startup_stm32f4xx.s)(0x5126864F)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1" -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx --list ".\lst\startup_stm32f4xx.lst" --xref -o ".\obj\startup_stm32f4xx.o" --depend ".\obj\startup_stm32f4xx.d")
-F (.\src\main.c)(0x5126BB4B)(-c --cpu Cortex-M4.fp -I"C:\Keil\ARM\RL\include" -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\STM32F4xx_StdPeriph_Driver\inc -I.\LIS302DL\inc --c99 -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -o ".\obj\main.o" --omf_browse ".\obj\main.crf" --depend ".\obj\main.d")
+F (.\src\main.c)(0x5126E245)(-c --cpu Cortex-M4.fp -I"C:\Keil\ARM\RL\include" -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\STM32F4xx_StdPeriph_Driver\inc -I.\LIS302DL\inc --c99 -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -o ".\obj\main.o" --omf_browse ".\obj\main.crf" --depend ".\obj\main.d")
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB17B46)
+I (C:\Keil\ARM\ARMCC\bin\..\include\math.h)(0x4EB17B48)
 I (src\stm32f4xx.h)(0x5126864F)
 I (C:\Keil\ARM\CMSIS\Include\core_cm4.h)(0x5006D242)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB17B44)
@@ -39,8 +40,7 @@ I (.\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x5126864F)
 I (.\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x5126864F)
 I (.\LIS302DL\inc\stm32f4_discovery_lis302dl.h)(0x5126864F)
 I (src\TIM3.h)(0x5126864F)
-I (src\acc.h)(0x5126BC00)
-I (C:\Keil\ARM\ARMCC\bin\..\include\math.h)(0x4EB17B48)
+I (src\acc.h)(0x5126E0B2)
 I (src\LED.h)(0x5126864F)
 I (src\moving_average.h)(0x5126864F)
 F (.\src\stm32f4xx_conf.h)(0x5126864F)()
@@ -159,8 +159,8 @@ F (.\src\LED.h)(0x5126864F)()
 F (.\src\moving_average.h)(0x5126864F)()
 F (.\src\moving_average_c.c)(0x5126864F)(-c --cpu Cortex-M4.fp -I"C:\Keil\ARM\RL\include" -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\STM32F4xx_StdPeriph_Driver\inc -I.\LIS302DL\inc --c99 -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -o ".\obj\moving_average_c.o" --omf_browse ".\obj\moving_average_c.crf" --depend ".\obj\moving_average_c.d")
 I (src\moving_average.h)(0x5126864F)
-F (.\src\acc.c)(0x5126BD1E)(-c --cpu Cortex-M4.fp -I"C:\Keil\ARM\RL\include" -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\STM32F4xx_StdPeriph_Driver\inc -I.\LIS302DL\inc --c99 -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -o ".\obj\acc.o" --omf_browse ".\obj\acc.crf" --depend ".\obj\acc.d")
-I (src\acc.h)(0x5126BC00)
+F (.\src\acc.c)(0x5126DFE9)(-c --cpu Cortex-M4.fp -I"C:\Keil\ARM\RL\include" -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\STM32F4xx_StdPeriph_Driver\inc -I.\LIS302DL\inc --c99 -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -o ".\obj\acc.o" --omf_browse ".\obj\acc.crf" --depend ".\obj\acc.d")
+I (src\acc.h)(0x5126E0B2)
 I (src\stm32f4xx.h)(0x5126864F)
 I (C:\Keil\ARM\CMSIS\Include\core_cm4.h)(0x5006D242)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB17B44)
@@ -197,9 +197,8 @@ I (.\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x5126864F)
 I (.\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x5126864F)
 I (.\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x5126864F)
 I (.\LIS302DL\inc\stm32f4_discovery_lis302dl.h)(0x5126864F)
-I (C:\Keil\ARM\ARMCC\bin\..\include\math.h)(0x4EB17B48)
-F (.\src\acc.h)(0x5126BC00)()
-F (.\src\TIM3.c)(0x5126B647)(-c --cpu Cortex-M4.fp -I"C:\Keil\ARM\RL\include" -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\STM32F4xx_StdPeriph_Driver\inc -I.\LIS302DL\inc --c99 -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -o ".\obj\tim3.o" --omf_browse ".\obj\tim3.crf" --depend ".\obj\tim3.d")
+F (.\src\acc.h)(0x5126E0B2)()
+F (.\src\TIM3.c)(0x5126D736)(-c --cpu Cortex-M4.fp -I"C:\Keil\ARM\RL\include" -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\STM32F4xx_StdPeriph_Driver\inc -I.\LIS302DL\inc --c99 -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F4xx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER -o ".\obj\tim3.o" --omf_browse ".\obj\tim3.crf" --depend ".\obj\tim3.d")
 I (src\TIM3.h)(0x5126864F)
 I (src\stm32f4xx.h)(0x5126864F)
 I (C:\Keil\ARM\CMSIS\Include\core_cm4.h)(0x5006D242)

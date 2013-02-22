@@ -72,7 +72,7 @@ int main() {
 		}		
 
 		acc_read(accData);	//Reads the accelerometer data
-		//printf("x: %d; y: %d; z: %d;\n", accData[0], accData[1], accData[2]);
+		printf("x: %d; y: %d; z: %d;\n", accData[0], accData[1], accData[2]);
 		printAngles(accData);
 	}	
 	

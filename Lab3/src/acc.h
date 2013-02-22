@@ -8,5 +8,4 @@
 
 
 void acc_init(void);
-void acc_calib(uint8_t *offset);
-void acc_read(uint8_t *accData);
+void acc_read(int32_t* accData);

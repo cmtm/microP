@@ -10,12 +10,10 @@
 
 // incremented by interupt at 100Hz
 static volatile uint_fast16_t ticks;
+static volatile uint_fast16_t gotTap;
 
-uint8_t accData[3];	//Stores the output data from the accelerometer
-double angles[3];		//Stores the angles calculatred from the accelerations
 
-void TIM3_IRQHandler(void)
-{
+void TIM3_IRQHandler(void) {
   if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
   {
     TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
@@ -25,7 +23,19 @@ void TIM3_IRQHandler(void)
   // else: PANIC
 }
 
+void EXTI0_IRQHandler(void) {
+	gotTap = 1;
+	EXTI_ClearFlag(LIS302DL_SPI_INT1_EXTI_LINE);
+}	
+
 int main() {
+	//Stores the output data from the accelerometer
+	int32_t accData[3];
+	//Stores the angles calculated from the accelerations
+	double angles[3];
+	
+	LED_state led_state = OFF;
+	
 	ticks = 0;
 	
 	acc_init();
@@ -33,7 +43,7 @@ int main() {
 	
  
 	// set interupt to 100Hz
-	TIM3_Init(100);
+	TIM3_Init(1);
 	
 	while(1) {
 		// wait for interupt
@@ -41,9 +51,15 @@ int main() {
 		
 		ticks--;
 		
+		// NOT MEMORY SAFE !!!
+		if(gotTap) {
+			led_state = led_state ? OFF : ON;
+			LED_setAll(led_state);
+			gotTap = 0;
+		}		
 
 		acc_read(accData);	//Reads the accelerometer data
-		printf("%d; %d; %d;\n", accData[0], accData[1], accData[2]);
+		printf("x: %d; y: %d; z: %d;\n", accData[0], accData[1], accData[2]);
 		// accData[0] = accData[0]- offset[0];	//Adjusts x according to the offset
 		// accData[1] = accData[1]- offset[1];	//Adjusts y according to the offset
 		// accData[2] = accData[2]- offset[2];	//Adjusts z according to the offset

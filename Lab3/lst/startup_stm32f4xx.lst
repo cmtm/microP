@@ -842,16 +842,15 @@ ARM Macro Assembler    Page 13
               00000000 
               00000000 
 Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
-\startup_stm32f4xx.d -o.\obj\startup_stm32f4xx.o -IC:\Keil\ARM\RV31\INC -IC:\Ke
+\startup_stm32f4xx.d -o.\obj\startup_stm32f4xx.o -IC:\Keil\ARM\CMSIS\Include -I
 
 
 
 ARM Macro Assembler    Page 14 
 
 
-il\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\ST\STM32F4xx --predefine="__EVAL SETA 1"
- --predefine="__MICROLIB SETA 1" --list=.\lst\startup_stm32f4xx.lst src\startup
-_stm32f4xx.s
+C:\Keil\ARM\Inc\ST\STM32F4xx --predefine="__MICROLIB SETA 1" --list=.\lst\start
+up_stm32f4xx.lst src\startup_stm32f4xx.s
 
 
 
@@ -1945,4 +1944,4 @@ Symbol: __main
       At line 177 in file src\startup_stm32f4xx.s
 Comment: __main used once
 2 symbols
-444 symbols in table
+443 symbols in table

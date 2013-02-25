@@ -1,7 +1,7 @@
 /// @file moving_average.h
 
 /// window depth
-#define d 31
+#define d 5
 
 /// moving_average's state
 typedef struct {

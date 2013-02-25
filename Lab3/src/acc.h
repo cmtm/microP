@@ -7,3 +7,7 @@
 
 void acc_init(void);
 void acc_read(int32_t* accData);
+<<<<<<< HEAD
+=======
+void acc_clearLatch(void);
+>>>>>>> lab3 complete and some report

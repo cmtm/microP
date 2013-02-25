@@ -15,6 +15,7 @@
 
   <project>
     <PathAndName>..\..\..\..\..\Desktop\STM32F4-Discovery_FW_V1.1.0\Project\Peripheral_Examples\TIM_TimeBase\MDK-ARM\TIM_TimeBase.uvproj</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>

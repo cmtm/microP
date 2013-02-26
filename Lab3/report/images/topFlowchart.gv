@@ -1,0 +1,66 @@
+digraph mainFlowchart {
+
+	node [shape=box];
+	initA [label="Initialize local state"];
+	initB [label="Initialize peripherals\nand enable interrupts"];
+
+	start [shape=oval]
+	start -> initA -> initB;
+	
+	subgraph cluster_time_irq{
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		ti0 [shape=parallelogram, label = "Wait for interrupt"];
+		ti1 [label="Clear interrupt flag"];
+		ti2 [label="Increment \"ticks\"", color=firebrick1];
+		ti0 -> ti1 -> ti2;
+		ti2 -> ti0 [contraint=false];
+		label = "TIM3 IRQ";
+	}
+	
+	subgraph cluster_tap_irq{
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		ta0 [shape=parallelogram, label = "Wait for interrupt"];
+		ta1 [label="Clear interrupt flag"];
+		ta2 [label="Set \"gotTap\" to 50", color=forestgreen];
+		ta0 -> ta1 -> ta2;
+		ta2 -> ta0 [contraint=false];
+		label = "Tap IRQ";
+	}
+
+	subgraph cluster_main {
+		node [style=filled];
+		m0 [label="Wait for ticks", shape=parallelogram, color=firebrick1];
+		m1 [label="Check value of\n\"gotTap\"", shape=diamond, color=forestgreen];
+		
+		m2 [label="gotTap--", color=forestgreen];
+		m3 [label="Toggle LEDs and clear\naccelerometer interrupt latch"];
+		
+		m4 [label="Read accelerometer data"];
+		m5 [label="Pipe it through filter"];
+		m5 [label="Compute angles and print them"];
+		
+		m0 -> m1;
+		
+		m1 -> m2 [label="> 1"];
+		m1 -> m3 [label="1"];
+		
+		m1 -> m4 [label="0"];
+		m2 -> m4;
+		m3 -> m4;
+		
+		m4 -> m5;
+		
+		m5 -> m0 [constraint=false]
+		
+		label = "Main thread";
+		color=blue
+	}
+	
+	initB -> ti0 [style=dashed, label="spawn new thread"];
+	initB -> ta0 [style=dashed, label="spawn new thread"];
+	initB -> m0;
+}

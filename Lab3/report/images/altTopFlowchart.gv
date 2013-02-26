@@ -1,0 +1,38 @@
+digraph mainFlowchart {
+
+	node [shape=box];
+
+	subgraph cluster_main {
+		node [style=filled];
+		m0 [label="Wait for ticks or gotTap", shape=parallelogram, color=gold];
+		m1 [label="Check value of\n\"gotTap\"", shape=diamond, color=forestgreen];
+		
+		m2 [label="gotTap--", color=forestgreen];
+		m3 [label="Toggle LEDs and clear\naccelerometer interrupt latch"];
+		
+		m4 [label="Is \"ticks\" non-zero?", color=firebrick1];
+		m6 [label="Read accelerometer data"];
+		m5 [label="Pipe it through filter"];
+		m5 [label="Compute angles and print them"];
+		
+		m0 -> m1;
+		
+		m1 -> m2 [label="> 1"];
+		m1 -> m3 [label="1"];
+		
+		m1 -> m4 [label="0"];
+		m2 -> m4;
+		m3 -> m4;
+		
+		m4 -> m6 [label="Yes"];
+		m4 -> m0 [label="No"];
+		
+		m6 -> m5;
+		
+		m5 -> m0 [constraint=false]
+		
+		label = "Main thread";
+		color=blue
+	}
+
+}

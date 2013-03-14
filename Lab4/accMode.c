@@ -1,7 +1,12 @@
 #include "accMode.h"
 
+void dma_init() {
+	
+}
+
 void aM_init() {
 	acc_init();
+	dma_init();
 }
 
 typedef enum {
@@ -14,7 +19,7 @@ osSemaphoreDef(accSema);
 
 static Mode currentMode = ANGLE;
 
-osSemaphoreId accSema;
+volatile osSemaphoreId accSema;
 	
 static void aM_setLEDs() {
 	
@@ -27,9 +32,7 @@ static void aM_setLEDs() {
 }
 
 void aM_run(const void* args) {
-	static int countToBlink = 0;
 	static int debouncing = 0;
-	static FilterState filterState = {0};
 
 	
 	switch(currentMode) {

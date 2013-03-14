@@ -15,7 +15,7 @@ static Mode currentMode = TEMP_DISPLAY;
 static LED_state flashState = ON;
 static float temp = 0.0;
 
-osSemaphoreId tempSema;
+volatile osSemaphoreId tempSema;
 
 void tM_init() {
 	ADC_init();

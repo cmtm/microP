@@ -7,7 +7,7 @@
 #include "moving_average.h"
 #include "cmsis_os.h"
 
-extern osSemaphoreId accSema;
+extern volatile osSemaphoreId accSema;
 
 void aM_init(void);
 

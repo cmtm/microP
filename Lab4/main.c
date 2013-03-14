@@ -8,23 +8,67 @@
 #include "accMode.h"
 #include "tempMode.h"
 
+volatile osThreadId mainThread;
+
+typedef enum {
+	TEMP_MODE, 
+	ACC_MODE
+} Mode;
+
+void EXTI0_IRQHandler(void) {
+	EXTI_ClearFlag(LIS302DL_SPI_INT1_EXTI_LINE);
+	osSignalSet(mainThread, 0x1);
+
+}
+
 /*!
  @brief Program entry point
  */
 int main (void) {
+	Mode currentMode;
+	mainThread = osThreadGetId();
+	
 	LED_init();
 	buttonInit();
 	tM_init();
 	aM_init();
-
 	
-	osTimerDef (TEMP_TIMER, tM_run);
-	osTimerId tempTimerID = osTimerCreate( osTimer (TEMP_TIMER), osTimerPeriodic, NULL);
+	// lock both mode semaphores
+	osSemaphoreWait( tempSema, osWaitForever);
+	osSemaphoreWait( accSema, osWaitForever);
 	
-	osTimerStart(tempTimerID, 50);
+	// start threads
+	osTimerDef (tempTimer, tM_run);
+	osTimerId tempTimer = osTimerCreate( osTimer (tempTimer), osTimerPeriodic, NULL);
+	osTimerDef (accTimer, aM_run);
+	osTimerId accTimer = osTimerCreate( osTimer (accTimer), osTimerPeriodic, NULL);
 	
-	// The below doesn't really need to be in a loop
-	while(1);
+	osTimerStart(tempTimer, 50);
+	osTimerStart(accTimer, 50);
+	
+	// start in TEMP_MODE
+	currentMode = TEMP_MODE;
+	osSemaphoreRelease( tempSema);
+	
+	
+	while(1) {
+		osSignalWait(0x1, osWaitForever);
+		
+		switch( currentMode) {
+			case TEMP_MODE:
+				osSemaphoreWait( tempSema, osWaitForever);
+				acc_clearLatch();
+				osSemaphoreRelease(accSema);
+				currentMode = ACC_MODE;				
+			break;
+			case ACC_MODE:
+				osSemaphoreWait( accSema, osWaitForever);
+				acc_clearLatch();
+				osSemaphoreRelease(tempSema);
+				currentMode = TEMP_MODE;
+			break;
+		}		
+	}
 }
 
 void thread (void const *argument) {

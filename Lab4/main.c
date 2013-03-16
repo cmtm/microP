@@ -18,7 +18,6 @@ typedef enum {
 void EXTI0_IRQHandler(void) {
 	EXTI_ClearFlag(LIS302DL_SPI_INT1_EXTI_LINE);
 	osSignalSet(mainThread, 0x1);
-
 }
 
 /*!
@@ -33,7 +32,7 @@ int main (void) {
 	tM_init();
 	aM_init();
 	
-	// lock both mode semaphores
+	// lock both mode semaphores, they are both in "used" mode
 	osSemaphoreWait( tempSema, osWaitForever);
 	osSemaphoreWait( accSema, osWaitForever);
 	
@@ -52,30 +51,29 @@ int main (void) {
 	
 	
 	while(1) {
+        //will start and wait for a tap before anything happends
+        //it will run the threads though
 		osSignalWait(0x1, osWaitForever);
-		
+        
+        // once we're past here, it means a tap has been detected!
+        
 		switch( currentMode) {
 			case TEMP_MODE:
+                // we wait until the semaphore becomes available
 				osSemaphoreWait( tempSema, osWaitForever);
 				acc_clearLatch();
 				osSemaphoreRelease(accSema);
-				currentMode = ACC_MODE;				
+				currentMode = ACC_MODE;
+                //when tapping occurs, show that it did because now the mode is something else
+                printf("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");            
 			break;
-			case ACC_MODE:
+			case ACC_MODE:                
 				osSemaphoreWait( accSema, osWaitForever);
 				acc_clearLatch();
 				osSemaphoreRelease(tempSema);
 				currentMode = TEMP_MODE;
+              printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
 			break;
 		}		
-	}
-}
-
-void thread (void const *argument) {
-	while(1){
-		osDelay(1000);
-		GPIOD->BSRRL = GPIO_Pin_12;
-		osDelay(1000);
-		GPIOD->BSRRH = GPIO_Pin_12;
 	}
 }

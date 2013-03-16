@@ -1,0 +1,4 @@
+--cpu Cortex-M4.fp ".\obj\startup_stm32f4xx.o" ".\obj\main.o" ".\obj\movavfilter.o" ".\obj\debugprinting.o" ".\obj\moving_average_test_vector.o" 
+--ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\lst\Lab1SampleProject.map" -o .\obj\Lab1SampleProject.axf

@@ -76,8 +76,8 @@ static void interruptEnable() {
 	
 	/* Enable and set EXTI Line0 Interrupt to the lowest priority */
 	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x01;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 	
@@ -95,6 +95,19 @@ void acc_read(int32_t* accData) {
 	
 	LIS302DL_ReadACC(accData);
 	
+	acc_calibrate(accData);
+}
+
+void acc_convert(uint8_t* in, int32_t* out) {
+    for(int i=0; i < 3; i++){
+        *out =(int32_t)(LIS302DL_SENSITIVITY_2_3G *  (int8_t)in[2*i]);
+        out++;
+    }
+}
+
+void acc_calibrate(int32_t* accData) {
+    
+    
 	accData[0] += X_OFFSET;
 	accData[1] += Y_OFFSET;
 	accData[2] += Z_OFFSET;
@@ -107,5 +120,4 @@ void acc_read(int32_t* accData) {
 	accData[1] /= Y_SCALE;
 	accData[2] /= Z_SCALE;
 }
-
 

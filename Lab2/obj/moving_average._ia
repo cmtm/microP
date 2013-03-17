@@ -1,0 +1,5 @@
+--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork 
+-I C:\Keil\ARM\RV31\INC 
+-I C:\Keil\ARM\CMSIS\Include 
+-I C:\Keil\ARM\Inc\ST\STM32F4xx 
+--list ".\lst\moving_average.lst" --xref -o ".\obj\moving_average.o" --depend ".\obj\moving_average.d" "src\moving_average.s"

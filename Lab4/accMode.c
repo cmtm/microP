@@ -74,7 +74,19 @@ void displayTiltDirection(int32_t* accData) {
 }
 
 void displayMotionDirection(int32_t* deltaAcc) {
+	LED_state leds[4] = {OFF, OFF, OFF, OFF};
 	
+	if (deltaAcc[1] > 100)
+		leds[0] = ON;
+	else if (deltaAcc[1] < -100)
+		leds[2] = ON;
+	
+	if (deltaAcc[0] > 100)
+		leds[1] = ON;
+	else if (deltaAcc[0] < -100)
+		leds[3] = ON;
+	
+	LED_set_ar(leds);
 }
 
 void printAngles(int32_t* accData) {
@@ -174,7 +186,7 @@ void aM_run(const void* args) {
 					deltaAcc[i] = accData[i] - filteredAccData[i];
 				
 				if( osSemaphoreWait(accSema, 0)) {
-					displayMotionDirection(filteredAccData);
+					displayMotionDirection(deltaAcc);
 					if( buttonWasPushed() )
 						currentMode = ANGLE;
 					osSemaphoreRelease(accSema);

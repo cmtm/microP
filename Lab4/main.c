@@ -66,12 +66,14 @@ int main (void) {
 			case TEMP_MODE:
                 // we wait until the semaphore becomes available
 				osSemaphoreWait( tempSema, osWaitForever);
+				osDelay	(500);
 				acc_clearLatch();
 				osSemaphoreRelease(accSema);
 				currentMode = ACC_MODE;           
 			break;
 			case ACC_MODE:                
 				osSemaphoreWait( accSema, osWaitForever);
+				osDelay	(500);
 				acc_clearLatch();
 				osSemaphoreRelease(tempSema);
 				currentMode = TEMP_MODE;

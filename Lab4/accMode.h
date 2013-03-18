@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdio.h>
 #include <math.h>
 #include "acc.h"
 #include "button.h"

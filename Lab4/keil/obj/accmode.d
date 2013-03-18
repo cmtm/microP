@@ -1,5 +1,6 @@
 .\obj\accmode.o: ..\accMode.c
 .\obj\accmode.o: ..\accMode.h
+.\obj\accmode.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 .\obj\accmode.o: C:\Keil\ARM\ARMCC\bin\..\include\math.h
 .\obj\accmode.o: ..\acc.h
 .\obj\accmode.o: ../CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h

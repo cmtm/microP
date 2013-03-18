@@ -1,9 +1,5 @@
-#include "stm32f4xx.h"
-#include "stm32f4xx_dma.h"
-#include "stm32f4_discovery_lis302dl.h"
-#include "moving_average.h"
+#include "dma.h"
 
-	
 void dma_init(void)	{
     
    // SPI_InitTypeDef  SPI_InitStructure;
@@ -55,8 +51,4 @@ void dma_init(void)	{
   
 	//enable receiving
 	DMA_ITConfig(DMA2_Stream0, DMA_IT_TC, ENABLE);
-	
-	
 }
-
-

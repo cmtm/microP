@@ -1,4 +1,5 @@
-.\obj\dma.o: ..\DMA.c
+.\obj\dma.o: ..\dma.c
+.\obj\dma.o: ..\dma.h
 .\obj\dma.o: ../CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 .\obj\dma.o: ../inc/core_cm4.h
 .\obj\dma.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h

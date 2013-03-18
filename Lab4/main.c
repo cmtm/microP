@@ -1,14 +1,13 @@
-#include "arm_math.h"
+#include <stdio.h>
 
 #include "stm32f4xx.h"
 #include "cmsis_os.h"
+#include "TIM3.h"
 
-#include "LED.h"
-#include "button.h"
 #include "accMode.h"
 #include "tempMode.h"
 
-volatile osThreadId mainThread;
+volatile osThreadId mainThread_ID;
 
 typedef enum {
 	TEMP_MODE, 
@@ -17,7 +16,13 @@ typedef enum {
 
 void EXTI0_IRQHandler(void) {
 	EXTI_ClearFlag(LIS302DL_SPI_INT1_EXTI_LINE);
-	osSignalSet(mainThread, 0x1);
+	osSignalSet(mainThread_ID, 0x1);
+}
+
+void TIM3_IRQHandler(void) {
+	TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+	osSignalSet(accThread_ID, 0x1);
+	osSignalSet(tempThread_ID, 0x1);	
 }
 
 /*!
@@ -25,7 +30,13 @@ void EXTI0_IRQHandler(void) {
  */
 int main (void) {
 	Mode currentMode;
-	mainThread = osThreadGetId();
+	mainThread_ID = osThreadGetId();
+	
+	// start threads. Low priority ensures main will finish
+	osThreadDef (tM_run, osPriorityBelowNormal, 1, 0);
+	tempThread_ID = osThreadCreate( osThread (tM_run), NULL);
+	osThreadDef (aM_run, osPriorityBelowNormal, 1, 0);
+	accThread_ID = osThreadCreate( osThread (aM_run), NULL);
 	
 	LED_init();
 	buttonInit();
@@ -36,19 +47,13 @@ int main (void) {
 	osSemaphoreWait( tempSema, osWaitForever);
 	osSemaphoreWait( accSema, osWaitForever);
 	
-	// start threads
-	osTimerDef (tempTimer, tM_run);
-	osTimerId tempTimer = osTimerCreate( osTimer (tempTimer), osTimerPeriodic, NULL);
-	osTimerDef (accTimer, aM_run);
-	osTimerId accTimer = osTimerCreate( osTimer (accTimer), osTimerPeriodic, NULL);
-	
-	osTimerStart(tempTimer, 50);
-	osTimerStart(accTimer, 50);
+
 	
 	// start in TEMP_MODE
 	currentMode = TEMP_MODE;
 	osSemaphoreRelease( tempSema);
 	
+	TIM3_Init(20);
 	
 	while(1) {
         //will start and wait for a tap before anything happends
@@ -63,16 +68,13 @@ int main (void) {
 				osSemaphoreWait( tempSema, osWaitForever);
 				acc_clearLatch();
 				osSemaphoreRelease(accSema);
-				currentMode = ACC_MODE;
-                //when tapping occurs, show that it did because now the mode is something else
-                printf("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");            
+				currentMode = ACC_MODE;           
 			break;
 			case ACC_MODE:                
 				osSemaphoreWait( accSema, osWaitForever);
 				acc_clearLatch();
 				osSemaphoreRelease(tempSema);
 				currentMode = TEMP_MODE;
-              printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
 			break;
 		}		
 	}

@@ -52,11 +52,11 @@ static void interruptEnable() {
 	LIS302DL_Write( &ctrl, LIS302DL_CLICK_THSZ_REG_ADDR, 1);
 	
 	//set the timing
-	ctrl=0x00;
+	ctrl=0x01;
 	LIS302DL_Write( &ctrl, LIS302DL_CLICK_TIMELIMIT_REG_ADDR, 1);
 	
-	// ctrl = 0x00;
-	// LIS302DL_Write( &ctrl, LIS302DL_CLICK_LATENCY_REG_ADDR, 1);
+	ctrl = 0x00;
+	LIS302DL_Write( &ctrl, LIS302DL_CLICK_LATENCY_REG_ADDR, 1);
 	// ctrl = 0x00;
 	// LIS302DL_Write( &ctrl, LIS302DL_CLICK_WINDOW_REG_ADDR, 1);	
 	
@@ -98,11 +98,12 @@ void acc_read(int32_t* accData) {
 	acc_calibrate(accData);
 }
 
-void acc_convert(uint8_t* in, int32_t* out) {
+void acc_convertRaw(uint8_t* in, int32_t* out) {
     for(int i=0; i < 3; i++){
         *out =(int32_t)(LIS302DL_SENSITIVITY_2_3G *  (int8_t)in[2*i]);
         out++;
     }
+	acc_calibrate(out);
 }
 
 void acc_calibrate(int32_t* accData) {

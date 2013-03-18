@@ -6,8 +6,10 @@
 #include "LED.h"
 #include "moving_average.h"
 #include "cmsis_os.h"
+#include "dma.h"
 
-extern volatile osSemaphoreId accSema;
+extern osSemaphoreId accSema;
+extern osThreadId accThread_ID; 
 
 void aM_init(void);
 

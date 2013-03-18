@@ -7,7 +7,8 @@
 #include "moving_average.h"
 #include "cmsis_os.h"
 
-extern volatile osSemaphoreId tempSema;
+extern osSemaphoreId tempSema;
+extern osThreadId tempThread_ID;
 
 void tM_init(void);
 

@@ -5,6 +5,18 @@ int buttonIsPushed() {
        return GPIOA->IDR & 0x0001;       
 }
 
+int buttonWasPushed() {
+	static int isDown = 0;
+	
+	if( !isDown && buttonIsPushed() ) {
+		isDown = 1;
+	} else if ( isDown && !buttonIsPushed() ) {
+		isDown = 0;
+		return 1;
+	}
+	return 0;
+}
+
 void buttonInit() {
 	
 	GPIO_InitTypeDef GPIO_InitStruct;

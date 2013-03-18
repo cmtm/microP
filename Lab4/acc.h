@@ -11,4 +11,4 @@ void acc_init(void);
 void acc_read(int32_t* accData);
 void acc_clearLatch(void);
 void acc_calibrate(int32_t* accData);
-void acc_convert(uint8_t* in, int32_t* out);
+void acc_convertRaw(uint8_t* in, int32_t* out);

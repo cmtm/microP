@@ -43,3 +43,4 @@
 .\obj\accmode.o: ..\moving_average.h
 .\obj\accmode.o: ../inc/cmsis_os.h
 .\obj\accmode.o: C:\Keil\ARM\ARMCC\bin\..\include\stddef.h
+.\obj\accmode.o: ..\dma.h

@@ -1,6 +1,8 @@
 #include "LED.h"
 
-
+void LED_set_ar(LED_state* ss) {
+	LED_set(ss[0], ss[1], ss[2], ss[3]);
+}
 
 void LED_set(LED_state s0, LED_state s1, LED_state s2, LED_state s3) {
 

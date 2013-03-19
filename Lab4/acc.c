@@ -48,7 +48,7 @@ static void interruptEnable() {
 	LIS302DL_Write( &ctrl,LIS302DL_CTRL_REG3_ADDR, 1);
 	
 	//initialise the interrupt for values bigger than that threshold on Z threshold
-	ctrl=0x0f;
+	ctrl=0x04;
 	LIS302DL_Write( &ctrl, LIS302DL_CLICK_THSZ_REG_ADDR, 1);
 	
 	//set the timing

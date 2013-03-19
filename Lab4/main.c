@@ -7,6 +7,11 @@
 #include "accMode.h"
 #include "tempMode.h"
 
+#define ACC_FREQ 100
+#define TEMP_FREQ 20
+
+#define FREQ_RATIO (ACC_FREQ / TEMP_FREQ)
+
 volatile osThreadId mainThread_ID;
 
 typedef enum {
@@ -21,8 +26,15 @@ void EXTI0_IRQHandler(void) {
 
 void TIM3_IRQHandler(void) {
 	TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+	
+	static int count = FREQ_RATIO;
+	if (count <= 1) {
+		count = FREQ_RATIO;
+		osSignalSet(tempThread_ID, 0x1);
+	} else
+		count--;	
+	
 	osSignalSet(accThread_ID, 0x1);
-	osSignalSet(tempThread_ID, 0x1);	
 }
 
 /*!
@@ -53,7 +65,7 @@ int main (void) {
 	currentMode = TEMP_MODE;
 	osSemaphoreRelease( tempSema);
 	
-	TIM3_Init(20);
+	TIM3_Init(ACC_FREQ);
 	
 	while(1) {
         //will start and wait for a tap before anything happends

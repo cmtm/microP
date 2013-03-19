@@ -517,9 +517,24 @@
               <FilePath>..\accMode.h</FilePath>
             </File>
             <File>
-              <FileName>DMA.c</FileName>
+              <FileName>dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\DMA.c</FilePath>
+              <FilePath>..\dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>dma.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\dma.h</FilePath>
+            </File>
+            <File>
+              <FileName>TIM3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\TIM3.c</FilePath>
+            </File>
+            <File>
+              <FileName>TIM3.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\TIM3.h</FilePath>
             </File>
           </Files>
         </Group>

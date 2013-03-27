@@ -1,0 +1,119 @@
+digraph mainFlowchart {
+
+	node [shape=box];
+	initA [label="Initialize local state"];
+	initB [label="Initialize peripherals\nand enable interrupts.\nCreate threads."];
+
+	start [shape=oval]
+	start -> initA -> initB;
+	
+	subgraph cluster_time_irq{
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		ti0 [shape=parallelogram, label = "Wait for TIM3 to elapse"];
+		ti1 [label="Clear interrupt flag"];
+		ti2 [label="Signal accThread", color=firebrick1];
+		ti3 [label="Signal LEDThread", color=gold];
+		ti0 -> ti1 -> ti2 -> ti3;
+		
+		ti3 -> ti0 [constraint=false];
+		label = "TIM3 IRQ";
+	}
+	
+		
+	subgraph cluster_dma_irq{
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		d0 [shape=parallelogram, label = "Wait for DMA transfer\n to complete"];
+		d1 [label="Clear interrupt flag"];
+		d2 [label="Signal mainThread", color=dodgerblue];
+		d0 -> d1 -> d2;
+		d2 -> d0 [contraint=false];
+		label = "DMA IRQ";
+	}
+
+	subgraph cluster_main {
+		node [style=filled];
+		m0 [label="Wait on signal from\nTIM3 IRQ", shape=parallelogram];
+		m1 [label="Start DMA"]
+		m2 [label="Wait on signal\nfrom DMA IRQ", shape=parallelogram];
+		m3 [label="Convert and calibrate\nDMA data"];
+		m4 [label="Current mode?", shape=diamond];
+		m0 -> m1 -> m2 -> m3 -> m4;
+		
+		ma5 [label="Pack accData into message"];
+		ma6 [label="Send accData message\nto wirelessThread", shape=parallelogram];
+		ma5 -> ma6;
+		
+		mb5 [label="Wait on message\nfrom wirelessThread", shape=parallelogram];
+		mb6 [label="Unpack accData from wireless"];
+		mb7 [label="Compare both accDatas"];
+		mb8 [label="Signal LEDthread with\ncomparison result"];
+		mb5 -> mb6 -> mb7 -> mb8;
+
+		
+		m4 -> ma5 [label="MASTER"];
+		m4 -> mb5 [label="SLAVE"];
+		
+		//ma6 -> m0 [constraint=false]
+		//mb8 -> m0 [constraint=false]
+		
+		label = "Main thread";
+		color=blue
+	}
+	
+	subgraph cluster_wirelessThread{
+		w0 [label="Current mode?", shape=diamond];
+		
+		wa1 [label="Wait for wireless data", shape=parallelogram]
+		wa2 [label="Send recieved data to mainThread", shape=parallelogram]
+		wa1->wa2;
+		
+		wb1 [label="Wait for message from mainThread", shape=parallelogram]
+		wb2 [label="Send recieved data to over wireless", shape=parallelogram]
+		wb1->wb2;
+		
+		w0->wa1;
+		w0->wb1;
+		
+		//wa2 -> w0 [constraint=false];
+		//wb2 -> w0 [constraint=false];
+		label = "wireless thread";
+		color=blue
+	}
+	
+	subgraph cluster_LEDthread {
+		node [style=filled];
+		
+		h0 [label="Wait on signal from\nTIM3 IRQ", shape=parallelogram];
+		h1 [label="Check signal flags for currentMode"];
+		h2 [label="Current mode?", shape=diamond];
+		h0->h1->h2;
+
+		ha3 [label="Set all LEDs to off", shape=parallelogram];
+		
+		hb3 [label="Switch all LEDs\nto FLASH_STATE", shape=parallelogram];
+		hb4 [label="toggle FLASH_STATE\nif period elapsed"];
+		hb3->hb4;
+		
+		
+
+		h2 -> ha3 [label="SLAVE angles don't match"];
+		h2 -> hb3 [label="SLAVE angles match"];
+	
+		//ha3 -> h0 [constraint=false];
+		//hb4 -> h0 [constraint=false];
+
+		
+		label = "LED thread";
+		color=blue
+	}
+	
+	initB -> ti0 [style=dashed, label="spawn new thread"];
+	initB -> d0 [style=dashed, label="spawn new thread"];
+	initB -> h0 [style=dashed, label="spawn new thread"];
+	initB -> w0 [style=dashed, label="spawn new thread"];
+	initB -> m0;
+}

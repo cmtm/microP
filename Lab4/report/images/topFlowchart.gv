@@ -1,0 +1,147 @@
+digraph mainFlowchart {
+
+	node [shape=box];
+	initA [label="Initialize local state"];
+	initB [label="Initialize peripherals\nand enable interrupts.\nCreate threads."];
+
+	start [shape=oval]
+	start -> initA -> initB;
+	
+	subgraph cluster_time_irq{
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		ti0 [shape=parallelogram, label = "Wait for TIM3 to elapse"];
+		ti1 [label="Clear interrupt flag"];
+		ti2 [label="Signal accThread", color=firebrick1];
+		ti3 [label="Signal tempThread every 5th\ntime this is entered", color=gold];
+		ti0 -> ti1 -> ti2 -> ti3;
+		ti3 -> ti0 [contraint=false];
+		label = "TIM3 IRQ";
+	}
+	
+	subgraph cluster_tap_irq{
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		ta0 [shape=parallelogram, label = "Wait for interrupt"];
+		ta1 [label="Clear interrupt flag"];
+		ta2 [label="Signal main thread", color=forestgreen];
+		ta0 -> ta1 -> ta2;
+		ta2 -> ta0 [contraint=false];
+		label = "Tap IRQ";
+	}
+	
+	subgraph cluster_dma_irq{
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		d0 [shape=parallelogram, label = "Wait for DMA transfer\n to complete"];
+		d1 [label="Clear interrupt flag"];
+		d2 [label="Signal accThread", color=dodgerblue];
+		d0 -> d1 -> d2;
+		d2 -> d0 [contraint=false];
+		label = "DMA IRQ";
+	}
+
+	subgraph cluster_main {
+		node [style=filled];
+		m0 [label="Wait on signal from\nTap IRQ", shape=parallelogram];
+		m1 [label="Current mode?", shape=diamond];
+		m0 -> m1;
+		
+		ma2 [label="Wait on tempSema", shape=parallelogram];
+		ma3 [label="Clear accelerometer\ninterrupt latch"];
+		ma4 [label="Release accSema"];
+		ma5 [label="Switch current mode\nto ACC_MODE"];
+		ma2 -> ma3 -> ma4 -> ma5;
+		
+		mb2 [label="Wait on accSema", shape=parallelogram];
+		mb3 [label="Clear accelerometer\ninterrupt latch"];
+		mb4 [label="Release tempSema"];
+		mb5 [label="Switch current mode\nto TEMP_MODE"];
+		mb2 -> mb3 -> mb4 -> mb5;
+
+		
+		m1 -> ma2 [label="TEMP_MODE"];
+		m1 -> mb2 [label="ACC_MODE"];
+		
+		ma5 -> m0 [constraint=false]
+		mb5 -> m0 [constraint=false]
+		
+		label = "Main thread";
+		color=blue
+	}
+	
+	subgraph cluster_accThread {
+		node [style=filled];
+		a0 [label="Wait on signal from\nTIM3 IRQ", shape=parallelogram];
+		a1 [label="instruct DMA\nto move data"];
+		a2 [label="Wait on signal\nfrom DMA IRQ", shape=parallelogram];
+		a3 [label="Convert and calibrate\nDMA data"];
+		a4 [label="Current sub-mode?", shape=diamond]
+		a0->a1->a2->a3->a4;
+		
+		aa5 [label="Wait on accSema", shape=parallelogram]
+		aa6 [label="Display tilt direction", shape=parallelogram];
+		aa7 [label="Check for button push\nand toggle sub-modes if\nitoccured", shape=parallelogram];
+		aa8 [label="Release accSema", shape=parallelogram];
+		aa5->aa6->aa7->aa8;
+		
+		ab5 [label="Wait on accSema", shape=parallelogram]
+		ab6 [label="Display motion", shape=parallelogram];
+		ab7 [label="Check for button push\nand toggle sub-modes if\nitoccured", shape=parallelogram];
+		ab8 [label="Release accSema", shape=parallelogram];
+		ab5->ab6->ab7->ab8;
+
+		
+		a4 -> aa5 [label="ANGLE"];
+		a4 -> ab5 [label="MOTION"];
+		
+		aa8 -> a0 [constraint=false];
+		ab8 -> a0 [constraint=false];
+
+		
+		label = "accelerometer thread";
+		color=blue
+	}
+	
+	subgraph cluster_tempThread {
+		node [style=filled];
+		
+		h0 [label="Wait on signal from\nTIM3 IRQ", shape=parallelogram];
+		h1 [label="Current sub-mode?", shape=diamond]
+		h0->h1;
+		
+		ha2 [label="compute moving average\nof temp data"]
+		ha3 [label="Wait on tempSema", shape=parallelogram]
+		ha4 [label="Display temperature", shape=parallelogram];
+		ha5 [label="Check for button push\nand toggle sub-modes if\nitoccured", shape=parallelogram];
+		ha6 [label="Release tempSema", shape=parallelogram];
+		ha2->ha3->ha4->ha5->ha6;
+		
+		hb2 [label="Wait on accSema", shape=parallelogram]
+		hb3 [label="Switch all LEDs\nFLASH_STATE", shape=parallelogram];
+		hb4 [label="Check for button push\nand toggle sub-modes if\nitoccured", shape=parallelogram];
+		hb5 [label="Release accSema", shape=parallelogram];
+		hb6 [label="toggle FLASH_STATE\nif period elapsed"];
+		hb2->hb3->hb4->hb5->hb6;
+
+		h1 -> ha2 [label="TEMP_DISPLAY"];
+		h1 -> hb2 [label="FLASHING"];
+	
+		ha6 -> h0 [constraint=false];
+		hb6 -> h0 [constraint=false];
+
+		
+		label = "temperature thread";
+		color=blue
+	}
+	
+	initB -> ti0 [style=dashed, label="spawn new thread"];
+	initB -> ta0 [style=dashed, label="spawn new thread"];
+	initB -> d0 [style=dashed, label="spawn new thread"];
+	initB -> a0 [style=dashed, label="spawn new thread"];
+	initB -> h0 [style=dashed, label="spawn new thread"];
+	initB -> m0;
+}

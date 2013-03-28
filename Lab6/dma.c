@@ -49,6 +49,8 @@ void SPI_DMA_xfer(uint8_t* write_buff, uint8_t* read_buff, GPIO_TypeDef* GPIOx, 
 	DMA2_Stream0->CR |= DMA_SxCR_EN;
 	DMA2_Stream3->CR |= DMA_SxCR_EN;
 	
+	// wait for DMA to finish
+	osSignalWait(0x2, osWaitForever);	
 }
 
 // convinience function

@@ -1,15 +1,23 @@
 #pragma once
 
+#include <stdint.h>
+
 /// @file moving_average.h
 
 /// window depth
-#define d 50
+#define d 10
 
 /// moving_average's state
+// typedef struct {
+// 	float circBuf[d];
+// 	int tail;
+// 	float yPrevious;	
+// } FilterState;
+
 typedef struct {
-	float circBuf[d];
+	int16_t circBuf[d];
 	int tail;
-	float yPrevious;	
+	int16_t yPrevious;	
 } FilterState;
 
 /// filters input with a moving average function
@@ -21,5 +29,5 @@ typedef struct {
 /// @param newSample latest signal sample
 /// @param state state of filter computation
 /// @return latest sample of filtered signal
-float moving_average(float newSample, FilterState* state);
+int8_t moving_average(int8_t newSample, FilterState* state);
 

@@ -34,8 +34,6 @@ int main (void) {
 	osSemaphoreDef(dmaSema);
 	dmaSema_ID = osSemaphoreCreate(osSemaphore (dmaSema), 1);
 	
-	// start wireless thread
-	
 
 	
 	TIM3_Init(APP_FREQ);

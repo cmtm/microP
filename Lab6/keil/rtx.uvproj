@@ -437,29 +437,9 @@
               <FilePath>..\acc.c</FilePath>
             </File>
             <File>
-              <FileName>acc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\acc.h</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\ADC.h</FilePath>
-            </File>
-            <File>
               <FileName>button.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>button.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\button.h</FilePath>
             </File>
             <File>
               <FileName>fputc_debug.c</FileName>
@@ -472,16 +452,6 @@
               <FilePath>..\LED.c</FilePath>
             </File>
             <File>
-              <FileName>LED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\LED.h</FilePath>
-            </File>
-            <File>
-              <FileName>moving_average.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\moving_average.h</FilePath>
-            </File>
-            <File>
               <FileName>moving_average_c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\moving_average_c.c</FilePath>
@@ -492,39 +462,9 @@
               <FilePath>..\stm32f4_discovery_lis302dl.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4_discovery_lis302dl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\inc\stm32f4_discovery_lis302dl.h</FilePath>
-            </File>
-            <File>
-              <FileName>tempMode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\tempMode.c</FilePath>
-            </File>
-            <File>
-              <FileName>tempMode.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\tempMode.h</FilePath>
-            </File>
-            <File>
-              <FileName>accMode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\accMode.c</FilePath>
-            </File>
-            <File>
-              <FileName>accMode.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\accMode.h</FilePath>
-            </File>
-            <File>
               <FileName>dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>dma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\dma.h</FilePath>
             </File>
             <File>
               <FileName>TIM3.c</FileName>
@@ -532,9 +472,24 @@
               <FilePath>..\TIM3.c</FilePath>
             </File>
             <File>
-              <FileName>TIM3.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\TIM3.h</FilePath>
+              <FileName>globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\globals.c</FilePath>
+            </File>
+            <File>
+              <FileName>wirelessDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\wirelessDriver.c</FilePath>
+            </File>
+            <File>
+              <FileName>master.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\master.c</FilePath>
+            </File>
+            <File>
+              <FileName>slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\slave.c</FilePath>
             </File>
           </Files>
         </Group>

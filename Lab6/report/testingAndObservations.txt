@@ -1,0 +1,16 @@
+To test the system, we ran the program on the board while trying to throw all the corner cases at it. Because of the system’s simplicity, there weren't many corner cases. We tapped and shook the device many times and made sure it was still behaving properly.
+
+=== Calibration
+Once we had the program up and running, we needed to compute the calibration constants. We "short circuited" the print statement to print out filtered accelerometer values instead of angles. We set the filter depth to an arbitrary large number (we chose 300) and waited for the filter value to converge while holding it in each of the three positions that lined up the direction base vectors with gravity. Having a large filter depth gave us an average of the accelerometer readings. This saved us the trouble of computing the average of the raw data using another method. We then used the method described in the theory section [link?] to compute the calibration constants.
+
+=== Timer
+We set the timer period to trigger interrupts at a frequency of 1Hz. This was so we could validate our period equation as validating a frequency of 100Hz required very fast fingers on the stop watch. We got some strange results and our timer was initially going four times too fast. We were aware of various problems groups had with the timer, but even after looking at the documentation and finding the relevant clocks and referencing their values from the libraries directly, our timer was too fast by a factor of 1.5. After hours of trials and sifting through documentation, we decided to put a fudge factor in our equation and leave it at that. Once this was fixed, we got a very stable interupt frequency. We tested the interrupt frequency at 100 Hz by incrementing a counter at each interrupt and measuring the time elapsed after 1000 interrupts. This should have taken 10 seconds and we measured 10.2.
+
+Another way to test the running time of the timer was to break in the code and see how much time has elapsed. This method gave us garbage values. We suspect that the TIM3 timer being an external hardware timer made it not play nice with the debugger.
+
+=== Tap detection
+The tap detection was initially way to sensitive: a single tap would cause the LEDs the flicker as the board received many interrupts. This occurred even at the lowest sensitivity. After making the interrupt latch, we got better behavior, but a single tap still often triggered two interrupts causing the LEDs to quickly toggle state twice. Our last modification, adding debouncing to the main program flow, cause much better behavior.
+
+On average, our device accurately responded to 8 out of 10 taps (an inaccurate response being either the LEDs toggling then returning to their initial state of no response at all). The way the device was tapped affected the accuracy: gently taps yielded better success rates. <<tap table>> shows the success rate versus "tap strength".
+
+[[insert table]]

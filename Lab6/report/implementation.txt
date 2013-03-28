@@ -1,0 +1,36 @@
+The required structure of this lab shared much in common with lab 2 so we decided to use that as a starting point. After modifying the main program loop from lab 2 to suit our needs, we worked on configuring the peripherals and reading from them. We also had to enable interrupt functionality for the timer and the accelerometer. Once we had this working, we calibrated the accelerometer and then determined the ideal window depth for the moving average filter.
+
+=== Program Flow
+The program flow consists of three threads. Here they are ordered in descending execution priority.
+-The timer inerrupt handler
+-The tap interrupt handler
+-The main thread
+
+The default thread is the main thread; when the interrupt threads have nothing to do, the CPU executes the main thread. Minimal time is spent in the interrupt handlers and they only set a flag and then clear their respective interrupts when called. The main thread looks for changes in these flags and reacts accordingly. The program flow and the interaction between the processes is summarized in <<flowchart>>.
+
+[[INSERT SEXY FLOWCHART]]
+
+It should be noted that this program isn't thread safe. Making the the program thread safe while respecting the requirements (keep interrupt handlers fast) wasn't feasible without temporarily disabling interrupts (which would defeating the purpose of having them) or using some form of mutex. Because of the nature of the program flow, it can be shown that the program will always get back on it's feet even though there might be a collision. We decided to accept the occasional glitch in the name of simplicity.
+
+An alternative to our design would be to have the main thread wait for either the timer flag or the tap flag instead of just waiting for the timer flag and checking for the tap flag then. This program flow can be seen in <<altFlowchart>>.
+
+[[INSERT ALT FLOWCHART]]
+
+This program flow would be more in the spirit of the interrupt driven program described in the lab, but we opted out of doing that as it introduced additional potential collisions.
+
+=== Angles
+
+==== Accelerometer calibration
+The readings from the accelerometer must be calibrated before we can use them to compute angles. We used the method described in the lab handout [reference?] to compute the relevant offsets and scaling constants[is this covered in theory?]. Because this was an offline calibration, we put the constants as +#define+s in the accelerometer file and internally passed the values through a private calibration function which used these constants whenever a reading was taken from the accelerometer.
+
+We could have instead passed the calibration constants to the accelerometer module at initialization, but then they would haven simply been +#define+s in another file and the program would suffer a speed penalty for no added functionality in our use case.
+
+==== Filter depth
+We determined in lab 2 that, given enough memory resources, the larger the depth the better. The upper bound being the response time of the filter; response time meaning how long it takes for the fitler to output to converge given fixed input. We decided that a response time of about 0.5 seconds was good for measuring angles. Since the angles were being computed at 100Hz, a filter depth of 50 would give us the required response time.
+
+==== Angle computation
+[[if this isn't covered to death in theory i'll put something here]]
+
+=== Peripheral configuration
+
+[[insert from Riham]]

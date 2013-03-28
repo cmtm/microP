@@ -1,0 +1,8 @@
+We were required to develop a program with two major functions: angle measuring and tap detection.
+
+== Angle measuring
+Using the acceleration sensors, we were required to determine the current pitch and roll of the discovery board. It isn't possible to measure the yaw while restricting oneself to the accelerometer sensor values because of the nature of trigonometry (the surface created by any sweep of the yaw angle is normal to the gravity vector [ELABORATE]). The accelerometer sensors had to be calibrated off-line and during program execution, their values were to be piped through a moving average filter. The error in the calculated angles wasn't allowed to exceed 4 [degrees]. These angles had to be measured and printed to the debug screen at least 100 times per second. A hardware timer (TIM3) was to be responsible for ensuring this timing. It had to be set to the desired frequency (over 100Hz) and was to trigger an interupt which starts the angle computation.
+(INSERT PLANE PICTURE?)
+
+== Tap detection
+The accelerometer has built in capability to detect "taps". A tap is when the device reads a sharp and transient increase in acceleration. This can be acheived by tapping the device with one's finger. We were required to configure the accelerometer to trigger interupts upon detecting a tap. The state of the LEDs (Off or On) was to be toggled when the microprocessor receives this interupt. This interupt was to have a lower priority than the TIM3 interupt. All LEDs shared the same state so a tap would turn them all on, and a subsequent tap would turn them all off. [We were not supposed to have to tap the board like 10 times in order to make it respond.]

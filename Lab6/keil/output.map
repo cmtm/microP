@@ -1,0 +1,803 @@
+ARM Linker, 5.03 [Build 24] [MDK-ARM Lite]
+
+==============================================================================
+
+Section Cross References
+
+    system_stm32f4xx.o(.text) refers to system_stm32f4xx.o(.data) for SystemCoreClock
+    startup_stm32f4xx.o(RESET) refers to startup_stm32f4xx.o(STACK) for __initial_sp
+    startup_stm32f4xx.o(RESET) refers to startup_stm32f4xx.o(.text) for Reset_Handler
+    startup_stm32f4xx.o(RESET) refers to hal_cm4.o(.emb_text) for SVC_Handler
+    startup_stm32f4xx.o(RESET) refers to main.o(.text) for TIM3_IRQHandler
+    startup_stm32f4xx.o(RESET) refers to dma.o(.text) for DMA2_Stream0_IRQHandler
+    startup_stm32f4xx.o(.text) refers to system_stm32f4xx.o(.text) for SystemInit
+    startup_stm32f4xx.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    rtx_conf_cm.o(.ARM.Collect$$$$000000FF) refers to rt_cmsis.o(i.osKernelStart) for osKernelStart
+    rtx_conf_cm.o(.ARM.Collect$$$$000000FF) refers to rtx_conf_cm.o(.constdata) for .constdata
+    rtx_conf_cm.o(.constdata) refers to rt_cmsis.o(i.osTimerThread) for osTimerThread
+    rtx_conf_cm.o(.constdata) refers to rtx_conf_cm.o(.bss) for os_messageQ_q_osTimerMessageQ
+    rtx_conf_cm.o(.constdata) refers to main.o(.text) for main
+    main.o(.text) refers to stm32f4xx_tim.o(.text) for TIM_ClearITPendingBit
+    main.o(.text) refers to rt_cmsis.o(i.osSignalSet) for osSignalSet
+    main.o(.text) refers to rt_cmsis.o(i.osThreadGetId) for osThreadGetId
+    main.o(.text) refers to button.o(.text) for buttonInit
+    main.o(.text) refers to led.o(.text) for LED_init
+    main.o(.text) refers to rt_cmsis.o(i.osSemaphoreCreate) for osSemaphoreCreate
+    main.o(.text) refers to tim3.o(.text) for TIM3_Init
+    main.o(.text) refers to rt_cmsis.o(i.osThreadCreate) for osThreadCreate
+    main.o(.text) refers to rt_cmsis.o(i.osMessageCreate) for osMessageCreate
+    main.o(.text) refers to slave.o(.text) for slave_run
+    main.o(.text) refers to globals.o(.data) for mainThread_ID
+    main.o(.text) refers to main.o(.constdata) for .constdata
+    acc.o(.text) refers to stm32f4_discovery_lis302dl.o(.text) for LIS302DL_Read
+    acc.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphClockCmd
+    acc.o(.text) refers to stm32f4xx_syscfg.o(.text) for SYSCFG_EXTILineConfig
+    acc.o(.text) refers to stm32f4xx_exti.o(.text) for EXTI_Init
+    acc.o(.text) refers to misc.o(.text) for NVIC_Init
+    button.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_AHB1PeriphClockCmd
+    button.o(.text) refers to stm32f4xx_gpio.o(.text) for GPIO_Init
+    button.o(.text) refers to button.o(.data) for isDown
+    led.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_AHB1PeriphClockCmd
+    led.o(.text) refers to stm32f4xx_gpio.o(.text) for GPIO_Init
+    stm32f4_discovery_lis302dl.o(.text) refers to stm32f4xx_spi.o(.text) for SPI_I2S_GetFlagStatus
+    stm32f4_discovery_lis302dl.o(.text) refers to stm32f4xx_gpio.o(.text) for GPIO_ResetBits
+    stm32f4_discovery_lis302dl.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphClockCmd
+    stm32f4_discovery_lis302dl.o(.text) refers to stm32f4_discovery_lis302dl.o(.data) for LIS302DLTimeout
+    dma.o(.text) refers to stm32f4xx_dma.o(.text) for DMA_GetITStatus
+    dma.o(.text) refers to stm32f4xx_gpio.o(.text) for GPIO_SetBits
+    dma.o(.text) refers to rt_cmsis.o(i.osSignalSet) for osSignalSet
+    dma.o(.text) refers to rt_cmsis.o(i.osSemaphoreRelease) for osSemaphoreRelease
+    dma.o(.text) refers to rt_cmsis.o(i.osSemaphoreWait) for osSemaphoreWait
+    dma.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_AHB1PeriphClockCmd
+    dma.o(.text) refers to stm32f4xx_spi.o(.text) for SPI_I2S_DMACmd
+    dma.o(.text) refers to misc.o(.text) for NVIC_Init
+    dma.o(.text) refers to dma.o(.data) for source_ID
+    dma.o(.text) refers to globals.o(.data) for dmaSema_ID
+    tim3.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_GetClocksFreq
+    tim3.o(.text) refers to stm32f4xx_tim.o(.text) for TIM_TimeBaseInit
+    tim3.o(.text) refers to misc.o(.text) for NVIC_Init
+    wirelessdriver.o(.text) refers to f2d.o(.text) for __aeabi_f2d
+    wirelessdriver.o(.text) refers to floor.o(i.__hardfp_floor) for __hardfp_floor
+    wirelessdriver.o(.text) refers to dadd.o(.text) for __aeabi_dadd
+    wirelessdriver.o(.text) refers to dfixui.o(.text) for __aeabi_d2uiz
+    wirelessdriver.o(.text) refers to stm32f4xx_spi.o(.text) for SPI_I2S_GetFlagStatus
+    wirelessdriver.o(.text) refers to stm32f4xx_gpio.o(.text) for GPIO_ResetBits
+    wirelessdriver.o(.text) refers to wirelessdriver.o(.data) for RF2500Timeout
+    wirelessdriver.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphClockCmd
+    stm32f4xx_adc.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphResetCmd
+    stm32f4xx_can.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB1PeriphResetCmd
+    stm32f4xx_cryp.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_AHB2PeriphResetCmd
+    stm32f4xx_cryp_aes.o(.text) refers to stm32f4xx_cryp.o(.text) for CRYP_KeyStructInit
+    stm32f4xx_cryp_des.o(.text) refers to stm32f4xx_cryp.o(.text) for CRYP_KeyStructInit
+    stm32f4xx_cryp_tdes.o(.text) refers to stm32f4xx_cryp.o(.text) for CRYP_KeyStructInit
+    stm32f4xx_dac.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB1PeriphResetCmd
+    stm32f4xx_gpio.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_AHB1PeriphResetCmd
+    stm32f4xx_hash.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_AHB2PeriphResetCmd
+    stm32f4xx_hash_md5.o(.text) refers to stm32f4xx_hash.o(.text) for HASH_DeInit
+    stm32f4xx_hash_sha1.o(.text) refers to stm32f4xx_hash.o(.text) for HASH_DeInit
+    stm32f4xx_i2c.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB1PeriphResetCmd
+    stm32f4xx_pwr.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB1PeriphResetCmd
+    stm32f4xx_rcc.o(.text) refers to stm32f4xx_rcc.o(.data) for APBAHBPrescTable
+    stm32f4xx_rng.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_AHB2PeriphResetCmd
+    stm32f4xx_sdio.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphResetCmd
+    stm32f4xx_spi.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphResetCmd
+    stm32f4xx_syscfg.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphResetCmd
+    stm32f4xx_tim.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphResetCmd
+    stm32f4xx_usart.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB2PeriphResetCmd
+    stm32f4xx_wwdg.o(.text) refers to stm32f4xx_rcc.o(.text) for RCC_APB1PeriphResetCmd
+    rt_cmsis.o(i.isrMessagePut) refers to rt_mailbox.o(i.rt_mbx_check) for rt_mbx_check
+    rt_cmsis.o(i.isrMessagePut) refers to rt_mailbox.o(i.isr_mbx_send) for isr_mbx_send
+    rt_cmsis.o(i.osDelay) refers to rt_cmsis.o(i.svcDelay) for svcDelay
+    rt_cmsis.o(i.osKernelRunning) refers to rt_task.o(.data) for os_tsk
+    rt_cmsis.o(i.osKernelStart) refers to rtx_conf_cm.o(.constdata) for os_flags
+    rt_cmsis.o(i.osKernelStart) refers to rt_cmsis.o(i.svcKernelStart) for svcKernelStart
+    rt_cmsis.o(i.osMailAlloc) refers to rt_cmsis.o(i.sysMailAlloc) for sysMailAlloc
+    rt_cmsis.o(i.osMailCAlloc) refers to rt_cmsis.o(i.sysMailAlloc) for sysMailAlloc
+    rt_cmsis.o(i.osMailCreate) refers to rt_cmsis.o(i.svcMailCreate) for svcMailCreate
+    rt_cmsis.o(i.osMailFree) refers to rt_cmsis.o(i.sysMailFree) for sysMailFree
+    rt_cmsis.o(i.osMailGet) refers to rt_cmsis.o(i.osMessageGet) for osMessageGet
+    rt_cmsis.o(i.osMailPut) refers to rt_cmsis.o(i.osMessagePut) for osMessagePut
+    rt_cmsis.o(i.osMessageCreate) refers to rt_cmsis.o(i.svcMessageCreate) for svcMessageCreate
+    rt_cmsis.o(i.osMessageGet) refers to rt_mailbox.o(i.isr_mbx_receive) for isr_mbx_receive
+    rt_cmsis.o(i.osMessageGet) refers to rt_cmsis.o(i.svcMessageGet) for svcMessageGet
+    rt_cmsis.o(i.osMessagePut) refers to rt_cmsis.o(i.isrMessagePut) for isrMessagePut
+    rt_cmsis.o(i.osMessagePut) refers to rt_cmsis.o(i.svcMessagePut) for svcMessagePut
+    rt_cmsis.o(i.osMutexCreate) refers to rt_cmsis.o(i.svcMutexCreate) for svcMutexCreate
+    rt_cmsis.o(i.osMutexRelease) refers to rt_cmsis.o(i.svcMutexRelease) for svcMutexRelease
+    rt_cmsis.o(i.osMutexWait) refers to rt_cmsis.o(i.svcMutexWait) for svcMutexWait
+    rt_cmsis.o(i.osPoolAlloc) refers to rt_cmsis.o(i.sysPoolAlloc) for sysPoolAlloc
+    rt_cmsis.o(i.osPoolCAlloc) refers to rt_cmsis.o(i.sysPoolAlloc) for sysPoolAlloc
+    rt_cmsis.o(i.osPoolCreate) refers to rt_cmsis.o(i.svcPoolCreate) for svcPoolCreate
+    rt_cmsis.o(i.osPoolFree) refers to rt_cmsis.o(i.sysPoolFree) for sysPoolFree
+    rt_cmsis.o(i.osSemaphoreCreate) refers to rt_cmsis.o(i.svcSemaphoreCreate) for svcSemaphoreCreate
+    rt_cmsis.o(i.osSemaphoreRelease) refers to rt_cmsis.o(i.rt_id2obj) for rt_id2obj
+    rt_cmsis.o(i.osSemaphoreRelease) refers to rt_semaphore.o(i.isr_sem_send) for isr_sem_send
+    rt_cmsis.o(i.osSemaphoreRelease) refers to rt_cmsis.o(i.svcSemaphoreRelease) for svcSemaphoreRelease
+    rt_cmsis.o(i.osSemaphoreWait) refers to rt_cmsis.o(i.svcSemaphoreWait) for svcSemaphoreWait
+    rt_cmsis.o(i.osSignalClear) refers to rt_cmsis.o(i.svcSignalClear) for svcSignalClear
+    rt_cmsis.o(i.osSignalGet) refers to rt_cmsis.o(i.svcSignalGet) for svcSignalGet
+    rt_cmsis.o(i.osSignalSet) refers to rt_cmsis.o(i.rt_tid2ptcb) for rt_tid2ptcb
+    rt_cmsis.o(i.osSignalSet) refers to rt_event.o(i.isr_evt_set) for isr_evt_set
+    rt_cmsis.o(i.osSignalSet) refers to rt_cmsis.o(i.svcSignalSet) for svcSignalSet
+    rt_cmsis.o(i.osSignalWait) refers to rt_cmsis.o(i.svcSignalWait) for svcSignalWait
+    rt_cmsis.o(i.osThreadCreate) refers to rt_cmsis.o(i.svcThreadCreate) for svcThreadCreate
+    rt_cmsis.o(i.osThreadExit) refers to rt_cmsis.o(i.svcThreadGetId) for svcThreadGetId
+    rt_cmsis.o(i.osThreadExit) refers to rt_cmsis.o(i.svcThreadTerminate) for svcThreadTerminate
+    rt_cmsis.o(i.osThreadGetId) refers to rt_cmsis.o(i.svcThreadGetId) for svcThreadGetId
+    rt_cmsis.o(i.osThreadGetPriority) refers to rt_cmsis.o(i.svcThreadGetPriority) for svcThreadGetPriority
+    rt_cmsis.o(i.osThreadSetPriority) refers to rt_cmsis.o(i.svcThreadSetPriority) for svcThreadSetPriority
+    rt_cmsis.o(i.osThreadTerminate) refers to rt_cmsis.o(i.svcThreadTerminate) for svcThreadTerminate
+    rt_cmsis.o(i.osThreadYield) refers to rt_cmsis.o(i.svcThreadYield) for svcThreadYield
+    rt_cmsis.o(i.osTimerCall) refers to rt_cmsis.o(i.svcTimerCall) for svcTimerCall
+    rt_cmsis.o(i.osTimerCreate) refers to rt_cmsis.o(i.svcTimerCreate) for svcTimerCreate
+    rt_cmsis.o(i.osTimerStart) refers to rt_cmsis.o(i.svcTimerStart) for svcTimerStart
+    rt_cmsis.o(i.osTimerStop) refers to rt_cmsis.o(i.svcTimerStop) for svcTimerStop
+    rt_cmsis.o(i.osTimerThread) refers to rt_cmsis.o(i.osMessageGet) for osMessageGet
+    rt_cmsis.o(i.osTimerThread) refers to rt_cmsis.o(i.osTimerCall) for osTimerCall
+    rt_cmsis.o(i.osTimerThread) refers to rtx_conf_cm.o(.data) for osMessageQId_osTimerMessageQ
+    rt_cmsis.o(i.rt_ms2tick) refers to rtx_conf_cm.o(.constdata) for os_clockrate
+    rt_cmsis.o(i.rt_timer_insert) refers to rt_cmsis.o(.data) for .data
+    rt_cmsis.o(i.rt_timer_remove) refers to rt_cmsis.o(.data) for .data
+    rt_cmsis.o(i.svcDelay) refers to rt_cmsis.o(i.rt_ms2tick) for rt_ms2tick
+    rt_cmsis.o(i.svcDelay) refers to rt_time.o(i.rt_dly_wait) for rt_dly_wait
+    rt_cmsis.o(i.svcKernelStart) refers to rt_cmsis.o(i.svcThreadCreate) for svcThreadCreate
+    rt_cmsis.o(i.svcKernelStart) refers to rt_cmsis.o(i.svcThreadGetId) for svcThreadGetId
+    rt_cmsis.o(i.svcKernelStart) refers to rt_cmsis.o(i.svcThreadTerminate) for svcThreadTerminate
+    rt_cmsis.o(i.svcKernelStart) refers to rt_memory.o(i.rt_init_mem) for rt_init_mem
+    rt_cmsis.o(i.svcKernelStart) refers to rt_memory.o(i.rt_alloc_mem) for rt_alloc_mem
+    rt_cmsis.o(i.svcKernelStart) refers to rt_task.o(i.rt_sys_init) for rt_sys_init
+    rt_cmsis.o(i.svcKernelStart) refers to rt_cmsis.o(i.svcMessageCreate) for svcMessageCreate
+    rt_cmsis.o(i.svcKernelStart) refers to rt_task.o(.data) for os_tsk
+    rt_cmsis.o(i.svcKernelStart) refers to rtx_conf_cm.o(.bss) for os_stack_mem
+    rt_cmsis.o(i.svcKernelStart) refers to rtx_conf_cm.o(.constdata) for os_stack_sz
+    rt_cmsis.o(i.svcKernelStart) refers to rt_cmsis.o(i.osThreadExit) for osThreadExit
+    rt_cmsis.o(i.svcKernelStart) refers to rtx_conf_cm.o(.data) for osMessageQId_osTimerMessageQ
+    rt_cmsis.o(i.svcMailCreate) refers to rt_membox.o(i._init_box) for _init_box
+    rt_cmsis.o(i.svcMailCreate) refers to rt_mailbox.o(i.rt_mbx_init) for rt_mbx_init
+    rt_cmsis.o(i.svcMessageCreate) refers to rt_mailbox.o(i.rt_mbx_init) for rt_mbx_init
+    rt_cmsis.o(i.svcMessageGet) refers to rt_cmsis.o(i.rt_ms2tick) for rt_ms2tick
+    rt_cmsis.o(i.svcMessageGet) refers to rt_mailbox.o(i.rt_mbx_wait) for rt_mbx_wait
+    rt_cmsis.o(i.svcMessagePut) refers to rt_cmsis.o(i.rt_ms2tick) for rt_ms2tick
+    rt_cmsis.o(i.svcMessagePut) refers to rt_mailbox.o(i.rt_mbx_send) for rt_mbx_send
+    rt_cmsis.o(i.svcMutexCreate) refers to rt_mutex.o(i.rt_mut_init) for rt_mut_init
+    rt_cmsis.o(i.svcMutexRelease) refers to rt_cmsis.o(i.rt_id2obj) for rt_id2obj
+    rt_cmsis.o(i.svcMutexRelease) refers to rt_mutex.o(i.rt_mut_release) for rt_mut_release
+    rt_cmsis.o(i.svcMutexWait) refers to rt_cmsis.o(i.rt_id2obj) for rt_id2obj
+    rt_cmsis.o(i.svcMutexWait) refers to rt_cmsis.o(i.rt_ms2tick) for rt_ms2tick
+    rt_cmsis.o(i.svcMutexWait) refers to rt_mutex.o(i.rt_mut_wait) for rt_mut_wait
+    rt_cmsis.o(i.svcPoolCreate) refers to rt_membox.o(i._init_box) for _init_box
+    rt_cmsis.o(i.svcSemaphoreCreate) refers to rt_semaphore.o(i.rt_sem_init) for rt_sem_init
+    rt_cmsis.o(i.svcSemaphoreRelease) refers to rt_cmsis.o(i.rt_id2obj) for rt_id2obj
+    rt_cmsis.o(i.svcSemaphoreRelease) refers to rt_semaphore.o(i.rt_sem_send) for rt_sem_send
+    rt_cmsis.o(i.svcSemaphoreWait) refers to rt_cmsis.o(i.rt_id2obj) for rt_id2obj
+    rt_cmsis.o(i.svcSemaphoreWait) refers to rt_cmsis.o(i.rt_ms2tick) for rt_ms2tick
+    rt_cmsis.o(i.svcSemaphoreWait) refers to rt_semaphore.o(i.rt_sem_wait) for rt_sem_wait
+    rt_cmsis.o(i.svcSignalClear) refers to rt_cmsis.o(i.rt_tid2ptcb) for rt_tid2ptcb
+    rt_cmsis.o(i.svcSignalClear) refers to rt_event.o(i.rt_evt_clr) for rt_evt_clr
+    rt_cmsis.o(i.svcSignalGet) refers to rt_cmsis.o(i.rt_tid2ptcb) for rt_tid2ptcb
+    rt_cmsis.o(i.svcSignalSet) refers to rt_cmsis.o(i.rt_tid2ptcb) for rt_tid2ptcb
+    rt_cmsis.o(i.svcSignalSet) refers to rt_event.o(i.rt_evt_set) for rt_evt_set
+    rt_cmsis.o(i.svcSignalWait) refers to rt_cmsis.o(i.rt_ms2tick) for rt_ms2tick
+    rt_cmsis.o(i.svcSignalWait) refers to rt_event.o(i.rt_evt_wait) for rt_evt_wait
+    rt_cmsis.o(i.svcSignalWait) refers to rt_task.o(.data) for os_tsk
+    rt_cmsis.o(i.svcThreadCreate) refers to rt_memory.o(i.rt_alloc_mem) for rt_alloc_mem
+    rt_cmsis.o(i.svcThreadCreate) refers to rt_task.o(i.rt_tsk_create) for rt_tsk_create
+    rt_cmsis.o(i.svcThreadCreate) refers to rt_memory.o(i.rt_free_mem) for rt_free_mem
+    rt_cmsis.o(i.svcThreadCreate) refers to rtx_conf_cm.o(.bss) for os_stack_mem
+    rt_cmsis.o(i.svcThreadCreate) refers to rt_cmsis.o(i.osThreadExit) for osThreadExit
+    rt_cmsis.o(i.svcThreadGetId) refers to rt_task.o(i.rt_tsk_self) for rt_tsk_self
+    rt_cmsis.o(i.svcThreadGetId) refers to rtx_conf_cm.o(.bss) for os_active_TCB
+    rt_cmsis.o(i.svcThreadGetPriority) refers to rt_cmsis.o(i.rt_tid2ptcb) for rt_tid2ptcb
+    rt_cmsis.o(i.svcThreadSetPriority) refers to rt_cmsis.o(i.rt_tid2ptcb) for rt_tid2ptcb
+    rt_cmsis.o(i.svcThreadSetPriority) refers to rt_task.o(i.rt_tsk_prio) for rt_tsk_prio
+    rt_cmsis.o(i.svcThreadTerminate) refers to rt_cmsis.o(i.rt_tid2ptcb) for rt_tid2ptcb
+    rt_cmsis.o(i.svcThreadTerminate) refers to rt_task.o(i.rt_tsk_delete) for rt_tsk_delete
+    rt_cmsis.o(i.svcThreadTerminate) refers to rt_memory.o(i.rt_free_mem) for rt_free_mem
+    rt_cmsis.o(i.svcThreadTerminate) refers to rtx_conf_cm.o(.bss) for os_stack_mem
+    rt_cmsis.o(i.svcThreadYield) refers to rt_task.o(i.rt_tsk_pass) for rt_tsk_pass
+    rt_cmsis.o(i.svcTimerCall) refers to rt_cmsis.o(i.rt_id2obj) for rt_id2obj
+    rt_cmsis.o(i.svcTimerCreate) refers to rtx_conf_cm.o(.data) for osThreadId_osTimerThread
+    rt_cmsis.o(i.svcTimerStart) refers to rt_cmsis.o(i.rt_id2obj) for rt_id2obj
+    rt_cmsis.o(i.svcTimerStart) refers to rt_cmsis.o(i.rt_ms2tick) for rt_ms2tick
+    rt_cmsis.o(i.svcTimerStart) refers to rt_cmsis.o(i.rt_timer_remove) for rt_timer_remove
+    rt_cmsis.o(i.svcTimerStart) refers to rt_cmsis.o(i.rt_timer_insert) for rt_timer_insert
+    rt_cmsis.o(i.svcTimerStop) refers to rt_cmsis.o(i.rt_id2obj) for rt_id2obj
+    rt_cmsis.o(i.svcTimerStop) refers to rt_cmsis.o(i.rt_timer_remove) for rt_timer_remove
+    rt_cmsis.o(i.sysMailAlloc) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_cmsis.o(i.sysMailAlloc) refers to rt_cmsis.o(i.rt_clr_box) for rt_clr_box
+    rt_cmsis.o(i.sysMailAlloc) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_cmsis.o(i.sysMailAlloc) refers to rt_cmsis.o(i.rt_ms2tick) for rt_ms2tick
+    rt_cmsis.o(i.sysMailAlloc) refers to rt_task.o(i.rt_block) for rt_block
+    rt_cmsis.o(i.sysMailAlloc) refers to rt_task.o(.data) for os_tsk
+    rt_cmsis.o(i.sysMailFree) refers to rt_membox.o(i.rt_free_box) for rt_free_box
+    rt_cmsis.o(i.sysMailFree) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_cmsis.o(i.sysMailFree) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_cmsis.o(i.sysMailFree) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_cmsis.o(i.sysMailFree) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_cmsis.o(i.sysMailFree) refers to hal_cm.o(i.rt_ret_val) for rt_ret_val
+    rt_cmsis.o(i.sysMailFree) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_cmsis.o(i.sysMailFree) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_cmsis.o(i.sysPoolAlloc) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_cmsis.o(i.sysPoolAlloc) refers to rt_cmsis.o(i.rt_clr_box) for rt_clr_box
+    rt_cmsis.o(i.sysPoolFree) refers to rt_membox.o(i.rt_free_box) for rt_free_box
+    rt_cmsis.o(i.sysTimerTick) refers to rt_cmsis.o(i.isrMessagePut) for isrMessagePut
+    rt_cmsis.o(i.sysTimerTick) refers to rt_cmsis.o(i.rt_timer_insert) for rt_timer_insert
+    rt_cmsis.o(i.sysTimerTick) refers to rt_cmsis.o(.data) for .data
+    rt_cmsis.o(i.sysTimerTick) refers to rtx_conf_cm.o(.data) for osMessageQId_osTimerMessageQ
+    rt_task.o(i.rt_block) refers to rt_list.o(i.rt_put_dly) for rt_put_dly
+    rt_task.o(i.rt_block) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_task.o(i.rt_block) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_task.o(i.rt_block) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_block) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_dispatch) refers to rt_list.o(i.rt_put_rdy_first) for rt_put_rdy_first
+    rt_task.o(i.rt_dispatch) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_task.o(i.rt_dispatch) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_task.o(i.rt_dispatch) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_task.o(i.rt_dispatch) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_dispatch) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_init_context) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_task.o(i.rt_init_context) refers to hal_cm.o(i.rt_init_stack) for rt_init_stack
+    rt_task.o(i.rt_init_context) refers to rtx_conf_cm.o(.bss) for mp_stk
+    rt_task.o(i.rt_switch_req) refers to hal_cm.o(i.dbg_task_switch) for dbg_task_switch
+    rt_task.o(i.rt_switch_req) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_switch_req) refers to hal_cm.o(.data) for dbg_msg
+    rt_task.o(i.rt_sys_init) refers to hal_cm.o(i.dbg_init) for dbg_init
+    rt_task.o(i.rt_sys_init) refers to rt_membox.o(i._init_box) for _init_box
+    rt_task.o(i.rt_sys_init) refers to rt_task.o(i.rt_init_context) for rt_init_context
+    rt_task.o(i.rt_sys_init) refers to hal_cm4.o(.emb_text) for rt_set_PSP
+    rt_task.o(i.rt_sys_init) refers to rt_robin.o(i.rt_init_robin) for rt_init_robin
+    rt_task.o(i.rt_sys_init) refers to rt_task.o(i.rt_tsk_create) for rt_tsk_create
+    rt_task.o(i.rt_sys_init) refers to rtx_conf_cm.o(.bss) for os_active_TCB
+    rt_task.o(i.rt_sys_init) refers to rtx_conf_cm.o(.constdata) for os_maxtaskrun
+    rt_task.o(i.rt_sys_init) refers to rtx_conf_cm.o(.data) for m_tmr
+    rt_task.o(i.rt_sys_init) refers to rt_task.o(.bss) for .bss
+    rt_task.o(i.rt_sys_init) refers to rtx_conf_cm.o(.text) for os_idle_demon
+    rt_task.o(i.rt_sys_init) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_sys_init) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_tsk_create) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_task.o(i.rt_tsk_create) refers to rt_task.o(i.rt_init_context) for rt_init_context
+    rt_task.o(i.rt_tsk_create) refers to hal_cm.o(i.dbg_task_notify) for dbg_task_notify
+    rt_task.o(i.rt_tsk_create) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_task.o(i.rt_tsk_create) refers to rtx_conf_cm.o(.bss) for mp_tcb
+    rt_task.o(i.rt_tsk_create) refers to rtx_conf_cm.o(.constdata) for os_maxtaskrun
+    rt_task.o(i.rt_tsk_create) refers to hal_cm.o(.data) for dbg_msg
+    rt_task.o(i.rt_tsk_delete) refers to rt_membox.o(i.rt_free_box) for rt_free_box
+    rt_task.o(i.rt_tsk_delete) refers to hal_cm.o(i.dbg_task_notify) for dbg_task_notify
+    rt_task.o(i.rt_tsk_delete) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_task.o(i.rt_tsk_delete) refers to rt_list.o(i.rt_rmv_list) for rt_rmv_list
+    rt_task.o(i.rt_tsk_delete) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_task.o(i.rt_tsk_delete) refers to hal_cm.o(.data) for dbg_msg
+    rt_task.o(i.rt_tsk_delete) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_tsk_delete) refers to rtx_conf_cm.o(.bss) for os_active_TCB
+    rt_task.o(i.rt_tsk_delete) refers to rtx_conf_cm.o(.constdata) for os_maxtaskrun
+    rt_task.o(i.rt_tsk_pass) refers to rt_list.o(i.rt_get_same_rdy_prio) for rt_get_same_rdy_prio
+    rt_task.o(i.rt_tsk_pass) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_task.o(i.rt_tsk_pass) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_task.o(i.rt_tsk_pass) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_tsk_pass) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_tsk_prio) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_task.o(i.rt_tsk_prio) refers to rt_list.o(i.rt_resort_prio) for rt_resort_prio
+    rt_task.o(i.rt_tsk_prio) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_task.o(i.rt_tsk_prio) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_task.o(i.rt_tsk_prio) refers to rt_task.o(.data) for .data
+    rt_task.o(i.rt_tsk_prio) refers to rtx_conf_cm.o(.constdata) for os_maxtaskrun
+    rt_task.o(i.rt_tsk_prio) refers to rtx_conf_cm.o(.bss) for os_active_TCB
+    rt_task.o(i.rt_tsk_prio) refers to rt_list.o(.bss) for os_rdy
+    rt_task.o(i.rt_tsk_self) refers to rt_task.o(.data) for .data
+    rt_system.o(i.rt_pop_req) refers to rt_list.o(i.rt_put_rdy_first) for rt_put_rdy_first
+    rt_system.o(i.rt_pop_req) refers to rt_semaphore.o(i.rt_sem_psh) for rt_sem_psh
+    rt_system.o(i.rt_pop_req) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_system.o(i.rt_pop_req) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_system.o(i.rt_pop_req) refers to rt_event.o(i.rt_evt_psh) for rt_evt_psh
+    rt_system.o(i.rt_pop_req) refers to rt_mailbox.o(i.rt_mbx_psh) for rt_mbx_psh
+    rt_system.o(i.rt_pop_req) refers to rt_task.o(.data) for os_tsk
+    rt_system.o(i.rt_pop_req) refers to rtx_conf_cm.o(.bss) for os_fifo
+    rt_system.o(i.rt_pop_req) refers to rt_list.o(.bss) for os_rdy
+    rt_system.o(i.rt_psh_req) refers to rt_system.o(.data) for .data
+    rt_system.o(i.rt_stk_check) refers to rtx_conf_cm.o(.text) for os_error
+    rt_system.o(i.rt_stk_check) refers to rt_task.o(.data) for os_tsk
+    rt_system.o(i.rt_systick) refers to rt_list.o(i.rt_put_rdy_first) for rt_put_rdy_first
+    rt_system.o(i.rt_systick) refers to rt_robin.o(i.rt_chk_robin) for rt_chk_robin
+    rt_system.o(i.rt_systick) refers to rt_list.o(i.rt_dec_dly) for rt_dec_dly
+    rt_system.o(i.rt_systick) refers to rt_cmsis.o(i.sysTimerTick) for sysTimerTick
+    rt_system.o(i.rt_systick) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_system.o(i.rt_systick) refers to rt_task.o(i.rt_switch_req) for rt_switch_req
+    rt_system.o(i.rt_systick) refers to rt_task.o(.data) for os_tsk
+    rt_system.o(i.rt_systick) refers to rt_time.o(.data) for os_time
+    rt_system.o(i.rt_systick) refers to rt_list.o(.bss) for os_rdy
+    rt_system.o(i.rt_tsk_lock) refers to rt_system.o(.data) for .data
+    rt_system.o(i.rt_tsk_unlock) refers to rt_system.o(.data) for .data
+    rt_event.o(i.isr_evt_set) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_event.o(i.isr_evt_set) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_event.o(i.isr_evt_set) refers to rtx_conf_cm.o(.bss) for os_active_TCB
+    rt_event.o(i.rt_evt_clr) refers to rtx_conf_cm.o(.bss) for os_active_TCB
+    rt_event.o(i.rt_evt_get) refers to rt_task.o(.data) for os_tsk
+    rt_event.o(i.rt_evt_psh) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_event.o(i.rt_evt_psh) refers to hal_cm.o(i.rt_ret_val2) for rt_ret_val2
+    rt_event.o(i.rt_evt_psh) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_event.o(i.rt_evt_psh) refers to rt_list.o(.bss) for os_rdy
+    rt_event.o(i.rt_evt_set) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_event.o(i.rt_evt_set) refers to hal_cm.o(i.rt_ret_val2) for rt_ret_val2
+    rt_event.o(i.rt_evt_set) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_event.o(i.rt_evt_set) refers to rtx_conf_cm.o(.bss) for os_active_TCB
+    rt_event.o(i.rt_evt_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_event.o(i.rt_evt_wait) refers to rt_task.o(.data) for os_tsk
+    rt_list.o(i.rt_dec_dly) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_list.o(i.rt_dec_dly) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_dec_dly) refers to rt_time.o(.data) for os_time
+    rt_list.o(i.rt_get_same_rdy_prio) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_get_same_rdy_prio) refers to rt_task.o(.data) for os_tsk
+    rt_list.o(i.rt_psq_enq) refers to rtx_conf_cm.o(.text) for os_error
+    rt_list.o(i.rt_psq_enq) refers to rtx_conf_cm.o(.bss) for os_fifo
+    rt_list.o(i.rt_put_dly) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_put_rdy_first) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_resort_prio) refers to rt_list.o(i.rt_rmv_list) for rt_rmv_list
+    rt_list.o(i.rt_resort_prio) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_list.o(i.rt_resort_prio) refers to rt_list.o(.bss) for .bss
+    rt_list.o(i.rt_rmv_list) refers to rt_list.o(.bss) for .bss
+    rt_mailbox.o(i.isr_mbx_receive) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_mailbox.o(i.isr_mbx_receive) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_mailbox.o(i.isr_mbx_send) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_mailbox.o(i.isr_mbx_send) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_mailbox.o(i.rt_mbx_psh) refers to hal_cm.o(i.rt_ret_val) for rt_ret_val
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_mailbox.o(i.rt_mbx_psh) refers to hal_cm.o(i.rt_ret_val2) for rt_ret_val2
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mailbox.o(i.rt_mbx_psh) refers to rtx_conf_cm.o(.text) for os_error
+    rt_mailbox.o(i.rt_mbx_psh) refers to rt_list.o(.bss) for os_rdy
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_mailbox.o(i.rt_mbx_send) refers to hal_cm.o(i.rt_ret_val2) for rt_ret_val2
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_task.o(i.rt_block) for rt_block
+    rt_mailbox.o(i.rt_mbx_send) refers to rt_task.o(.data) for os_tsk
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_mailbox.o(i.rt_mbx_wait) refers to hal_cm.o(i.rt_ret_val) for rt_ret_val
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_mailbox.o(i.rt_mbx_wait) refers to rt_task.o(.data) for os_tsk
+    rt_semaphore.o(i.isr_sem_send) refers to rt_list.o(i.rt_psq_enq) for rt_psq_enq
+    rt_semaphore.o(i.isr_sem_send) refers to rt_system.o(i.rt_psh_req) for rt_psh_req
+    rt_semaphore.o(i.rt_sem_psh) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_semaphore.o(i.rt_sem_psh) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_semaphore.o(i.rt_sem_psh) refers to hal_cm.o(i.rt_ret_val) for rt_ret_val
+    rt_semaphore.o(i.rt_sem_psh) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_semaphore.o(i.rt_sem_psh) refers to rt_list.o(.bss) for os_rdy
+    rt_semaphore.o(i.rt_sem_send) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_semaphore.o(i.rt_sem_send) refers to hal_cm.o(i.rt_ret_val) for rt_ret_val
+    rt_semaphore.o(i.rt_sem_send) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_semaphore.o(i.rt_sem_send) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_semaphore.o(i.rt_sem_wait) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_semaphore.o(i.rt_sem_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_semaphore.o(i.rt_sem_wait) refers to rt_task.o(.data) for os_tsk
+    rt_time.o(i.rt_dly_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_time.o(i.rt_itv_set) refers to rt_task.o(.data) for os_tsk
+    rt_time.o(i.rt_itv_set) refers to rt_time.o(.data) for .data
+    rt_time.o(i.rt_itv_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_time.o(i.rt_itv_wait) refers to rt_task.o(.data) for os_tsk
+    rt_time.o(i.rt_itv_wait) refers to rt_time.o(.data) for .data
+    rt_mutex.o(i.rt_mut_release) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_mutex.o(i.rt_mut_release) refers to hal_cm.o(i.rt_ret_val) for rt_ret_val
+    rt_mutex.o(i.rt_mut_release) refers to rt_list.o(i.rt_rmv_dly) for rt_rmv_dly
+    rt_mutex.o(i.rt_mut_release) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mutex.o(i.rt_mut_release) refers to rt_task.o(i.rt_dispatch) for rt_dispatch
+    rt_mutex.o(i.rt_mut_release) refers to rt_task.o(.data) for os_tsk
+    rt_mutex.o(i.rt_mut_release) refers to rt_list.o(.bss) for os_rdy
+    rt_mutex.o(i.rt_mut_wait) refers to rt_list.o(i.rt_resort_prio) for rt_resort_prio
+    rt_mutex.o(i.rt_mut_wait) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_mutex.o(i.rt_mut_wait) refers to rt_task.o(i.rt_block) for rt_block
+    rt_mutex.o(i.rt_mut_wait) refers to rt_task.o(.data) for os_tsk
+    rt_membox.o(i._calloc_box) refers to hal_cm4.o(.emb_text) for _alloc_box
+    hal_cm.o(i.dbg_init) refers to hal_cm.o(.data) for .data
+    hal_cm.o(i.rt_init_stack) refers to rtx_conf_cm.o(.constdata) for os_stackinfo
+    hal_cm.o(i.rt_ret_val) refers to hal_cm.o(i.rt_ret_regs) for rt_ret_regs
+    hal_cm.o(i.rt_ret_val2) refers to hal_cm.o(i.rt_ret_regs) for rt_ret_regs
+    rt_robin.o(i.rt_chk_robin) refers to rt_list.o(i.rt_get_first) for rt_get_first
+    rt_robin.o(i.rt_chk_robin) refers to rt_list.o(i.rt_put_prio) for rt_put_prio
+    rt_robin.o(i.rt_chk_robin) refers to rt_robin.o(.data) for .data
+    rt_robin.o(i.rt_chk_robin) refers to rt_list.o(.bss) for os_rdy
+    rt_robin.o(i.rt_chk_robin) refers to rt_time.o(.data) for os_time
+    rt_robin.o(i.rt_init_robin) refers to rt_robin.o(.data) for .data
+    rt_robin.o(i.rt_init_robin) refers to rtx_conf_cm.o(.constdata) for os_rrobin
+    hal_cm4.o(.emb_text) refers to rtx_conf_cm.o(.constdata) for os_flags
+    hal_cm4.o(.emb_text) refers to rt_membox.o(i.rt_alloc_box) for rt_alloc_box
+    hal_cm4.o(.emb_text) refers to rt_membox.o(i.rt_free_box) for rt_free_box
+    hal_cm4.o(.emb_text) refers to rt_system.o(i.rt_stk_check) for rt_stk_check
+    hal_cm4.o(.emb_text) refers to rt_task.o(.data) for os_tsk
+    hal_cm4.o(.emb_text) refers to SVC_Table.o(SVC_TABLE) for SVC_Count
+    hal_cm4.o(.emb_text) refers to rt_system.o(i.rt_pop_req) for rt_pop_req
+    hal_cm4.o(.emb_text) refers to rt_system.o(i.rt_systick) for rt_systick
+    floor.o(i.__hardfp_floor) refers (Special) to iusefp.o(.text) for __I$use$fp
+    floor.o(i.__hardfp_floor) refers to dadd.o(.text) for __aeabi_dadd
+    floor.o(i.__hardfp_floor) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    floor.o(i.__softfp_floor) refers (Special) to iusefp.o(.text) for __I$use$fp
+    floor.o(i.__softfp_floor) refers to floor.o(i.__hardfp_floor) for __hardfp_floor
+    floor.o(i.floor) refers (Special) to iusefp.o(.text) for __I$use$fp
+    floor.o(i.floor) refers to floor.o(i.__hardfp_floor) for __hardfp_floor
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to rtx_conf_cm.o(.ARM.Collect$$$$000000FF) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    dadd.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
+    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dfixui.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    dfixui.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    f2d.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup_stm32f4xx.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to startup_stm32f4xx.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing system_stm32f4xx.o(.rev16_text), (4 bytes).
+    Removing system_stm32f4xx.o(.revsh_text), (4 bytes).
+    Removing startup_stm32f4xx.o(HEAP), (512 bytes).
+    Removing main.o(.rev16_text), (4 bytes).
+    Removing main.o(.revsh_text), (4 bytes).
+    Removing acc.o(.rev16_text), (4 bytes).
+    Removing acc.o(.revsh_text), (4 bytes).
+    Removing acc.o(.text), (348 bytes).
+    Removing button.o(.rev16_text), (4 bytes).
+    Removing button.o(.revsh_text), (4 bytes).
+    Removing fputc_debug.o(.rev16_text), (4 bytes).
+    Removing fputc_debug.o(.revsh_text), (4 bytes).
+    Removing fputc_debug.o(.text), (76 bytes).
+    Removing fputc_debug.o(.data), (8 bytes).
+    Removing led.o(.rev16_text), (4 bytes).
+    Removing led.o(.revsh_text), (4 bytes).
+    Removing moving_average_c.o(.text), (88 bytes).
+    Removing stm32f4_discovery_lis302dl.o(.rev16_text), (4 bytes).
+    Removing stm32f4_discovery_lis302dl.o(.revsh_text), (4 bytes).
+    Removing stm32f4_discovery_lis302dl.o(.text), (960 bytes).
+    Removing stm32f4_discovery_lis302dl.o(.data), (4 bytes).
+    Removing dma.o(.rev16_text), (4 bytes).
+    Removing dma.o(.revsh_text), (4 bytes).
+    Removing tim3.o(.rev16_text), (4 bytes).
+    Removing tim3.o(.revsh_text), (4 bytes).
+    Removing wirelessdriver.o(.rev16_text), (4 bytes).
+    Removing wirelessdriver.o(.revsh_text), (4 bytes).
+    Removing wirelessdriver.o(.text), (1944 bytes).
+    Removing wirelessdriver.o(.data), (4 bytes).
+    Removing misc.o(.rev16_text), (4 bytes).
+    Removing misc.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_adc.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_adc.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_adc.o(.text), (1136 bytes).
+    Removing stm32f4xx_can.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_can.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_can.o(.text), (2536 bytes).
+    Removing stm32f4xx_crc.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_crc.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_crc.o(.text), (72 bytes).
+    Removing stm32f4xx_cryp.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_cryp.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_cryp.o(.text), (656 bytes).
+    Removing stm32f4xx_cryp_aes.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_cryp_aes.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_cryp_aes.o(.text), (1524 bytes).
+    Removing stm32f4xx_cryp_des.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_cryp_des.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_cryp_des.o(.text), (468 bytes).
+    Removing stm32f4xx_cryp_tdes.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_cryp_tdes.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_cryp_tdes.o(.text), (532 bytes).
+    Removing stm32f4xx_dac.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_dac.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_dac.o(.text), (528 bytes).
+    Removing stm32f4xx_dbgmcu.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_dbgmcu.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_dbgmcu.o(.text), (100 bytes).
+    Removing stm32f4xx_dcmi.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_dcmi.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_dcmi.o(.text), (396 bytes).
+    Removing stm32f4xx_dma.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_dma.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_exti.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_exti.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_exti.o(.text), (284 bytes).
+    Removing stm32f4xx_flash.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_flash.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_flash.o(.text), (1224 bytes).
+    Removing stm32f4xx_fsmc.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_fsmc.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_fsmc.o(.text), (1564 bytes).
+    Removing stm32f4xx_gpio.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_gpio.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_hash.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_hash.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_hash.o(.text), (496 bytes).
+    Removing stm32f4xx_hash_md5.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_hash_md5.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_hash_md5.o(.text), (534 bytes).
+    Removing stm32f4xx_hash_sha1.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_hash_sha1.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_hash_sha1.o(.text), (548 bytes).
+    Removing stm32f4xx_i2c.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_i2c.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_i2c.o(.text), (1064 bytes).
+    Removing stm32f4xx_iwdg.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_iwdg.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_iwdg.o(.text), (64 bytes).
+    Removing stm32f4xx_pwr.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_pwr.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_pwr.o(.text), (252 bytes).
+    Removing stm32f4xx_rcc.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_rcc.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_rng.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_rng.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_rng.o(.text), (160 bytes).
+    Removing stm32f4xx_rtc.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_rtc.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_rtc.o(.text), (3432 bytes).
+    Removing stm32f4xx_sdio.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_sdio.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_sdio.o(.text), (484 bytes).
+    Removing stm32f4xx_spi.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_spi.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_syscfg.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_syscfg.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_syscfg.o(.text), (140 bytes).
+    Removing stm32f4xx_tim.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_tim.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_usart.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_usart.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_usart.o(.text), (1050 bytes).
+    Removing stm32f4xx_wwdg.o(.rev16_text), (4 bytes).
+    Removing stm32f4xx_wwdg.o(.revsh_text), (4 bytes).
+    Removing stm32f4xx_wwdg.o(.text), (144 bytes).
+    Removing rt_cmsis.o(.rev16_text), (4 bytes).
+    Removing rt_cmsis.o(.revsh_text), (4 bytes).
+    Removing rt_cmsis.o(i.osDelay), (24 bytes).
+    Removing rt_cmsis.o(i.osKernelRunning), (16 bytes).
+    Removing rt_cmsis.o(i.osMailAlloc), (32 bytes).
+    Removing rt_cmsis.o(i.osMailCAlloc), (32 bytes).
+    Removing rt_cmsis.o(i.osMailCreate), (24 bytes).
+    Removing rt_cmsis.o(i.osMailFree), (28 bytes).
+    Removing rt_cmsis.o(i.osMailGet), (22 bytes).
+    Removing rt_cmsis.o(i.osMailPut), (14 bytes).
+    Removing rt_cmsis.o(i.osMessagePut), (24 bytes).
+    Removing rt_cmsis.o(i.osMutexCreate), (24 bytes).
+    Removing rt_cmsis.o(i.osMutexRelease), (24 bytes).
+    Removing rt_cmsis.o(i.osMutexWait), (24 bytes).
+    Removing rt_cmsis.o(i.osPoolAlloc), (36 bytes).
+    Removing rt_cmsis.o(i.osPoolCAlloc), (36 bytes).
+    Removing rt_cmsis.o(i.osPoolCreate), (24 bytes).
+    Removing rt_cmsis.o(i.osPoolFree), (32 bytes).
+    Removing rt_cmsis.o(i.osSignalClear), (24 bytes).
+    Removing rt_cmsis.o(i.osSignalGet), (24 bytes).
+    Removing rt_cmsis.o(i.osSignalWait), (24 bytes).
+    Removing rt_cmsis.o(i.osThreadGetPriority), (24 bytes).
+    Removing rt_cmsis.o(i.osThreadSetPriority), (24 bytes).
+    Removing rt_cmsis.o(i.osThreadTerminate), (24 bytes).
+    Removing rt_cmsis.o(i.osThreadYield), (24 bytes).
+    Removing rt_cmsis.o(i.osTimerCreate), (24 bytes).
+    Removing rt_cmsis.o(i.osTimerStart), (24 bytes).
+    Removing rt_cmsis.o(i.osTimerStop), (24 bytes).
+    Removing rt_cmsis.o(i.osWait), (4 bytes).
+    Removing rt_cmsis.o(i.rt_clr_box), (20 bytes).
+    Removing rt_cmsis.o(i.rt_timer_remove), (60 bytes).
+    Removing rt_cmsis.o(i.svcDelay), (20 bytes).
+    Removing rt_cmsis.o(i.svcMailCreate), (66 bytes).
+    Removing rt_cmsis.o(i.svcMessagePut), (54 bytes).
+    Removing rt_cmsis.o(i.svcMutexCreate), (28 bytes).
+    Removing rt_cmsis.o(i.svcMutexRelease), (34 bytes).
+    Removing rt_cmsis.o(i.svcMutexWait), (54 bytes).
+    Removing rt_cmsis.o(i.svcPoolCreate), (40 bytes).
+    Removing rt_cmsis.o(i.svcSignalClear), (36 bytes).
+    Removing rt_cmsis.o(i.svcSignalGet), (18 bytes).
+    Removing rt_cmsis.o(i.svcSignalWait), (84 bytes).
+    Removing rt_cmsis.o(i.svcThreadGetPriority), (18 bytes).
+    Removing rt_cmsis.o(i.svcThreadSetPriority), (46 bytes).
+    Removing rt_cmsis.o(i.svcThreadYield), (10 bytes).
+    Removing rt_cmsis.o(i.svcTimerCreate), (52 bytes).
+    Removing rt_cmsis.o(i.svcTimerStart), (72 bytes).
+    Removing rt_cmsis.o(i.svcTimerStop), (36 bytes).
+    Removing rt_cmsis.o(i.sysMailAlloc), (112 bytes).
+    Removing rt_cmsis.o(i.sysMailFree), (102 bytes).
+    Removing rt_cmsis.o(i.sysPoolAlloc), (32 bytes).
+    Removing rt_cmsis.o(i.sysPoolFree), (20 bytes).
+    Removing rt_task.o(i.rt_tsk_pass), (48 bytes).
+    Removing rt_task.o(i.rt_tsk_prio), (116 bytes).
+    Removing rt_system.o(.emb_text), (0 bytes).
+    Removing rt_system.o(i.rt_tsk_lock), (40 bytes).
+    Removing rt_system.o(i.rt_tsk_unlock), (40 bytes).
+    Removing rt_event.o(i.rt_evt_clr), (28 bytes).
+    Removing rt_event.o(i.rt_evt_get), (12 bytes).
+    Removing rt_event.o(i.rt_evt_wait), (64 bytes).
+    Removing rt_list.o(i.rt_get_same_rdy_prio), (36 bytes).
+    Removing rt_list.o(i.rt_resort_prio), (52 bytes).
+    Removing rt_mailbox.o(i.rt_mbx_send), (172 bytes).
+    Removing rt_time.o(i.rt_dly_wait), (6 bytes).
+    Removing rt_time.o(i.rt_itv_set), (24 bytes).
+    Removing rt_time.o(i.rt_itv_wait), (44 bytes).
+    Removing rt_mutex.o(i.rt_mut_init), (16 bytes).
+    Removing rt_mutex.o(i.rt_mut_release), (160 bytes).
+    Removing rt_mutex.o(i.rt_mut_wait), (100 bytes).
+    Removing rt_membox.o(i._calloc_box), (28 bytes).
+    Removing dadd.o(.text), (334 bytes).
+    Removing dfixui.o(.text), (50 bytes).
+    Removing f2d.o(.text), (38 bytes).
+    Removing depilogue.o(.text), (190 bytes).
+    Removing cdrcmple.o(.text), (40 bytes).
+
+190 unused section(s) (total 26980 bytes) removed from the image.
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x00000000
+
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000039d0, Max: 0x00100000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00003968, Max: 0x00100000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x08000000   0x00000188   Data   RO          132    RESET               startup_stm32f4xx.o
+    0x08000188   0x00000000   Code   RO         2395  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000188   0x00000004   Code   RO         2404    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x0800018c   0x00000004   Code   RO         2407    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x08000190   0x00000000   Code   RO         2409    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x08000190   0x00000000   Code   RO         2411    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x08000190   0x00000000   Code   RO         2412    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x08000190   0x00000000   Code   RO         2414    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x08000190   0x00000010   Code   RO          137    .ARM.Collect$$$$000000FF  rtx_conf_cm.o
+    0x080001a0   0x00000004   Code   RO         2405    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x080001a4   0x00000174   Code   RO         2376    .emb_text           RTX_CM4.lib(hal_cm4.o)
+    0x08000318   0x0000020c   Code   RO            3    .text               system_stm32f4xx.o
+    0x08000524   0x00000024   Code   RO          133    .text               startup_stm32f4xx.o
+    0x08000548   0x00000008   Code   RO          138    .text               rtx_conf_cm.o
+    0x08000550   0x000000ec   Code   RO          171    .text               main.o
+    0x0800063c   0x00000074   Code   RO          346    .text               button.o
+    0x080006b0   0x000000e8   Code   RO          404    .text               led.o
+    0x08000798   0x000001cc   Code   RO          468    .text               dma.o
+    0x08000964   0x00000078   Code   RO          504    .text               tim3.o
+    0x080009dc   0x00000002   Code   RO          577    .text               slave.o
+    0x080009de   0x00000002   PAD
+    0x080009e0   0x000000e4   Code   RO          591    .text               misc.o
+    0x08000ac4   0x000003a4   Code   RO          907    .text               stm32f4xx_dma.o
+    0x08000e68   0x0000025c   Code   RO          999    .text               stm32f4xx_gpio.o
+    0x080010c4   0x00000588   Code   RO         1148    .text               stm32f4xx_rcc.o
+    0x0800164c   0x000003f4   Code   RO         1239    .text               stm32f4xx_spi.o
+    0x08001a40   0x00000ca2   Code   RO         1282    .text               stm32f4xx_tim.o
+    0x080026e2   0x00000002   PAD
+    0x080026e4   0x00000024   Code   RO         2427    .text               mc_w.l(init.o)
+    0x08002708   0x00000004   Code   RO         2386    SVC_TABLE           RTX_CM4.lib(SVC_Table.o)
+    0x0800270c   0x00000046   Code   RO         2249    i._init_box         RTX_CM4.lib(rt_membox.o)
+    0x08002752   0x00000002   PAD
+    0x08002754   0x00000030   Code   RO         2302    i.dbg_init          RTX_CM4.lib(hal_cm.o)
+    0x08002784   0x00000020   Code   RO         2303    i.dbg_task_notify   RTX_CM4.lib(hal_cm.o)
+    0x080027a4   0x00000010   Code   RO         2304    i.dbg_task_switch   RTX_CM4.lib(hal_cm.o)
+    0x080027b4   0x0000002c   Code   RO         1348    i.isrMessagePut     RTX_CM4.lib(rt_cmsis.o)
+    0x080027e0   0x00000028   Code   RO         1995    i.isr_evt_set       RTX_CM4.lib(rt_event.o)
+    0x08002808   0x00000050   Code   RO         2113    i.isr_mbx_receive   RTX_CM4.lib(rt_mailbox.o)
+    0x08002858   0x0000000e   Code   RO         2114    i.isr_mbx_send      RTX_CM4.lib(rt_mailbox.o)
+    0x08002866   0x00000010   Code   RO         2161    i.isr_sem_send      RTX_CM4.lib(rt_semaphore.o)
+    0x08002876   0x00000002   PAD
+    0x08002878   0x00000068   Code   RO         1351    i.osKernelStart     RTX_CM4.lib(rt_cmsis.o)
+    0x080028e0   0x00000018   Code   RO         1358    i.osMessageCreate   RTX_CM4.lib(rt_cmsis.o)
+    0x080028f8   0x00000044   Code   RO         1359    i.osMessageGet      RTX_CM4.lib(rt_cmsis.o)
+    0x0800293c   0x00000018   Code   RO         1368    i.osSemaphoreCreate  RTX_CM4.lib(rt_cmsis.o)
+    0x08002954   0x00000030   Code   RO         1369    i.osSemaphoreRelease  RTX_CM4.lib(rt_cmsis.o)
+    0x08002984   0x00000018   Code   RO         1370    i.osSemaphoreWait   RTX_CM4.lib(rt_cmsis.o)
+    0x0800299c   0x00000034   Code   RO         1373    i.osSignalSet       RTX_CM4.lib(rt_cmsis.o)
+    0x080029d0   0x00000018   Code   RO         1375    i.osThreadCreate    RTX_CM4.lib(rt_cmsis.o)
+    0x080029e8   0x00000018   Code   RO         1376    i.osThreadExit      RTX_CM4.lib(rt_cmsis.o)
+    0x08002a00   0x00000018   Code   RO         1377    i.osThreadGetId     RTX_CM4.lib(rt_cmsis.o)
+    0x08002a18   0x0000000c   Code   RO         1382    i.osTimerCall       RTX_CM4.lib(rt_cmsis.o)
+    0x08002a24   0x0000002c   Code   RO         1386    i.osTimerThread     RTX_CM4.lib(rt_cmsis.o)
+    0x08002a50   0x0000001c   Code   RO         2250    i.rt_alloc_box      RTX_CM4.lib(rt_membox.o)
+    0x08002a6c   0x0000003c   Code   RO         2278    i.rt_alloc_mem      RTX_CM4.lib(rt_memory.o)
+    0x08002aa8   0x00000038   Code   RO         1870    i.rt_block          RTX_CM4.lib(rt_task.o)
+    0x08002ae0   0x00000048   Code   RO         2355    i.rt_chk_robin      RTX_CM4.lib(rt_robin.o)
+    0x08002b28   0x00000070   Code   RO         2037    i.rt_dec_dly        RTX_CM4.lib(rt_list.o)
+    0x08002b98   0x00000044   Code   RO         1871    i.rt_dispatch       RTX_CM4.lib(rt_task.o)
+    0x08002bdc   0x00000050   Code   RO         1998    i.rt_evt_psh        RTX_CM4.lib(rt_event.o)
+    0x08002c2c   0x0000005c   Code   RO         1999    i.rt_evt_set        RTX_CM4.lib(rt_event.o)
+    0x08002c88   0x00000020   Code   RO         2251    i.rt_free_box       RTX_CM4.lib(rt_membox.o)
+    0x08002ca8   0x00000028   Code   RO         2279    i.rt_free_mem       RTX_CM4.lib(rt_memory.o)
+    0x08002cd0   0x00000028   Code   RO         2038    i.rt_get_first      RTX_CM4.lib(rt_list.o)
+    0x08002cf8   0x00000008   Code   RO         1389    i.rt_id2obj         RTX_CM4.lib(rt_cmsis.o)
+    0x08002d00   0x00000040   Code   RO         1872    i.rt_init_context   RTX_CM4.lib(rt_task.o)
+    0x08002d40   0x0000001a   Code   RO         2280    i.rt_init_mem       RTX_CM4.lib(rt_memory.o)
+    0x08002d5a   0x00000002   PAD
+    0x08002d5c   0x00000018   Code   RO         2356    i.rt_init_robin     RTX_CM4.lib(rt_robin.o)
+    0x08002d74   0x00000050   Code   RO         2305    i.rt_init_stack     RTX_CM4.lib(hal_cm.o)
+    0x08002dc4   0x00000008   Code   RO         2115    i.rt_mbx_check      RTX_CM4.lib(rt_mailbox.o)
+    0x08002dcc   0x0000001a   Code   RO         2116    i.rt_mbx_init       RTX_CM4.lib(rt_mailbox.o)
+    0x08002de6   0x00000002   PAD
+    0x08002de8   0x000000fc   Code   RO         2117    i.rt_mbx_psh        RTX_CM4.lib(rt_mailbox.o)
+    0x08002ee4   0x000000b4   Code   RO         2119    i.rt_mbx_wait       RTX_CM4.lib(rt_mailbox.o)
+    0x08002f98   0x0000003c   Code   RO         1390    i.rt_ms2tick        RTX_CM4.lib(rt_cmsis.o)
+    0x08002fd4   0x00000078   Code   RO         1949    i.rt_pop_req        RTX_CM4.lib(rt_system.o)
+    0x0800304c   0x00000020   Code   RO         1950    i.rt_psh_req        RTX_CM4.lib(rt_system.o)
+    0x0800306c   0x00000058   Code   RO         2040    i.rt_psq_enq        RTX_CM4.lib(rt_list.o)
+    0x080030c4   0x0000005c   Code   RO         2041    i.rt_put_dly        RTX_CM4.lib(rt_list.o)
+    0x08003120   0x00000038   Code   RO         2042    i.rt_put_prio       RTX_CM4.lib(rt_list.o)
+    0x08003158   0x00000014   Code   RO         2043    i.rt_put_rdy_first  RTX_CM4.lib(rt_list.o)
+    0x0800316c   0x00000010   Code   RO         2306    i.rt_ret_regs       RTX_CM4.lib(hal_cm.o)
+    0x0800317c   0x0000000c   Code   RO         2307    i.rt_ret_val        RTX_CM4.lib(hal_cm.o)
+    0x08003188   0x00000010   Code   RO         2308    i.rt_ret_val2       RTX_CM4.lib(hal_cm.o)
+    0x08003198   0x00000028   Code   RO         2045    i.rt_rmv_dly        RTX_CM4.lib(rt_list.o)
+    0x080031c0   0x00000030   Code   RO         2046    i.rt_rmv_list       RTX_CM4.lib(rt_list.o)
+    0x080031f0   0x0000000c   Code   RO         2162    i.rt_sem_init       RTX_CM4.lib(rt_semaphore.o)
+    0x080031fc   0x00000034   Code   RO         2163    i.rt_sem_psh        RTX_CM4.lib(rt_semaphore.o)
+    0x08003230   0x0000002a   Code   RO         2164    i.rt_sem_send       RTX_CM4.lib(rt_semaphore.o)
+    0x0800325a   0x00000002   PAD
+    0x0800325c   0x0000003c   Code   RO         2165    i.rt_sem_wait       RTX_CM4.lib(rt_semaphore.o)
+    0x08003298   0x00000024   Code   RO         1951    i.rt_stk_check      RTX_CM4.lib(rt_system.o)
+    0x080032bc   0x00000028   Code   RO         1873    i.rt_switch_req     RTX_CM4.lib(rt_task.o)
+    0x080032e4   0x00000140   Code   RO         1874    i.rt_sys_init       RTX_CM4.lib(rt_task.o)
+    0x08003424   0x0000003c   Code   RO         1952    i.rt_systick        RTX_CM4.lib(rt_system.o)
+    0x08003460   0x00000012   Code   RO         1391    i.rt_tid2ptcb       RTX_CM4.lib(rt_cmsis.o)
+    0x08003472   0x00000002   PAD
+    0x08003474   0x0000003c   Code   RO         1392    i.rt_timer_insert   RTX_CM4.lib(rt_cmsis.o)
+    0x080034b0   0x00000080   Code   RO         1875    i.rt_tsk_create     RTX_CM4.lib(rt_task.o)
+    0x08003530   0x000000ac   Code   RO         1876    i.rt_tsk_delete     RTX_CM4.lib(rt_task.o)
+    0x080035dc   0x00000010   Code   RO         1879    i.rt_tsk_self       RTX_CM4.lib(rt_task.o)
+    0x080035ec   0x000000d4   Code   RO         1395    i.svcKernelStart    RTX_CM4.lib(rt_cmsis.o)
+    0x080036c0   0x00000024   Code   RO         1397    i.svcMessageCreate  RTX_CM4.lib(rt_cmsis.o)
+    0x080036e4   0x0000003a   Code   RO         1398    i.svcMessageGet     RTX_CM4.lib(rt_cmsis.o)
+    0x0800371e   0x00000024   Code   RO         1404    i.svcSemaphoreCreate  RTX_CM4.lib(rt_cmsis.o)
+    0x08003742   0x0000001a   Code   RO         1405    i.svcSemaphoreRelease  RTX_CM4.lib(rt_cmsis.o)
+    0x0800375c   0x00000036   Code   RO         1406    i.svcSemaphoreWait  RTX_CM4.lib(rt_cmsis.o)
+    0x08003792   0x00000024   Code   RO         1409    i.svcSignalSet      RTX_CM4.lib(rt_cmsis.o)
+    0x080037b6   0x00000002   PAD
+    0x080037b8   0x00000070   Code   RO         1411    i.svcThreadCreate   RTX_CM4.lib(rt_cmsis.o)
+    0x08003828   0x0000001c   Code   RO         1412    i.svcThreadGetId    RTX_CM4.lib(rt_cmsis.o)
+    0x08003844   0x00000038   Code   RO         1415    i.svcThreadTerminate  RTX_CM4.lib(rt_cmsis.o)
+    0x0800387c   0x00000018   Code   RO         1417    i.svcTimerCall      RTX_CM4.lib(rt_cmsis.o)
+    0x08003894   0x00000054   Code   RO         1425    i.sysTimerTick      RTX_CM4.lib(rt_cmsis.o)
+    0x080038e8   0x00000058   Data   RO          140    .constdata          rtx_conf_cm.o
+    0x08003940   0x00000028   Data   RO          172    .constdata          main.o
+    0x08003968   0x00000000   Data   RO         2429    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Base: 0x10000000, Size: 0x00001b50, Max: 0x0001ffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x10000000   0x00001b50   Zero   RW          139    .bss                rtx_conf_cm.o
+
+
+    Execution Region RW_IRAM2 (Base: 0x20000000, Size: 0x000004c8, Max: 0x0001ffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x00000014   Data   RW            4    .data               system_stm32f4xx.o
+    0x20000014   0x00000010   Data   RW          141    .data               rtx_conf_cm.o
+    0x20000024   0x00000004   Data   RW          347    .data               button.o
+    0x20000028   0x00000004   Data   RW          469    .data               dma.o
+    0x2000002c   0x00000010   Data   RW          525    .data               globals.o
+    0x2000003c   0x00000010   Data   RW         1149    .data               stm32f4xx_rcc.o
+    0x2000004c   0x00000004   Data   RW         1426    .data               RTX_CM4.lib(rt_cmsis.o)
+    0x20000050   0x00000008   Data   RW         1881    .data               RTX_CM4.lib(rt_task.o)
+    0x20000058   0x00000003   Data   RW         1955    .data               RTX_CM4.lib(rt_system.o)
+    0x2000005b   0x00000001   PAD
+    0x2000005c   0x00000002   Data   RW         2200    .data               RTX_CM4.lib(rt_time.o)
+    0x2000005e   0x00000001   Data   RW         2309    .data               RTX_CM4.lib(hal_cm.o)
+    0x2000005f   0x00000001   PAD
+    0x20000060   0x00000008   Data   RW         2357    .data               RTX_CM4.lib(rt_robin.o)
+    0x20000068   0x00000030   Zero   RW         1880    .bss                RTX_CM4.lib(rt_task.o)
+    0x20000098   0x00000030   Zero   RW         2047    .bss                RTX_CM4.lib(rt_list.o)
+    0x200000c8   0x00000400   Zero   RW          130    STACK               startup_stm32f4xx.o
+

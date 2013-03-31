@@ -205,9 +205,9 @@
 
 /**
 * @brief Number of bytes per packet
-*	2 bytes for pitch and roll 
+*	4 bytes for dummy, x,y,z
 */
-#define RF2500_PACKET_LENGTH              (uint8_t)0x02
+#define RF2500_PACKET_LENGTH              (uint8_t)0x04
 
 int RF2500_Init(void);
 
@@ -233,8 +233,8 @@ uint8_t RF2500_GetFifoSize(uint8_t reg);
 
 uint32_t RF2500_TIMEOUT_UserCallback(void);
 
-void receiveAccelData(void);
+int receiveAccelData(uint32_t* accData);
 
-void transmitAccelData(void);
+void transmitAccelData(uint32_t* accData);
 
 #endif

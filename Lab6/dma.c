@@ -35,7 +35,8 @@ void SPI_DMA_xfer(uint8_t* write_buff, uint8_t* read_buff, GPIO_TypeDef* GPIOx, 
 	//set chip select low
 	GPIO_ResetBits(GPIOx, GPIO_Pin);
 	// wait for slave
-	while(GPIO_ReadInputDataBit(GPIOx, GPIO_Pin)!=Bit_RESET);
+	if (GPIOx == GPIOA)
+		while(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6) != Bit_RESET); 
 	DMA2_Stream0->M0AR = (uint32_t)(&read_buff[0]);
 	DMA2_Stream3->M0AR = (uint32_t)(&write_buff[0]);
 	DMA2_Stream0->NDTR = numByte;

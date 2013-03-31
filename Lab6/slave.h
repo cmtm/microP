@@ -6,6 +6,7 @@
 #include "moving_average.h"
 #include "globals.h"
 #include "LED.h"
+#include "wirelessDriver.h"
 
 #define THRESHOLD 30
 #define FLASH_PERIOD 20

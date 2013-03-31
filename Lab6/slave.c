@@ -8,7 +8,7 @@ void slave_run(void) {
 	int timeCount = 0;
 	LED_state leds = OFF;
 	
-	uint8_t write_buff[12];
+	uint8_t write_buff[12] = {LIS302DL_OUT_X_ADDR | 0x40 | 0x80};
 	uint8_t read_buff[12];
 	
 	while(1) {
@@ -48,10 +48,10 @@ void slave_run(void) {
 }
 
 void slave_wireless(const void* p) {
-	//while(1) {
-		// TODO wait for wireless data
-		
-		//osMessagePut(queue_ID, ap.all, osWaitForever);
-	//}
+	uint32_t received;
+	while(1) {
+		if(receiveAccelData(&received))
+			osMessagePut(queue_ID, received, osWaitForever);
+	}
 	
 }

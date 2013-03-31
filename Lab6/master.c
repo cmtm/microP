@@ -4,8 +4,12 @@ void master_run(void) {
 	static FilterState fs[3];
 	int8_t filteredAcc[3];
 	
-	uint8_t write_buff[12];
+	uint8_t write_buff[12] = {LIS302DL_OUT_X_ADDR | 0x40 | 0x80};
 	uint8_t read_buff[12];
+	
+	// set all LEDs to on to signal that
+	// this board is master
+	LED_setAll(ON);
 	
 	while(1) {
 		// on TIM3 tick
@@ -30,6 +34,6 @@ void master_wireless(const void* p) {
 		// wait for message from mainThread
 		msg = osMessageGet(queue_ID, osWaitForever);
 	
-		// TODO deliver it to other board
+		transmitAccelData( &(msg.value.v) );
 	}
 }

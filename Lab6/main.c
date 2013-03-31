@@ -32,8 +32,9 @@ int main (void) {
 	buttonInit();
 	LED_init();
 	acc_init();
-	TIM3_Init();
+	TIM3_Init(50);
 	dma_init();
+	
 
 
 	
@@ -69,7 +70,7 @@ int main (void) {
 			
 			queue_ID = osMessageCreate ( osMessageQ( queue ), mainThread_ID);
 			
-			TIM3_Init();
+			TIM3_Init(50);
 			slave_run();      
 		} break;
 		case MASTER: {
@@ -78,7 +79,7 @@ int main (void) {
 			
 			queue_ID = osMessageCreate ( osMessageQ( queue ), wirelessThread_ID);
 			
-			TIM3_Init();
+			TIM3_Init(50);
 			master_run();
 		} break;
 	}

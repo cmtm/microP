@@ -4,6 +4,8 @@
 #include "dma.h"
 #include "moving_average.h"
 #include "globals.h"
+#include "LED.h"
+#include "wirelessDriver.h"
 
 
 void master_run(void);

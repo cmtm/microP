@@ -18,7 +18,7 @@
 	
 	uint8_t rssi;
 	uint8_t crc_ok;
-	uint8_t packet_read;
+	
 
     uint32_t RF2500Timeout = RF2500_FLAG_TIMEOUT;
 
@@ -262,7 +262,7 @@
     {
 		w_buff[0] = reg;  
 		w_buff[1] = value; 
-		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 3);
+		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 2);
 	}
 
 	/**
@@ -358,17 +358,7 @@
     * @returns 1 if error, 0 otherwise.
     */
     int RF2500_CheckRegisters(void)
-    {
-		// TEST CODE //////////
-		
-		w_buff[0] = CCxxx0_VERSION | READWRITE_CMD;
-		w_buff[1] = 0x0;
-				
-		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 1+1);
-		
-		//RF2500_CheckRegister(CCxxx0_VERSION,0x3)
-		////////////////////////
-		
+    {		
 		// Check each setting individually
 		if(RF2500_CheckRegister(CCxxx0_IOCFG0,SMARTRF_SETTING_IOCFG0D) && 
             RF2500_CheckRegister(CCxxx0_PKTLEN,RF2500_PACKET_LENGTH) &&
@@ -441,8 +431,9 @@
     /**
     * @brief Receives the roll and pitch data using the RF2500 peripheral.
     */
-    void receiveAccelData(void)
+    int receiveAccelData(uint32_t* accData)
     {
+		uint8_t packet_read = 0;
         uint8_t fifoSize;
         //uint8_t trashData[10];
         
@@ -462,24 +453,20 @@
             RF2500_Read(comrade_data, CCxxx0_RXFIFO, RF2500_PACKET_LENGTH+2);		
 
             // Read rssi signal strength estimate
-            rssi = comrade_data[2];
+            rssi = comrade_data[RF2500_PACKET_LENGTH];
             
             // Check CRC OK flag
-            crc_ok = (comrade_data[3] & CCxxx0_CRC_OK == CCxxx0_CRC_OK);
+            crc_ok = (comrade_data[RF2500_PACKET_LENGTH + 1] & CCxxx0_CRC_OK == CCxxx0_CRC_OK);
             
             // We read an entire packet, check the check sum
             if (crc_ok)
-            {		
+            {
+				accData[0] = ((uint32_t*)comrade_data)[0];
                 // Valid data, so set roll and pitch    
-                comradeAlpha = byteToDegrees(comrade_data[0]);
-                comradeBeta = byteToDegrees(comrade_data[1]);
+                //comradeAlpha = byteToDegrees(comrade_data[0]);
+                //comradeBeta = byteToDegrees(comrade_data[1]);
                 packet_read = 1;
             }
-            else
-            {
-                // The check sum failed, so remove input
-                packet_read = 0;
-            }		
             
             // Goto idle mode
             RF2500_Strobe(CCxxx0_SIDLE); 
@@ -494,14 +481,15 @@
             RF2500_Strobe(CCxxx0_SRX); 
             
             // Wait until mode changes
-            while(RF2500_GetCurrentState() != CCxxx0_STATUS_RX);			
+            while(RF2500_GetCurrentState() != CCxxx0_STATUS_RX);					
         }
+		return packet_read;
     }
 
     /**
     * @brief Transmit the roll and pitch data using the RF2500 peripheral.
     */
-    void transmitAccelData(void)
+    void transmitAccelData(uint32_t* accData)
     {	
         // Enter idle mode
         RF2500_Strobe(CCxxx0_SIDLE);
@@ -511,15 +499,9 @@
         
         // Flush the TX buffer
         RF2500_Strobe(CCxxx0_SFTX);	
-        
-        // Write data to TX FIFO buffer
-        // Pack roll and pitch
-        uint8_t temp[RF2500_PACKET_LENGTH];
-        temp[0] = degreesToByte(alpha);
-        temp[1] = degreesToByte(beta);
 
         // Write roll & pitch to FIFO register
-        RF2500_Write((uint8_t *)&temp, CCxxx0_TXFIFO, RF2500_PACKET_LENGTH);       	
+        RF2500_Write((uint8_t*)accData, CCxxx0_TXFIFO, RF2500_PACKET_LENGTH);       	
 
         // Enable TX mode
         RF2500_Strobe(CCxxx0_STX);

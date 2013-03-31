@@ -25,3 +25,4 @@ extern osThreadId wirelessThread_ID;
 
 extern osMessageQId queue_ID;
 extern osSemaphoreId dmaSema_ID;
+extern osSemaphoreId dmaComplete_ID;

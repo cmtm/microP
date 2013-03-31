@@ -43,9 +43,9 @@
 #define RF2500_SPI_MOSI_SOURCE           GPIO_PinSource7
 #define RF2500_SPI_MOSI_AF               GPIO_AF_SPI1
 
-#define RF2500_SPI_CS_PIN                GPIO_Pin_0                  /* PB.00 */
-#define RF2500_SPI_CS_GPIO_PORT          GPIOB                       /* GPIOB */
-#define RF2500_SPI_CS_GPIO_CLK           RCC_AHB1Periph_GPIOB
+#define RF2500_SPI_CS_PIN                GPIO_Pin_4                  /* PB.4 */
+#define RF2500_SPI_CS_GPIO_PORT          GPIOA                       /* GPIOA */
+#define RF2500_SPI_CS_GPIO_CLK           RCC_AHB1Periph_GPIOA
 
 
 /******************************************************************************/

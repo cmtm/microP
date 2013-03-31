@@ -10,6 +10,8 @@
 
 #include "button.h"
 #include "LED.h"
+#include "acc.h"
+#include "wirelessDriver.h"
 
 #define APP_FREQ 100
 
@@ -25,8 +27,16 @@ void TIM3_IRQHandler(void) {
 int main (void) {
 	Mode currentMode;
 	mainThread_ID = osThreadGetId();
+
+	
 	buttonInit();
 	LED_init();
+	acc_init();
+	TIM3_Init();
+	dma_init();
+
+
+	
 	
 	// record operating mode
 	currentMode = buttonIsPushed() ? SLAVE : MASTER;
@@ -34,16 +44,21 @@ int main (void) {
 	osSemaphoreDef(dmaSema);
 	dmaSema_ID = osSemaphoreCreate(osSemaphore (dmaSema), 1);
 	
-
+	osSemaphoreDef(dmaComplete);
+	dmaComplete_ID = osSemaphoreCreate(osSemaphore (dmaComplete), 1);
 	
-	TIM3_Init(APP_FREQ);
+	// lock it. DMA will release
+	osSemaphoreWait(dmaComplete_ID, osWaitForever);
+	
+	
+	if(RF2500_Init() )
+		while(1); //death pit
 
 	
 	// Assuming only assigned thread ID can receive from queue
 	// slave wireless puts     slave main gets
 	// master wireless gets    master main puts
 	osMessageQDef ( queue, 1, uint32_t );
-
 	
 	// the slave_run and master_run functions
 	// never return
@@ -54,6 +69,7 @@ int main (void) {
 			
 			queue_ID = osMessageCreate ( osMessageQ( queue ), mainThread_ID);
 			
+			TIM3_Init();
 			slave_run();      
 		} break;
 		case MASTER: {
@@ -62,6 +78,7 @@ int main (void) {
 			
 			queue_ID = osMessageCreate ( osMessageQ( queue ), wirelessThread_ID);
 			
+			TIM3_Init();
 			master_run();
 		} break;
 	}

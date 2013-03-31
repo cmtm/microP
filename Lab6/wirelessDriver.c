@@ -1,15 +1,24 @@
     #include "wirelessDriver.h" //the wireless thing
+	#include "dma.h"
+	#include "globals.h"
+	#include "cmsis_os.h"
     #include <math.h>
     #include <stdint.h>
-
-    extern float alpha, beta;
-    extern float comradeAlpha, comradeBeta;
-    extern uint8_t RF2500_state;
-    extern uint8_t comrade_data[RF2500_PACKET_LENGTH+2];
-
-    extern uint8_t rssi;
-    extern uint8_t crc_ok;
-    extern uint8_t packet_read;
+	
+	osThreadId source_ID;
+	
+	
+	uint8_t r_buff[12]={0x00};
+	uint8_t w_buff[12]={0x00};
+	
+	float alpha, beta;
+	float comradeAlpha, comradeBeta;
+	uint8_t RF2500_state;
+	uint8_t comrade_data[RF2500_PACKET_LENGTH+2];
+	
+	uint8_t rssi;
+	uint8_t crc_ok;
+	uint8_t packet_read;
 
     uint32_t RF2500Timeout = RF2500_FLAG_TIMEOUT;
 
@@ -112,54 +121,54 @@
       */
     int RF2500_LowLevel_Init(void)
     {
-      GPIO_InitTypeDef GPIO_InitStructure;
-      SPI_InitTypeDef  SPI_InitStructure;
+       GPIO_InitTypeDef GPIO_InitStructure;
+//       SPI_InitTypeDef  SPI_InitStructure;
 
-      /* Enable the SPI periph */
-      RCC_APB2PeriphClockCmd(RF2500_SPI_CLK, ENABLE);
+//       /* Enable the SPI periph */
+//       RCC_APB2PeriphClockCmd(RF2500_SPI_CLK, ENABLE);
 
-      /* Enable SCK, MOSI and MISO GPIO clocks */
-      RCC_AHB1PeriphClockCmd(RF2500_SPI_SCK_GPIO_CLK | RF2500_SPI_MISO_GPIO_CLK | RF2500_SPI_MOSI_GPIO_CLK, ENABLE);
+//       /* Enable SCK, MOSI and MISO GPIO clocks */
+//       RCC_AHB1PeriphClockCmd(RF2500_SPI_SCK_GPIO_CLK | RF2500_SPI_MISO_GPIO_CLK | RF2500_SPI_MOSI_GPIO_CLK, ENABLE);
 
-      /* Enable CS  GPIO clock */
-      RCC_AHB1PeriphClockCmd(RF2500_SPI_CS_GPIO_CLK, ENABLE);
+//       /* Enable CS  GPIO clock */
+//       RCC_AHB1PeriphClockCmd(RF2500_SPI_CS_GPIO_CLK, ENABLE);
 
-      GPIO_PinAFConfig(RF2500_SPI_SCK_GPIO_PORT, RF2500_SPI_SCK_SOURCE, RF2500_SPI_SCK_AF);
-      GPIO_PinAFConfig(RF2500_SPI_MISO_GPIO_PORT, RF2500_SPI_MISO_SOURCE, RF2500_SPI_MISO_AF);
-      GPIO_PinAFConfig(RF2500_SPI_MOSI_GPIO_PORT, RF2500_SPI_MOSI_SOURCE, RF2500_SPI_MOSI_AF);
+//       GPIO_PinAFConfig(RF2500_SPI_SCK_GPIO_PORT, RF2500_SPI_SCK_SOURCE, RF2500_SPI_SCK_AF);
+//       GPIO_PinAFConfig(RF2500_SPI_MISO_GPIO_PORT, RF2500_SPI_MISO_SOURCE, RF2500_SPI_MISO_AF);
+//       GPIO_PinAFConfig(RF2500_SPI_MOSI_GPIO_PORT, RF2500_SPI_MOSI_SOURCE, RF2500_SPI_MOSI_AF);
 
-      GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-      GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-      GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_DOWN;
-      GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//       GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+//       GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+//       GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_DOWN;
+//       GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 
-      /* SPI SCK pin configuration */
-      GPIO_InitStructure.GPIO_Pin = RF2500_SPI_SCK_PIN;
-      GPIO_Init(RF2500_SPI_SCK_GPIO_PORT, &GPIO_InitStructure);
+//       /* SPI SCK pin configuration */
+//       GPIO_InitStructure.GPIO_Pin = RF2500_SPI_SCK_PIN;
+//       GPIO_Init(RF2500_SPI_SCK_GPIO_PORT, &GPIO_InitStructure);
 
-      /* SPI  MOSI pin configuration */
-      GPIO_InitStructure.GPIO_Pin =  RF2500_SPI_MOSI_PIN;
-      GPIO_Init(RF2500_SPI_MOSI_GPIO_PORT, &GPIO_InitStructure);
+//       /* SPI  MOSI pin configuration */
+//       GPIO_InitStructure.GPIO_Pin =  RF2500_SPI_MOSI_PIN;
+//       GPIO_Init(RF2500_SPI_MOSI_GPIO_PORT, &GPIO_InitStructure);
 
-      /* SPI MISO pin configuration */
-      GPIO_InitStructure.GPIO_Pin = RF2500_SPI_MISO_PIN;
-      GPIO_Init(RF2500_SPI_MISO_GPIO_PORT, &GPIO_InitStructure);
+//       /* SPI MISO pin configuration */
+//       GPIO_InitStructure.GPIO_Pin = RF2500_SPI_MISO_PIN;
+//       GPIO_Init(RF2500_SPI_MISO_GPIO_PORT, &GPIO_InitStructure);
 
-      /* SPI configuration -------------------------------------------------------*/
-      SPI_I2S_DeInit(RF2500_SPI);
-      SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
-      SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
-      SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
-      SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
-      SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
-      SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;
-      SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
-      SPI_InitStructure.SPI_CRCPolynomial = 7;
-      SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
-      SPI_Init(RF2500_SPI, &SPI_InitStructure);
+//       /* SPI configuration -------------------------------------------------------*/
+//       SPI_I2S_DeInit(RF2500_SPI);
+//       SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+//       SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
+//       SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
+//       SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+//       SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+//       SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;
+//       SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
+//       SPI_InitStructure.SPI_CRCPolynomial = 7;
+//       SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+//       SPI_Init(RF2500_SPI, &SPI_InitStructure);
 
-      /* Enable SPI1  */
-      SPI_Cmd(RF2500_SPI, ENABLE);
+//       /* Enable SPI1  */
+//       SPI_Cmd(RF2500_SPI, ENABLE);
 
       /* Configure GPIO PIN for Lis Chip select */
       GPIO_InitStructure.GPIO_Pin = RF2500_SPI_CS_PIN;
@@ -168,23 +177,23 @@
       GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
       GPIO_Init(RF2500_SPI_CS_GPIO_PORT, &GPIO_InitStructure);
 
-      /* Deselect : Chip Select high */
-      GPIO_SetBits(RF2500_SPI_CS_GPIO_PORT, RF2500_SPI_CS_PIN);
-        
-        // Reset the chip
-        RF2500_CS_LOW();
-        delay(100);
-        RF2500_CS_HIGH();
-        delay(100);
-        RF2500_CS_LOW();
-        delay(150);
-        
-        // Send reset command
-        RF2500_Strobe(CCxxx0_SRES); 
-        RF2500_CS_HIGH();
+       /* Deselect : Chip Select high */
+       GPIO_SetBits(RF2500_SPI_CS_GPIO_PORT, RF2500_SPI_CS_PIN);
+         
+         // Reset the chip
+         RF2500_CS_LOW();
+         delay(100);
+         RF2500_CS_HIGH();
+         delay(100);
+         RF2500_CS_LOW();
+         delay(150);
+         
+         // Send reset command
+         RF2500_Strobe(CCxxx0_SRES); 
+         RF2500_CS_HIGH();
 
-        // Set to IDLE state
-        RF2500_Strobe(CCxxx0_SIDLE);
+         // Set to IDLE state
+         RF2500_Strobe(CCxxx0_SIDLE);
         
          return RF2500_WriteRegisters();
     }
@@ -251,24 +260,14 @@
     */
     void RF2500_WriteRegister(uint8_t reg, uint8_t value)
     {
-        // Set chip select Low at the start of the transmission
-        RF2500_CS_LOW();     
-        
-        // Wait for MISO line to go low before writing address byte
-        while(RF2500_MISO_STATE() != Bit_RESET);  	
-        
-            // Set the address by writing to the register...
-        RF2500_SendByte(reg); 
-        // ... the specific value bits
-        RF2500_SendByte(value);    
-        
-        // Set chip select High at the end of the transmission
-        RF2500_CS_HIGH();    
-    }
+		w_buff[0] = reg;  
+		w_buff[1] = value; 
+		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 3);
+	}
 
-    /**
-    * @brief  Set RF2500 Initialization.
-    *
+	/**
+	SPI_DMA_xfer(w_buff, r_buff, WIRELESS_SPI_CS_GPIO_PORT , WIRELESS_SPI_CS_PIN , 2);    * @brief  Set RF2500 Initialization.
+	*
     * @returns 1 on error; 0 otherwise.
     */
     int initRF2500(void)
@@ -278,73 +277,23 @@
     }
 
     /**
-    * @brief  Sends a Byte through the SPI interface and return the Byte received 
-    *         from the SPI bus.
-    * @param[in]    Byte : Byte send.
-    * @retval       The received byte value
-    */
-    static uint8_t RF2500_SendByte(uint8_t byte)
-    {
-        // Loop while DR register in not empty
-        RF2500Timeout = RF2500_FLAG_TIMEOUT;
-        while (SPI_I2S_GetFlagStatus(RF2500_SPI, SPI_I2S_FLAG_TXE) == RESET)
-        {
-            if((RF2500Timeout--) == 0) return RF2500_TIMEOUT_UserCallback();
-        }
-
-        // Send a Byte through the SPI peripheral
-        SPI_I2S_SendData(RF2500_SPI, byte);
-
-        // Wait to receive a byte
-        RF2500Timeout = RF2500_FLAG_TIMEOUT;
-        while (SPI_I2S_GetFlagStatus(RF2500_SPI, SPI_I2S_FLAG_RXNE) == RESET)
-        {
-            if((RF2500Timeout--) == 0) return RF2500_TIMEOUT_UserCallback();
-        }
-
-        // Return the Byte read from the SPI bus
-        return (uint8_t)SPI_I2S_ReceiveData(RF2500_SPI);
-    }
-
-    /**
     * @brief  Writes one byte to the RF2500 peripheral.
     * @param[in]    pBuffer : pointer to the buffer  containing the data to be written to the RF2500 peripheral.
     * @param[in]    WriteAddr : RF2500 peripheral's internal address to write to.
     * @param[in]    NumByteToWrite: Number of bytes to write.
     * @retval None
     */
-    void RF2500_Write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite)
-    {
-        /* Configure the Burst mode bit: 
-        - When 0, the address will remain unchanged in multiple read/write commands.
-        - When 1, the address will be auto incremented in multiple read/write commands.
-        */  
-        if(NumByteToWrite > 0x01)
-        {
-            // Set Burst mode bit
-            WriteAddr |= (uint8_t)MULTIPLEBYTE_CMD;
-        }
-        
-        // Set chip select Low at the start of the transmission
-        RF2500_CS_LOW(); 
-
-        // Wait for MISO line to go low before writing address byte
-        while(RF2500_MISO_STATE() != Bit_RESET);
-
-        // Send the Address of the indexed register
-        // and read the state of the RF2500 peripheral.
-        RF2500_state = RF2500_SendByte(WriteAddr);
-        
-        // Send the data that will be written into the device (MSB First)
-        while(NumByteToWrite >= 0x01)
-        {
-            RF2500_SendByte(*pBuffer);
-            NumByteToWrite--;
-            pBuffer++;
-        }
-
-        // Set chip select High at the end of the transmission
-        RF2500_CS_HIGH();   
+    void RF2500_Write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite) {
+		if(NumByteToWrite > 0x01) {
+			// Set Burst mode bit
+			WriteAddr |= CCxxx0_WRITE_BURST ;
+		}
+ 
+		w_buff[0] = WriteAddr;
+		for (int i = 0; i<NumByteToWrite; i++)
+			w_buff[i+1] = pBuffer[i];
+		
+		SPI_DMA_simple(w_buff, r_buff, WIRELESS, NumByteToWrite + 1);	  			
     }
 
     /**
@@ -356,36 +305,17 @@
     */
     void RF2500_Read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
     {  
-        // Configure Burst mode / header bits
-        if(NumByteToRead > 0x01)
-        {
-            ReadAddr |= (uint8_t)(READWRITE_CMD | MULTIPLEBYTE_CMD);
-        }
-        else
-        {
-            ReadAddr |= (uint8_t)READWRITE_CMD;
-        }
+		// Configure Burst mode / header bits
+		if(NumByteToRead > 0x01)
+			ReadAddr |= CCxxx0_READ_BURST;
+		else
+			ReadAddr |= CCxxx0_READ_SINGLE;
+
         
-        // Set chip select Low at the start of the transmission
-        RF2500_CS_LOW();
-
-        // Wait for MISO line to go low before writing address byte
-        while(RF2500_MISO_STATE() != Bit_RESET);  
-
-        // Send the Address of the indexed register
-        RF2500_state =  RF2500_SendByte(ReadAddr);
-
-        // Receive the data that will be read from the device (MSB First)
-        while(NumByteToRead > 0x00)
-        {
-            // Send dummy byte (0x00) to generate the SPI clock to RF2500 peripheral (Slave device)
-            *pBuffer = RF2500_SendByte(DUMMY_BYTE);
-            NumByteToRead--;
-            pBuffer++;
-        }
-
-        // Set chip select High at the end of the transmission
-        RF2500_CS_HIGH();
+		w_buff[0] = ReadAddr;
+		w_buff[1] = 0x00;
+				
+		SPI_DMA_simple(w_buff, pBuffer, WIRELESS, NumByteToRead + 1);
     }
 
     /**
@@ -395,23 +325,9 @@
     */
     uint8_t RF2500_Strobe(uint8_t CommandRegister)
     {
-        // The procedure for sending a command is different for sending/receiving data
-        // as the bus transaction is over a single byte. Therefore, do not use 
-        // RF2500_SendByte to implement this feature.
-
-        // Set chip select Low at the start of the transmission
-        RF2500_CS_LOW();
-
-        while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE)== RESET);	// check flag for transmission to be RESET
-        SPI_I2S_SendData(SPI1, CommandRegister);												// condition satisfied --> send command strobe
-
-        while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_BSY) == SET);		// check flag for being busy to be SET
-        RF2500_state = SPI_I2S_ReceiveData(SPI1);											// set status to most recent received data on SPI1
-
-        // Set chip select High at the end of the transmission
-        RF2500_CS_HIGH();   					
-
-        return RF2500_state;
+		w_buff[0] = CommandRegister;
+		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 2);
+		return r_buff[1];
     }
 
     /**
@@ -424,13 +340,12 @@
     */
     int RF2500_CheckRegister(uint8_t reg, uint8_t value)
     {
-            uint8_t setting;
+		w_buff[0] = reg | READWRITE_CMD;
+				
+		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 1 + 1);
+
         
-            // Read current setting
-            RF2500_Read(&setting, reg, 1); 
-        
-            if (value != setting)
-            {
+            if (value != r_buff[1]) {
                 return 0;
             }
             
@@ -444,8 +359,18 @@
     */
     int RF2500_CheckRegisters(void)
     {
-      // Check each setting individually		
-        if (RF2500_CheckRegister(CCxxx0_IOCFG0,SMARTRF_SETTING_IOCFG0D) && 
+		// TEST CODE //////////
+		
+		w_buff[0] = CCxxx0_VERSION | READWRITE_CMD;
+		w_buff[1] = 0x0;
+				
+		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 1+1);
+		
+		//RF2500_CheckRegister(CCxxx0_VERSION,0x3)
+		////////////////////////
+		
+		// Check each setting individually
+		if(RF2500_CheckRegister(CCxxx0_IOCFG0,SMARTRF_SETTING_IOCFG0D) && 
             RF2500_CheckRegister(CCxxx0_PKTLEN,RF2500_PACKET_LENGTH) &&
             RF2500_CheckRegister(CCxxx0_PKTCTRL0,SMARTRF_SETTING_PKTCTRL0) &&   
             RF2500_CheckRegister(CCxxx0_ADDR,SMARTRF_SETTING_ADDR) &&       
@@ -477,7 +402,7 @@
             RF2500_CheckRegister(CCxxx0_FIFOTHR,SMARTRF_SETTING_FIFOTHR) &&
             RF2500_CheckRegister(CCxxx0_IOCFG2,SMARTRF_SETTING_IOCFG2) &&   
             RF2500_CheckRegister(CCxxx0_PKTCTRL1,SMARTRF_SETTING_PKTCTRL1) &&        
-            RF2500_CheckRegister(CCxxx0_MCSM1,SMARTRF_SETTING_MCSM1))	
+            RF2500_CheckRegister(CCxxx0_MCSM1,SMARTRF_SETTING_MCSM1))
         {
             // All settings are configured as expected.
             return 0;
@@ -522,7 +447,7 @@
         //uint8_t trashData[10];
         
         // Enter RECEIVE MODE 
-        RF2500_Strobe(CCxxx0_SRX); 
+        RF2500_Strobe(CCxxx0_SRX);
         
         // Wait until mode changes
         while(RF2500_GetCurrentState() != CCxxx0_STATUS_RX);	

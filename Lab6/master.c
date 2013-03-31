@@ -11,7 +11,7 @@ void master_run(void) {
 		// on TIM3 tick
 		osSignalWait(0x1, osWaitForever);
 		// read from accelerometer
-		SPI_DMA_simple(write_buff, read_buff, 1 + 3*2, ACC);
+		SPI_DMA_simple(write_buff, read_buff, ACC, 1 + 3*2);
 		
 		for (int i = 0; i<3; i++) {
 			filteredAcc[i] = moving_average((int8_t)read_buff[1+2*i], &fs[i]);

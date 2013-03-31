@@ -477,11 +477,6 @@
               <FilePath>..\globals.c</FilePath>
             </File>
             <File>
-              <FileName>wirelessDriver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\wirelessDriver.c</FilePath>
-            </File>
-            <File>
               <FileName>master.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\master.c</FilePath>
@@ -490,6 +485,11 @@
               <FileName>slave.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\slave.c</FilePath>
+            </File>
+            <File>
+              <FileName>wirelessDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\wirelessDriver.c</FilePath>
             </File>
           </Files>
         </Group>

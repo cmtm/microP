@@ -14,6 +14,6 @@ typedef enum {
 
 void dma_init(void);
 
-void SPI_DMA_xfer(uint8_t* write_buff, uint8_t* read_buff, GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int numByte, osThreadId source);
+void SPI_DMA_xfer(uint8_t* write_buff, uint8_t* read_buff, GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int numByte);
 
-void SPI_DMA_simple(uint8_t* write_buff, uint8_t* read_buff, int numByte, Target t);
+void SPI_DMA_simple(uint8_t* write_buff, uint8_t* read_buff, Target t, int numByte);

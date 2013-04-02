@@ -1,6 +1,5 @@
 #include "TIM3.h"
 
-#define PRESCALAR 42000
 
 /*Timer initializer*/
 #define PRESCALAR 42000

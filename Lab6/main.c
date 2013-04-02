@@ -27,7 +27,12 @@ void TIM3_IRQHandler(void) {
 int main (void) {
 	Mode currentMode;
 	mainThread_ID = osThreadGetId();
-
+	
+	osSemaphoreDef(dmaSema);
+	dmaSema_ID = osSemaphoreCreate(osSemaphore (dmaSema), 1);
+	
+	osSemaphoreDef(dmaComplete);
+	dmaComplete_ID = osSemaphoreCreate(osSemaphore (dmaComplete), 1);
 	
 	buttonInit();
 	LED_init();
@@ -35,18 +40,9 @@ int main (void) {
 	TIM3_Init(50);
 	dma_init();
 	
-
-
-	
-	
 	// record operating mode
 	currentMode = buttonIsPushed() ? SLAVE : MASTER;
-	
-	osSemaphoreDef(dmaSema);
-	dmaSema_ID = osSemaphoreCreate(osSemaphore (dmaSema), 1);
-	
-	osSemaphoreDef(dmaComplete);
-	dmaComplete_ID = osSemaphoreCreate(osSemaphore (dmaComplete), 1);
+
 	
 	// lock it. DMA will release
 	osSemaphoreWait(dmaComplete_ID, osWaitForever);
@@ -55,7 +51,12 @@ int main (void) {
 	if(RF2500_Init() )
 		while(1); //death pit
 
+	static uint8_t read_buff[7];
+	static uint8_t write_buff[7]= {LIS302DL_OUT_X_ADDR|0x40|0x80,0x00,0x00,0x00,0x00,0x00,0x00};
+
 	
+	SPI_DMA_xfer(write_buff, read_buff, LIS302DL_SPI_CS_GPIO_PORT, LIS302DL_SPI_CS_PIN, 7);				
+
 	// Assuming only assigned thread ID can receive from queue
 	// slave wireless puts     slave main gets
 	// master wireless gets    master main puts
@@ -70,7 +71,7 @@ int main (void) {
 			
 			queue_ID = osMessageCreate ( osMessageQ( queue ), mainThread_ID);
 			
-			TIM3_Init(50);
+			TIM3_Init(10);
 			slave_run();      
 		} break;
 		case MASTER: {
@@ -79,7 +80,7 @@ int main (void) {
 			
 			queue_ID = osMessageCreate ( osMessageQ( queue ), wirelessThread_ID);
 			
-			TIM3_Init(50);
+			TIM3_Init(10);
 			master_run();
 		} break;
 	}

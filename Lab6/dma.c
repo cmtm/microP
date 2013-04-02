@@ -42,11 +42,14 @@ void SPI_DMA_xfer(uint8_t* write_buff, uint8_t* read_buff, GPIO_TypeDef* GPIOx, 
 	DMA2_Stream0->NDTR = numByte;
 	DMA2_Stream3->NDTR = numByte;
 
-	//set chip select to high
+	osDelay(10);
+
 	DMA2_Stream0->CR |= DMA_SxCR_EN;
 	DMA2_Stream3->CR |= DMA_SxCR_EN;
 	
 	osSemaphoreWait(dmaComplete_ID, osWaitForever);
+	GPIO_SetBits(GPIOx, GPIO_Pin);
+
 	osSemaphoreRelease(dmaSema_ID);
 }
 

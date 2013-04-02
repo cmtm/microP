@@ -326,7 +326,7 @@
     uint8_t RF2500_Strobe(uint8_t CommandRegister)
     {
 		w_buff[0] = CommandRegister;
-		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 2);
+		SPI_DMA_simple(w_buff, r_buff, WIRELESS, 1);
 		return r_buff[1];
     }
 
@@ -495,7 +495,7 @@
         RF2500_Strobe(CCxxx0_SIDLE);
         
         // Wait until idle mode is entered
-        while(RF2500_GetCurrentState() != CCxxx0_STATUS_IDLE);
+        //while(RF2500_GetCurrentState() != CCxxx0_STATUS_IDLE);
         
         // Flush the TX buffer
         RF2500_Strobe(CCxxx0_SFTX);	
@@ -507,11 +507,11 @@
         RF2500_Strobe(CCxxx0_STX);
 
         // Wait until TX mode is set
-        while(RF2500_GetCurrentState() != CCxxx0_STATUS_TX);
+        //while(RF2500_GetCurrentState() != CCxxx0_STATUS_TX);
             
         // Wait for idle mode (TX just started) 
         // (config ensures transition from TX to IDLE after packet is sent)
         // This ensures packet was sent before leaving this routine
-        while(RF2500_GetCurrentState() != CCxxx0_STATUS_IDLE);	
+        //while(RF2500_GetCurrentState() != CCxxx0_STATUS_IDLE);	
     }
 

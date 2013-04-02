@@ -8,8 +8,8 @@ void slave_run(void) {
 	int timeCount = 0;
 	LED_state leds = OFF;
 	
-	uint8_t write_buff[12] = {LIS302DL_OUT_X_ADDR | 0x40 | 0x80};
-	uint8_t read_buff[12];
+	static uint8_t write_buff[12] = {LIS302DL_OUT_X_ADDR | 0x40 | 0x80};
+	static uint8_t read_buff[12];
 	
 	while(1) {
 		// on TIM3 tick

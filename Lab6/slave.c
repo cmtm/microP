@@ -1,5 +1,8 @@
 #include "slave.h"
 
+uint8_t write_buff[12] = {LIS302DL_OUT_X_ADDR | 0x40 | 0x80};
+uint8_t read_buff[12];
+
 
 void slave_run(void) {
 	static FilterState fs[3];
@@ -8,12 +11,12 @@ void slave_run(void) {
 	int timeCount = 0;
 	LED_state leds = OFF;
 	
-	static uint8_t write_buff[12] = {LIS302DL_OUT_X_ADDR | 0x40 | 0x80};
-	static uint8_t read_buff[12];
 	
 	while(1) {
-		// on TIM3 tick
-		osSignalWait(0x1, osWaitForever);
+		// get message from wireless
+		uint8_t* msg;
+		msg = osMessageGet(queue_ID, osWaitForever).value.p;
+		
 		// read from accelerometer
 		SPI_DMA_simple(write_buff, read_buff, ACC, 1 + 3*2);
 		
@@ -21,15 +24,13 @@ void slave_run(void) {
 			filteredAcc[i] = moving_average(read_buff[1+2*i], &fs[i]);
 		}
 		
-		// get message from wireless
-		AccPack msg;		
-		msg.all = osMessageGet(queue_ID, osWaitForever).value.v;
+
 		
 		
 		
 		int difference = 0;
 		for(int i = 0; i<3; i++)
-			difference += abs(filteredAcc[i] - msg.array[i]);
+			difference += abs((int8_t)filteredAcc[i] - (int8_t)msg[i]);
 		
 		if(difference < THRESHOLD) {
 			if(timeCount < FLASH_PERIOD)
@@ -48,10 +49,12 @@ void slave_run(void) {
 }
 
 void slave_wireless(const void* p) {
-	uint32_t received;
+	uint8_t received[4];
 	while(1) {
-		if(receiveAccelData(&received))
-			osMessagePut(queue_ID, received, osWaitForever);
+		// on TIM3 tick
+		osSignalWait(0x1, osWaitForever);
+		if(receiveAccelData(received))
+			osMessagePut(queue_ID, (uint32_t)(&received[0]), osWaitForever);
 	}
 	
 }

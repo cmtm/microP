@@ -16,16 +16,25 @@
 #define APP_FREQ 100
 
 
+Mode currentMode;
+
 void TIM3_IRQHandler(void) {
-	TIM_ClearITPendingBit(TIM3, TIM_IT_Update);	
-	osSignalSet(mainThread_ID, 0x1);
+	TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+	switch( currentMode) {
+		case SLAVE:
+			osSignalSet(wirelessThread_ID, 0x1);
+		break;
+		case MASTER:
+			osSignalSet(mainThread_ID, 0x1);
+		break;
+	}
+	
 }
 
 /*!
  @brief Program entry point
  */
 int main (void) {
-	Mode currentMode;
 	mainThread_ID = osThreadGetId();
 	
 	osSemaphoreDef(dmaSema);
@@ -37,7 +46,6 @@ int main (void) {
 	buttonInit();
 	LED_init();
 	acc_init();
-	TIM3_Init(50);
 	dma_init();
 	
 	// record operating mode
@@ -71,7 +79,7 @@ int main (void) {
 			
 			queue_ID = osMessageCreate ( osMessageQ( queue ), mainThread_ID);
 			
-			TIM3_Init(10);
+			TIM3_Init(50);
 			slave_run();      
 		} break;
 		case MASTER: {
@@ -80,7 +88,7 @@ int main (void) {
 			
 			queue_ID = osMessageCreate ( osMessageQ( queue ), wirelessThread_ID);
 			
-			TIM3_Init(10);
+			TIM3_Init(50);
 			master_run();
 		} break;
 	}

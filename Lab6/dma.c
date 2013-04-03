@@ -9,9 +9,9 @@
   *         
   * @retval None
   */
-void DMA2_Stream0_IRQHandler(void) {
+void DMA2_Stream3_IRQHandler(void) {
 	
-	if(DMA_GetITStatus(DMA2_Stream0, DMA_IT_TCIF0)) {
+	if(DMA_GetITStatus(DMA2_Stream3, DMA_IT_TCIF0)) {
 
 		/* Set CS high */
 		GPIO_SetBits(LIS302DL_SPI_CS_GPIO_PORT, LIS302DL_SPI_CS_PIN);
@@ -20,7 +20,7 @@ void DMA2_Stream0_IRQHandler(void) {
 		/* Clear all the flags */
 		DMA_ClearFlag(DMA2_Stream0, DMA_FLAG_TCIF0);
 		DMA_ClearFlag(DMA2_Stream3, DMA_FLAG_TCIF3);
-		DMA_ClearITPendingBit(DMA2_Stream0, DMA_IT_TCIF0);
+		DMA_ClearITPendingBit(DMA2_Stream3, DMA_IT_TCIF0);
 
 		
 		osSemaphoreRelease(dmaComplete_ID);
@@ -35,8 +35,7 @@ void SPI_DMA_xfer(uint8_t* write_buff, uint8_t* read_buff, GPIO_TypeDef* GPIOx, 
 	//set chip select low
 	GPIO_ResetBits(GPIOx, GPIO_Pin);
 	// wait for slave
-	if (GPIOx == GPIOA)
-		while(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6) != Bit_RESET); 
+	//while(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6) != Bit_RESET); 
 	DMA2_Stream0->M0AR = (uint32_t)(&read_buff[0]);
 	DMA2_Stream3->M0AR = (uint32_t)(&write_buff[0]);
 	DMA2_Stream0->NDTR = numByte;
@@ -120,7 +119,7 @@ void dma_init(void)	{
 	SPI_DMACmd(SPI1, SPI_DMAReq_Rx | SPI_DMAReq_Tx, ENABLE);   
   
 	//Setting up interrupt
-	NVIC_InitStructure.NVIC_IRQChannel = DMA2_Stream0_IRQn; 
+	NVIC_InitStructure.NVIC_IRQChannel = DMA2_Stream3_IRQn; 
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; 
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1; 
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
@@ -128,6 +127,6 @@ void dma_init(void)	{
   
   
 	//enable receiving
-	DMA_ITConfig(DMA2_Stream0, DMA_IT_TC, ENABLE);
+	DMA_ITConfig(DMA2_Stream3, DMA_IT_TC, ENABLE);
 
 }

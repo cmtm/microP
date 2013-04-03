@@ -233,8 +233,8 @@ uint8_t RF2500_GetFifoSize(uint8_t reg);
 
 uint32_t RF2500_TIMEOUT_UserCallback(void);
 
-int receiveAccelData(uint32_t* accData);
+int receiveAccelData(uint8_t* accData);
 
-void transmitAccelData(uint32_t* accData);
+void transmitAccelData(uint8_t* accData);
 
 #endif

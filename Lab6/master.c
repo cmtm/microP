@@ -2,7 +2,7 @@
 
 void master_run(void) {
 	static FilterState fs[3];
-	int8_t filteredAcc[3];
+	static int8_t filteredAcc[4];
 	
 	static uint8_t write_buff[12] = {LIS302DL_OUT_X_ADDR | 0x40 | 0x80};
 	static uint8_t read_buff[12];
@@ -23,7 +23,7 @@ void master_run(void) {
 		
 		AccPack ap = {filteredAcc[0], filteredAcc[1], filteredAcc[2]};
 		
-		osMessagePut(queue_ID, ap.all, osWaitForever);		
+		osMessagePut(queue_ID, (uint32_t)filteredAcc, osWaitForever);		
 	}
 }
 
@@ -34,6 +34,6 @@ void master_wireless(const void* p) {
 		// wait for message from mainThread
 		msg = osMessageGet(queue_ID, osWaitForever);
 	
-		transmitAccelData( &(msg.value.v) );
+		transmitAccelData( msg.value.p );
 	}
 }

@@ -241,7 +241,7 @@ osThreadDef_t os_thread_def_main = {(os_pthread)main, osPriorityNormal, 1, 4*OS_
 #ifdef __MICROLIB
 void _main_init (void) __attribute__((section(".ARM.Collect$$$$000000FF")));
 void _main_init (void) {
-  osKernelStart(&os_thread_def_main, NULL);
+   osKernelStart(&os_thread_def_main, NULL);
   for (;;);
 }
 #else

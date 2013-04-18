@@ -200,7 +200,7 @@
             <GenPPlst>0</GenPPlst>
             <AdsCpuType>"Cortex-M4"</AdsCpuType>
             <RvctDeviceName></RvctDeviceName>
-            <mOS>0</mOS>
+            <mOS>1</mOS>
             <uocRom>0</uocRom>
             <uocRam>0</uocRam>
             <hadIROM>1</hadIROM>
@@ -430,6 +430,56 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../main.c</FilePath>
+            </File>
+            <File>
+              <FileName>dsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\dsp.c</FilePath>
+            </File>
+            <File>
+              <FileName>keypad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\keypad.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>TIM3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\TIM3.c</FilePath>
+            </File>
+            <File>
+              <FileName>wireless.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\wireless.c</FilePath>
+            </File>
+            <File>
+              <FileName>wirelessDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\wirelessDriver.c</FilePath>
+            </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>audioDriver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\audioDriver.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4_discovery_lis302dl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\stm32f4_discovery_lis302dl.c</FilePath>
             </File>
           </Files>
         </Group>

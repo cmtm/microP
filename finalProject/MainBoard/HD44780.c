@@ -1,55 +1,9 @@
-#include "lcd.h"
+#include "HD44780.h"
+#include "stm32f4xx.h"
+
 
 u8 LCD_line = 1;
 u8 LCD_column = 1;
-
-uint8_t volume;
- Synth currentSynth;
-static uint8_t alpha;
-static uint8_t beta;
- uint8_t note;
-
-void lcdThread(const void* args) {
-	while(1) {
-		osSignalWait(0x01, osWaitForever);
-		
-		LCD_SetCursor(1,1);
-		char vol[8];
-		snprintf(vol, 8, "vol:%d",volume);
-		LCD_WriteString(vol);
-		
-		LCD_SetCursor(1,8);
-		
-		char alph[10];
-		snprintf(alph, 10, "alpha:%d ", alpha);
-		LCD_WriteString(alph);
-		
-		LCD_SetCursor(1,17);
-		
-		char bet[9];
-		snprintf(bet, 9, "beta:%d ", beta);
-		LCD_WriteString(bet);
-		
-		LCD_SetCursor(2,1);
-		
-		char notee[9];
-		snprintf(notee, 9, "note:%d ", note);
-		LCD_WriteString(notee);
-		
-		LCD_SetCursor(2,9);
-			
-		switch(currentSynth) {
-			case SAWTOOTH:
-				LCD_WriteString("Mode:Sawtooth");
-			break;
-			case FM:
-				LCD_WriteString("Mode:FM");
-			break;
-		}
-	}
-
-}
-
 
 void LCD_ConfigurePort(void)
 {
@@ -67,8 +21,7 @@ void LCD_ConfigurePort(void)
 	
 }
 
-void lcdInit(void)	{
-	LCD_ConfigurePort();
+void LCD_init(void)	{
 	
 	Clr_RS;
 	Clr_RW;
@@ -95,19 +48,25 @@ void lcdInit(void)	{
 void LCD_writeData(u8 data)
 {
 	int count = 0xFF;
-	osDelay(1);
+	while(count--) 	{
+	LCD_Delay(0xFF);
+	}
 
 	GPIOE->ODR=( (GPIOE->ODR & 0x70) | (data << 7));
 	
 	Set_Clk;
 
 	count = 0xFF;
-	osDelay(1);
+	while(count--) 	{
+	LCD_Delay(0xFF);
+	}
 
 	Clr_Clk;
 
 	count = 0xFF;
-	osDelay(1);
+	while(count--) 	{
+	LCD_Delay(0xFF);
+	}
 	
 	if ((GPIOE->ODR & 0x40)== 0x40)
 		LCD_IncrementCursorVariables();
@@ -121,8 +80,7 @@ void LCD_Clear(void)
 
 	LCD_line = 1;
 	LCD_column = 1;
-	int i = 0xff;
-	osDelay(1);
+	LCD_Delay(0xFFFF);
 }
 
 void LCD_IncrementCursorVariables(void)
@@ -137,16 +95,45 @@ void LCD_IncrementCursorVariables(void)
 		LCD_column = 1;
 	}
 	
-			//printf("line: %d, column: %d\n", LCD_line, LCD_column);
+			printf("line: %d, column: %d\n", LCD_line, LCD_column);
 }
 
 
-void lcdPrint(uint8_t volumeA, Synth currentSynthA, uint8_t alphaA, uint8_t betaA, uint8_t noteA){
-	volume = volumeA;
-	currentSynth = currentSynthA;
-	alpha = alphaA;
-	beta = betaA;
-	note = noteA;
+void LCD_Print(uint8_t volume, Synth currentSynth, uint8_t alpha, uint8_t beta, uint8_t note){
+	
+	LCD_SetCursor(1,1);
+	char vol[8];
+ 	snprintf(vol, 8, "vol:%d",volume);
+ 	LCD_WriteString(vol);
+	
+	LCD_SetCursor(1,8);
+ 	
+ 	char alph[10];
+ 	snprintf(alph, 10, "alpha:%d ", alpha);
+ 	LCD_WriteString(alph);
+ 	
+	LCD_SetCursor(1,17);
+	
+ 	char bet[9];
+ 	snprintf(bet, 9, "beta:%d ", beta);
+ 	LCD_WriteString(bet);
+ 	
+ 	LCD_SetCursor(2,1);
+ 	
+ 	char notee[9];
+ 	snprintf(notee, 9, "note:%d ", note);
+ 	LCD_WriteString(notee);
+ 	
+	LCD_SetCursor(2,9);
+		
+	switch(currentSynth) {
+		case SAWTOOTH:
+			LCD_WriteString("Mode:Sawtooth");
+		break;
+		case FM:
+			LCD_WriteString("Mode:FM");
+		break;
+	}
 	
 }
 	
@@ -204,3 +191,6 @@ void LCD_Delay(int Count)
 	{
 	}
 }
+
+
+
